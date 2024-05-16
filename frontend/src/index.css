@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,47 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+/* antd override  */
+input{
+  border-radius: 2px !important;
+  border: 1px solid rgb(162, 153, 153) !important;
+  height: 40px !important;
+}
+
+input:focus{
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid gray !important;
+}
+label{
+  font-size: 16px !important;
+  color: black !important;
+}
+.ant-form-item{
+  margin: 10px 0 !important;
+}
+/* Common styling */
+
+.card{
+  box-shadow: 0 0 2px;
+}
+
+
+/* authentication pages */
+
+.authentication{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authentication-form{
+  width: 400px;
+}
+
+.primary-button{
+  width: 100% !important;
 }

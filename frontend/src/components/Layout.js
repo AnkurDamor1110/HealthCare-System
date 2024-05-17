@@ -42,12 +42,12 @@ function Layout({ children }) {
         },
         {
             name: 'Users',
-            path: '/users',
+            path: '/admin/userslist',
             icon: ''
         },
         {
             name: 'Doctors',
-            path: '/doctors',
+            path: '/admin/doctorslist',
             icon: ''
         },
         {
@@ -60,6 +60,7 @@ function Layout({ children }) {
     const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
 
     return (
+   
         <div className='main'>
             <div className="d-flex layout">
                 <div className={`${collapsed ? 'collapsed-sidebar' : 'sidebar'}`}>
@@ -106,7 +107,8 @@ function Layout({ children }) {
                 </div>
             </div>
         </div>
-    )
+        
+    );
 }
 
-export default Layout
+export default Layout;

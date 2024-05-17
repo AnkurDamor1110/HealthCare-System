@@ -1,11 +1,38 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import { Button, Col, Form, Input, Row, TimePicker  } from 'antd'
+import { useSelector, useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '../redux/alertsSlice';
+import toast from 'react-hot-toast';
+import {Link, useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 function ApplyDoctor() {
 
-const onFinish = (values) =>{
-    console.log("Success", values);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {user} = useSelector( (state) => state.user);
+
+    const onFinish = async (values) =>{
+        try {
+            dispatch(showLoading());
+            const response = await axios.post('/api/user/apply-doctor-account', {...values, userId: user._id}, {
+                headers: {
+                    Authorization: `Bearer ` + localStorage.getItem('token'),
+                },
+            });
+            dispatch(hideLoading());
+            if(response.data.success){
+                toast.success(response.data.message);
+                navigate("/");
+            }else{
+                toast.error(response.data.message);
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(hideLoading());
+            toast.error('Something went wrong');
+        }
 }
 
   return (
@@ -51,13 +78,13 @@ const onFinish = (values) =>{
                     </Form.Item>
                 </Col>
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item  required label="Experience" name="experience" htmlType="number" rules={[ {required : true}]}>
-                        <Input placeholder='Experience'/>
+                    <Form.Item  required label="Experience" name="experience" rules={[ {required : true}]}>
+                        <Input placeholder='Experience' type='number'/>
                     </Form.Item>
                 </Col>
                 <Col span={8} xs={24} sm={24} lg={8}>
-                    <Form.Item  required label="Free Peer Cunsultation" name="freePeerCunsultation" htmlType="number" rules={[ {required : true}]}>
-                        <Input placeholder='Free Peer Cunsultation'/>
+                    <Form.Item  required label="Free Peer Cunsultation" name="freePeerCunsultation" rules={[ {required : true}]}>
+                        <Input placeholder='Free Peer Cunsultation' type='number'/>
                     </Form.Item>
                 </Col>
                 <Col span={8} xs={24} sm={24} lg={8}>

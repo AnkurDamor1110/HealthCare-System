@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import "../layout.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-
+import {Badge} from "antd";
 
 function Layout({ children }) {
 
 
     const [collapsed, setCollapsed] = useState(false);
-    const {user} = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
     const location = useLocation();
     const navigate = useNavigate();
     const userMenu = [
@@ -75,13 +75,13 @@ function Layout({ children }) {
                             </div>
                             );
                         })}
-                        <div className={`d-flex menu-item `} onClick={() =>{
+                        <div className={`d-flex menu-item `} onClick={() => {
                             localStorage.clear();
                             navigate("/login");
                         }}>
-                                <i className=''></i>
-                                {!collapsed && <Link to='/login'>Logout</Link>}
-                            </div>
+                            <i className=''></i>
+                            {!collapsed && <Link to='/login'>Logout</Link>}
+                        </div>
                     </div>
                 </div>
 
@@ -91,7 +91,10 @@ function Layout({ children }) {
                         {collapsed ? <i className='ri-close-fill icon mr-2' onClick={() => setCollapsed(false)}>X</i> : <i className='ri-close-fill icon' onClick={() => setCollapsed(true)}>=</i>}
 
                         <div className="d-flex align-items-center px-4">
+                            <Badge count={user?.unseenNotifications.length} onClick={()=>navigate('/notifications')}> 
                             <i className='ri -notification-line  px-2'>@</i>
+                            </Badge>
+                            
                             <Link className='anchor' to='/profile'>{user?.name}</Link>
                         </div>
                     </div>

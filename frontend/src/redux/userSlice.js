@@ -4,12 +4,12 @@ export const userSlice = createSlice({
     name: "user",
     initialState: {
         user:null,  // Correct initial state key
+
     },
     reducers: {
         setUser: (state, action) => {
             state.user = action.payload;
         }
-      
     },
 });
 

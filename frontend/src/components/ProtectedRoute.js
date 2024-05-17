@@ -25,7 +25,8 @@ function ProtectedRoute(props) {
             dispatch(hideLoading());
 
             if(response.data.success){
-                dispatch(setUser(response.data.data))
+                dispatch(setUser(response.data.data));
+               
             }else {
                 localStorage.clear();
                 navigate("/login")
@@ -42,9 +43,7 @@ function ProtectedRoute(props) {
             if(!user){
                 getUser();
             }
-            return () =>{
-
-            }
+           
         },[user]);
 
     if(localStorage.getItem('token')){

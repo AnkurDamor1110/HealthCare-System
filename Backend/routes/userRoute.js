@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require("../models/userModel");
+const Doctor = require("../models/doctarModel");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -57,5 +58,63 @@ router.post('/get-user-info-by-id', authMiddleware, async(req,res) =>{
         console.log(error);
         res.status(500).send({ message: "Error getting user info", success: false, error });
     }
-})
+});
+
+router.post('/apply-doctor-account', authMiddleware, async (req, res) => {
+    try {
+       const newDoctor = new Doctor({...req.body, status : "pending"});
+       await newDoctor.save();
+       const adminUser = await User.findOne({isAdmin: true});
+
+       const unseenNotifications = adminUser.unseenNotifications;
+       adminUser.unseenNotifications.push({
+        type: "new-doctor-request",
+        message: `${newDoctor.firstName} ${newDoctor.lastName} has applied for a doctor account`,
+        data:{
+            doctordId : newDoctor._id,
+            name: newDoctor.firstName + " " + newDoctor.lastName
+        },
+        onclickPath: "/admin/doctors"
+       });
+       await User.findByIdAndUpdate(adminUser._id,{unseenNotifications });
+       res.status(200).send({ message: "Doctor account created successfully", success: true });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error applying doctor account", success: false, error });
+    }
+});
+
+router.post('/mark-all-notification-as-seen', authMiddleware, async (req, res) => {
+    try {
+       const user = await User.findOne({_id: req.body.userId});
+       const unseenNotifications = user.unseenNotifications;
+       const seenNotifications = user.seenNotifications;
+       seenNotifications.push(...unseenNotifications);
+       user.unseenNotifications=[];
+       user.seenNotifications = seenNotifications;
+       const updatedUser = await user.save();
+       updatedUser.password=undefined;
+       res.status(200).send({ message: "All Notification marked as Seen", success: true, data: updatedUser });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error to seen Notification", success: false, error });
+    }
+});
+
+router.post('/delete-all-notification', authMiddleware, async (req, res) => {
+    try {
+       const user = await User.findOne({_id: req.body.userId});
+       user.seenNotifications=[];
+       user.unseenNotifications=[];
+       const updatedUser = await user.save();
+       updatedUser.password=undefined;
+       res.status(200).send({ message: "All Notification Deleted", success: true, data: updatedUser });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error Deleteing Notification", success: false, error });
+    }
+});
+
+
 module.exports = router;

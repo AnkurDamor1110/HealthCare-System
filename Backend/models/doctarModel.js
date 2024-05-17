@@ -41,7 +41,12 @@ const doctorShema = new mongoose.Schema(
        timings: {
             type: Array,
             required: true,
+       },
+       status: {
+            type: String,
+            default: "pending",
        }
+
     },
         {
             timestamps: true,
@@ -49,3 +54,5 @@ const doctorShema = new mongoose.Schema(
 );
 
 const doctorModel = mongoose.model("doctors", doctorShema);
+
+module.exports = doctorModel;

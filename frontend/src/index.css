@@ -63,6 +63,12 @@ label{
   width: 100% !important;
   width: max-content !important;
 }
+
+.anchor{
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px !important;
+}
 /* authentication pages */
 
 .authentication{

@@ -34,6 +34,24 @@ function Layout({ children }) {
         },
     ];
 
+    const doctorMenu = [
+        {
+            name: 'Home',
+            path: '/',
+            icon: 'ri-home-smile-line'
+        },
+        {
+            name: 'Appointments',
+            path: '/appointments',
+            icon: ''
+        },
+        {
+            name: 'Profile',
+            path: `/doctor/profile/${user?._id}`,
+            icon: ''
+        },
+    ];
+
     const adminMenu = [
         {
             name: 'Home',
@@ -57,8 +75,8 @@ function Layout({ children }) {
         },
     ];
 
-    const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
-
+    const menuToBeRendered = user?.isAdmin ? adminMenu : user?.isDoctor ? doctorMenu : userMenu;
+    const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
     return (
    
         <div className='main'>
@@ -66,6 +84,7 @@ function Layout({ children }) {
                 <div className={`${collapsed ? 'collapsed-sidebar' : 'sidebar'}`}>
                     <div className="sidebar-header">
                         <h1>HealthCare</h1>
+                        <h1 className="normal-text">{role}</h1>
                     </div>
                     <div className="menu">
                         {menuToBeRendered.map((menu) => {

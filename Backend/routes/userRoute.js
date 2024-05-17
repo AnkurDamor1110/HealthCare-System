@@ -74,7 +74,7 @@ router.post('/apply-doctor-account', authMiddleware, async (req, res) => {
             doctordId : newDoctor._id,
             name: newDoctor.firstName + " " + newDoctor.lastName
         },
-        onclickPath: "/admin/doctors"
+        onclickPath: "/admin/doctorslist"
        });
        await User.findByIdAndUpdate(adminUser._id,{unseenNotifications });
        res.status(200).send({ message: "Doctor account created successfully", success: true });

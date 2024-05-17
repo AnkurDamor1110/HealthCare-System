@@ -72,6 +72,10 @@ label{
 .normal-text{
   font-size: 1rem;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
 /* authentication pages */
 
 .authentication{

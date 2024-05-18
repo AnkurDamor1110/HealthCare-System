@@ -7,10 +7,21 @@ const authMiddleware = require("../middlewares/authMiddleware");
 router.post('/get-doctor-info-by-user-id', authMiddleware, async(req,res) =>{
     try {
         const doctor = await Doctor.findOne({ userId: req.body.userId });
-       
-        console.log(doctor);
+
         res.status(200).send({ success: true, message: " Doctor info fetched successfully" , data: doctor,});
-       console.log(doctor);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error getting Doctor info", success: false, error });
+    }
+});
+
+router.post('/get-doctor-info-by-id', authMiddleware, async(req,res) =>{
+    try {
+        const doctor = await Doctor.findOne({ _id: req.body.doctorId });
+    
+        res.status(200).send({ success: true, message: " Doctor info fetched successfully" , data: doctor,});
+
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error getting Doctor info", success: false, error });
@@ -27,6 +38,7 @@ router.post('/update-doctor-profile', authMiddleware, async(req,res) =>{
         res.status(500).send({ message: "Error getting Doctor info", success: false, error });
     }
 });
+
 
 
 module.exports = router;

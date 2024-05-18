@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home';
+import HomePage from './components/HomePage';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoutes from './components/PublicRoutes';
@@ -29,6 +30,7 @@ function App() {
         <Toaster position="top-center" reverseOrder={false} />
         <Routes>
 
+          <Route path='/HomePage' element={<HomePage />} />
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/' element={ <ProtectedRoute> <Home /> </ProtectedRoute>} />

@@ -65,7 +65,7 @@ function Notifications() {
                     <h1 className='anchor' onClick={()=>markAllSeen()} >Mark all as seen</h1>
                 </div>
                 {user?.unseenNotifications.map((notification) => (
-                    <div className='card p-2' onClick={()=>navigate(notification.onclickPath)}>
+                    <div className='card p-2 mt-2' onClick={()=>navigate(notification.onclickPath)}>
                         <div className="card-txt">{notification.message}</div>
                     </div>
                 ))}
@@ -75,7 +75,7 @@ function Notifications() {
                     <h1 className='anchor' onClick={()=>deleteAllSeen()} >Delate All</h1>
                 </div>
                 {user?.seenNotifications.map((notification) => (
-                    <div className='card p-2' onClick={()=>navigate(notification.onclickPath)}>
+                    <div className='card p-2 mt-2' onClick={()=>navigate(notification.onclickPath)}>
                         <div className="card-txt">{notification.message}</div>
                     </div>
                 ))}

@@ -27,11 +27,11 @@ function Layout({ children }) {
             path: '/apply-doctor',
             icon: ''
         },
-        {
-            name: 'Profile',
-            path: '/profile',
-            icon: ''
-        },
+        // {
+        //     name: 'Profile',
+        //     path: '/profile',
+        //     icon: ''
+        // },
     ];
 
     const doctorMenu = [
@@ -42,7 +42,7 @@ function Layout({ children }) {
         },
         {
             name: 'Appointments',
-            path: '/appointments',
+            path: '/doctor/appointments',
             icon: ''
         },
         {

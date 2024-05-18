@@ -112,7 +112,7 @@ router.post('/delete-all-notification', authMiddleware, async (req, res) => {
        user.unseenNotifications=[];
        const updatedUser = await user.save();
        updatedUser.password=undefined;
-       res.status(200).send({ message: "All Notification Deleted", success: true, data: updatedUser });
+       res.status(200).send({ message: "All Notification cleared", success: true, data: updatedUser });
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error Deleteing Notification", success: false, error });
@@ -142,7 +142,7 @@ router.post('/book-appointment',authMiddleware, async (req, res) => {
        user.unseenNotifications.push({
         type: "new-appointment-request",
         message: `A new appointment request has been made by ${req.body.userInfo.name}`,
-        onclickPath: `/doctor/appointment`,
+        onclickPath: '/doctor/appointments',
        });
        await user.save();
        res.status(200).send({ message: "Appointment booked successfully ", success: true });
@@ -165,6 +165,7 @@ router.post('/check-booking-avilability',authMiddleware, async (req, res) => {
             doctorId,
             date,
             time: { $gte: fromTime, $lte: toTime },
+            // status: ''
         });
         console.log(appointment);
         console.log(appointment.length)
@@ -182,6 +183,16 @@ router.post('/check-booking-avilability',authMiddleware, async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error booking Appointment ", success: false, error });
+    }
+});
+
+router.get('/get-appointments-by-user-id',authMiddleware, async (req, res) => {
+    try {
+       const appointments = await Appointment.find({userId: req.body.userId});
+       res.status(200).send({ message: "Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
     }
 });
 

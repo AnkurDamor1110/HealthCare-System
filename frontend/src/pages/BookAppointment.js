@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
@@ -18,7 +18,7 @@ function BookAppointment() {
     const [isAvailable, setIsAvailable] = useState(false);
     const [date, setDate] = useState();
     const [time, setTime] = useState();
-
+    const navigate = useNavigate();
     const getDoctorData = async () => {
 
         try {
@@ -94,9 +94,10 @@ function BookAppointment() {
                     }
                 });
             dispatch(hideLoading());
-
+            console.log(date);
             if (response.data.success) {
                 toast.success(response.data.message);
+                navigate("/appointments")
             }
         } catch (error) {
             toast.error("Erro booking appointment");
@@ -119,13 +120,26 @@ function BookAppointment() {
                         {doctor.firstName} {doctor.lastName}
                     </h1>
                     <hr />
-                    <h1 className="normal-text"><b>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</h1>
+                    
+                    <Row gutter={20} className='mt-5' align='middle'>
+                    <Col span={8} sm={24} xs={24} lg={8}>
+                            <img src='https://c8.alamy.com/comp/PR8PD2/doctor-appointment-icon-with-stethoscope-PR8PD2.jpg'
+                             alt=''
+                             width='100%'
+                             height='400px'
+                             />
 
-                    <Row>
+                        </Col>
                         <Col span={8} sm={24} xs={24} lg={8}>
-                            <div className="d-flex flex-column pt-2">
+                            <h1 className="normal-text"><b>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</h1>
+                            <p><b>Phone Number:</b> {doctor.phoneNumber}</p>
+                            <p><b>Address:</b> {doctor.address}</p>
+                            <p><b>Fee per Visit:</b> {doctor.freePeerCunsultation}</p>
+                            <p><b>Website:</b> {doctor.website}</p>
+
+                            <div className="d-flex flex-column pt-2 mt-2">
                                 <DatePicker format='DD-MM-YYYY' onChange={(value) =>{
-                                        setDate(moment(value).format("DD-MM-YYYY"))
+                                        setDate((value).format("DD-MM-YYYY"))
                                         setIsAvailable(false);
                                     }
                                 }  />
@@ -133,13 +147,18 @@ function BookAppointment() {
                                     setIsAvailable(false);
                                     setTime((value).format("HH:mm"));
                                 }} />
-                                <Button className='primary-button mt-2 full-width-button' onClick={checkAvailability}>Cheack Availability</Button>
+
+                               {!isAvailable && (
+                                 <Button className='primary-button mt-2 full-width-button' onClick={checkAvailability}>Cheack Availability</Button>
+                               )}
 
                                 {isAvailable && (
                                     <Button className='primary-button mt-2 full-width-button' onClick={bookNow}>Book Now</Button>
                                 )}
                             </div>
                         </Col>
+
+                        
                     </Row>
 
                 </div>

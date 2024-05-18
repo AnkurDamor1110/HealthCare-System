@@ -5,34 +5,35 @@ import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import axios from 'axios';
 import { Table } from 'antd';
 import {toast} from "react-hot-toast";
-import moment from 'moment';
-function Doctorslist() {
+import moment from "moment";
 
-    const [doctors, setDoctors] = useState([]);
+function DoctorsAppointment() {
+
+    const [appointments, setAppointments] = useState([]);
     const dispatch = useDispatch();
 
-    const getDoctorData= async()=>{
+    const getAppointmentData= async()=>{
         try {
             dispatch(showLoading());
-            const response = await axios.get('/api/admin/get-all-doctors', {
+            const response = await axios.get('/api/doctor/get-appointments-by-doctor-id', {
                 headers: {
                     Authorization: `Bearer ` + localStorage.getItem('token'),
                 },
             });
             dispatch(hideLoading());
             if(response.data.success){
-                setDoctors(response.data.data);
+                setAppointments(response.data.data);
             }
         } catch (error) {
             dispatch(hideLoading());
         }
     };
 
-    const changeDoctorStatus= async(record, status)=>{
+    const changeAppointmentStatus= async(record, status)=>{
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/admin/change-account-doctor-status',{
-                doctorId: record._id, userId: record.userId,status: status
+            const response = await axios.post('/api/doctor/change-appointment-status',{
+                appointmentId: record._id ,status: status
             } ,{
                 headers: {
                     Authorization: `Bearer ` + localStorage.getItem('token'),
@@ -41,7 +42,7 @@ function Doctorslist() {
             dispatch(hideLoading());
             if(response.data.success){
                 toast.success(response.data.message);
-                getDoctorData();
+                getAppointmentData();
             }
         } catch (error) {
             toast.error("Error changing Doctor account status");
@@ -49,28 +50,37 @@ function Doctorslist() {
         }
     };
 
-    useEffect(()=>{
-        getDoctorData();
-    },[]);
-
     const columns = [
         {
-            title: 'Name',
+            title: 'Id',
+            dataIndex: '_id',
+        },
+        {
+            title: 'Patient',
             dataIndex: 'name',
             render: (text,record) =>{
                 return (
-                <span >{record.firstName} {record.lastName}</span>
+                <span >{record.userInfo.name}</span>
             )
             }
         },
         {
             title: 'Phone',
             dataIndex: 'phoneNumber',
+            render: (text,record) =>{
+                return (
+                <span >{record.doctorInfo.phoneNumber}</span>
+            )
+            }
         },
         {
-            title: 'Created At',
+            title: 'Date & Time',
             dataIndex: 'createdAt',
-            render: (text,record) =>  moment(record.createdAt).format("DD-MM-YYYY"),
+            render: (text,record) =>{
+                return (
+                <span >{moment(record.date).format("DD-MM-YYYY")} {moment(record.time).format("HH:mm")}</span>
+            )
+            }
         },
         {
             title: 'Status',
@@ -82,20 +92,32 @@ function Doctorslist() {
             render: (text,record) =>{
                 return (
                 <div className="d-flex">
-                    {record.status == "pending" && <h1 className='anchor' onClick={()=>changeDoctorStatus(record,"approved")}>Approve</h1>}
-                    {record.status == "approved" && <h1 className='anchor' onClick={()=>changeDoctorStatus(record,"Block")}>Block</h1>}
+                    {record.status == "pending" && (
+                        <div className="d-flex">
+                            <h1 className='anchor px-2 ' 
+                            onClick={()=>changeAppointmentStatus(record,"approved")}>Approve</h1>
+                        
+                            <h1 className='anchor'
+                             onClick={()=>changeAppointmentStatus(record,"rejected")}>Rejected</h1>
+                        </div>
+                    ) }
+                   
                 </div>
                 )
             }
         },
     ];
 
+    useEffect(()=>{
+        getAppointmentData();
+    },[]);
+
   return (
     <Layout>
-        <h1 className="page-title">Doctor List </h1>
-        <Table columns={columns} dataSource={doctors}/>
+    <h1 className="page-title">Appointments </h1>
+    <Table columns={columns} dataSource={appointments}/>
     </Layout>
   )
 }
 
-export default Doctorslist
+export default DoctorsAppointment

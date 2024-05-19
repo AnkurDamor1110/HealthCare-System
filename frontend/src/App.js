@@ -30,7 +30,7 @@ function App() {
         <Toaster position="top-center" reverseOrder={false} />
         <Routes>
 
-          <Route path='/HomePage' element={<HomePage />} />
+          <Route path='/homePage' element={<HomePage />} />
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/' element={ <ProtectedRoute> <Home /> </ProtectedRoute>} />

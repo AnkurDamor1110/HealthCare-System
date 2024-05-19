@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { Toaster } from 'react-hot-toast';
-import Home from './pages/Home';
+import UserDashboard from './pages/Home';
 import HomePage from './components/HomePage';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -30,10 +30,10 @@ function App() {
         <Toaster position="top-center" reverseOrder={false} />
         <Routes>
 
-          <Route path='/homePage' element={<HomePage />} />
+          <Route path='/' element={<HomePage />} />
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
-          <Route path='/' element={ <ProtectedRoute> <Home /> </ProtectedRoute>} />
+          <Route path='/user-dashboard' element={ <ProtectedRoute> <UserDashboard /> </ProtectedRoute>} />
           <Route path='/apply-doctor' element={ <ProtectedRoute> <ApplyDoctor/> </ProtectedRoute>} />
           <Route path='/notifications' element={ <ProtectedRoute> <Notifications/> </ProtectedRoute>} />
           <Route path='/admin/userslist' element={ <ProtectedRoute> <Userslist/> </ProtectedRoute>} />

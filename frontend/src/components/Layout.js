@@ -97,10 +97,10 @@ function Layout({ children }) {
                         })}
                         <div className={`d-flex menu-item `} onClick={() => {
                             localStorage.clear();
-                            navigate("/login");
+                            navigate("/");
                         }}>
                             <i className=''></i>
-                            {!collapsed && <Link to='/login'>Logout</Link>}
+                            {!collapsed && <Link to='/'>Logout</Link>}
                         </div>
                     </div>
                 </div>

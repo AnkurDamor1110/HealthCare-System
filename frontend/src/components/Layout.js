@@ -50,6 +50,11 @@ function Layout({ children }) {
             path: `/doctor/profile/${user?._id}`,
             icon: ''
         },
+        {
+            name: 'Mediciens',
+            path: '/medicines',
+            icon: ''
+        },
     ];
 
     const adminMenu = [
@@ -71,6 +76,11 @@ function Layout({ children }) {
         {
             name: 'Profile',
             path: '/profile',
+            icon: ''
+        },
+        {
+            name: 'Mediciens',
+            path: '/medicines',
             icon: ''
         },
     ];

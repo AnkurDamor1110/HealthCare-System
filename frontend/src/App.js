@@ -16,6 +16,9 @@ import Profile from './pages/Doctor/Profile';
 import BookAppointment from './pages/BookAppointment';
 import Appointment from './pages/Appointment';
 import DoctorsAppointment from './pages/Doctor/DoctorAppointment';
+import Addmedicine from './pages/Midiciens/Addmidiciens';
+import MedicineList from './pages/Midiciens/MedicineList';
+import Editmedicine from './pages/Midiciens/Editmidiciens';
 function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
@@ -31,6 +34,9 @@ function App() {
         <Routes>
 
           <Route path='/' element={<HomePage />} />
+          <Route path='/medicines' element={<ProtectedRoute> <MedicineList/> </ProtectedRoute>} />
+          <Route path='/medicines/add' element={<Addmedicine/>} />
+          <Route path='/medicines/edit/:id' element={<Editmedicine/>} />
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/user-dashboard' element={ <ProtectedRoute> <UserDashboard /> </ProtectedRoute>} />

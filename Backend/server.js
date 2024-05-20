@@ -5,11 +5,13 @@ const dbconfig = require("./config/dbconfig");
 app.use(express.json());
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
-const doctorRoute = require("./routes/doctorRoute")
+const doctorRoute = require("./routes/doctorRoute");
+const medicineRoute = require("./routes/medicineRoutes");
 
 app.use('/api/user', userRoute);
 app.use('/api/admin',adminRoute);
 app.use('/api/doctor', doctorRoute);
+app.use('/api', medicineRoute );
 
 const port = process.env.PORT || 5000;
 

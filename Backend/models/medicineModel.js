@@ -28,3 +28,4 @@ const MedicineSchema = new mongoose.Schema(
 const Medicine = mongoose.model("Medicine", MedicineSchema);
 
 module.exports = Medicine;
+

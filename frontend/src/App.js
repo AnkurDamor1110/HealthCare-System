@@ -19,6 +19,7 @@ import DoctorsAppointment from './pages/Doctor/DoctorAppointment';
 import Addmedicine from './pages/Midiciens/Addmidiciens';
 import MedicineList from './pages/Midiciens/MedicineList';
 import Editmedicine from './pages/Midiciens/Editmidiciens';
+import AddPrescriptionForm from './pages/Prescriptions/PrescriptionForm';
 function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path='/medicines' element={<ProtectedRoute> <MedicineList/> </ProtectedRoute>} />
           <Route path='/medicines/add' element={<Addmedicine/>} />
           <Route path='/medicines/edit/:id' element={<Editmedicine/>} />
+          <Route path='/prescriptions' element={<AddPrescriptionForm />} />
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/user-dashboard' element={ <ProtectedRoute> <UserDashboard /> </ProtectedRoute>} />
@@ -45,7 +47,7 @@ function App() {
           <Route path='/admin/userslist' element={ <ProtectedRoute> <Userslist/> </ProtectedRoute>} />
           <Route path='/admin/doctorslist' element={ <ProtectedRoute> <Doctorslist/> </ProtectedRoute>} />
           <Route path='/doctor/profile/:userId' element={ <ProtectedRoute> <Profile/> </ProtectedRoute>} />
-          <Route path='/book-appointment/:doctorId' element={ <ProtectedRoute> <BookAppointment/> </ProtectedRoute>} />
+          <Route path='/user-dashboard/book-appointment/:doctorId' element={ <ProtectedRoute> <BookAppointment/> </ProtectedRoute>} />
           <Route path='/appointments' element={ <ProtectedRoute> <Appointment/> </ProtectedRoute>} />
           <Route path='/doctor/appointments' element={ <ProtectedRoute> <DoctorsAppointment/> </ProtectedRoute>} />
         </Routes>

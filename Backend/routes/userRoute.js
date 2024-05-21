@@ -160,15 +160,12 @@ router.post('/check-booking-avilability',authMiddleware, async (req, res) => {
         const fromTime = moment(req.body.time, 'HH:mm').subtract(1, 'hours').toISOString();
         const toTime = moment(req.body.time, 'HH:mm').add(1, 'hours').toISOString();
         const doctorId = req.body.doctorId;
-        console.log(date + " " + fromTime + " " +toTime);
         const appointment = await Appointment.find({
             doctorId,
             date,
             time: { $gte: fromTime, $lte: toTime },
             // status: ''
         });
-        console.log(appointment);
-        console.log(appointment.length)
         if( appointment.length > 0){
            return  res.status(200).send({
              message: "Appointment not available ", 

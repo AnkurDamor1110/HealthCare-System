@@ -15,7 +15,7 @@ function Layout({ children }) {
     const userMenu = [
         {
             name: 'Home',
-            path: '/',
+            path: '/user-dashboard',
             icon: 'ri-home-smile-line'
         },
         {
@@ -43,7 +43,7 @@ function Layout({ children }) {
     const doctorMenu = [
         {
             name: 'Home',
-            path: '/',
+            path: '/user-dashboard',
             icon: 'ri-home-smile-line'
         },
         {
@@ -71,7 +71,7 @@ function Layout({ children }) {
     const adminMenu = [
         {
             name: 'Home',
-            path: '/',
+            path: '/user-dashboard',
             icon: 'ri-home-smile-line'
         },
         {

@@ -5,6 +5,9 @@ import Register from './pages/Register';
 import { Toaster } from 'react-hot-toast';
 import UserDashboard from './pages/Home';
 import HomePage from './components/HomePage';
+import Contact from './pages/Contact';
+import Services from './pages/Services';
+import DoctorsForHome from './pages/DoctorsForHome';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoutes from './components/PublicRoutes';
@@ -36,6 +39,9 @@ function App() {
         <Routes>
         
           <Route path='/' element={<HomePage />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/services' element={<Services />} />
+          <Route path='/doctors' element={<DoctorsForHome />} />
           <Route path='/medicines' element={<ProtectedRoute> <MedicineList/> </ProtectedRoute>} />
           <Route path='/medicines/add' element={<Addmedicine/>} />
           <Route path='/medicines/edit/:id' element={<Editmedicine/>} />

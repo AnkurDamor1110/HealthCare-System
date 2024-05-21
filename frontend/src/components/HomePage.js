@@ -27,7 +27,7 @@ const HomePage = () => {
 
       {/* ============= hero section ========= */}
       <section className='hero__section pt-[60px] 2xl:h-[800px]'>
-        <div className='container'>
+        <div className='containerforhome'>
           <div className='flex flex-col lg:flex-row gap-[90px] items-center justify-between'>
               {/* ======== hero content ========= */}
               <div>
@@ -163,7 +163,7 @@ const HomePage = () => {
 
      {/* ========== service section ======= */}
      <section>
-      <div className='container'>
+      <div className='containerforhome'>
         <div className='xl:w-[470px] mx-auto'>
           <h2 className='heading text-center'>Our medical services</h2>
           <p className='text__para text-center'>World-class care for everyone. Our health System offers unmatched, expert health care.</p>
@@ -235,7 +235,7 @@ const HomePage = () => {
 
      {/* ========== our great doctors ======= */}
      <section>
-      <div className='container'>
+      <div className='containerforhome'>
         <div className='xl:w-[470px] mx-auto'>
           <h2 className='heading text-center'>
             Our Great doctors
@@ -252,7 +252,7 @@ const HomePage = () => {
     
       {/* ========== faq section ======= */}
       <section>
-        <div className='container'>
+        <div className='containerforhome'>
           <div className='flex justify-between gap-[50px] lg:gap-0'>
             <div className='w-1/2 md:block'><img src={faqImg} alt='' /></div>
 
@@ -269,7 +269,7 @@ const HomePage = () => {
 
       {/* ========== testimonial ======= */}
       <section>
-        <div className='container'>
+        <div className='containerforhome'>
         <div className='xl:w-[470px] mx-auto'>
           <h2 className='heading text-center'>
             What our patient say

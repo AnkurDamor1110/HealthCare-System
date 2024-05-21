@@ -3,6 +3,10 @@ import { Box, Button, TextField, Select, MenuItem, InputLabel, FormControl } fro
 import axios from 'axios';
 import { useSelector,useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
+import moment from 'moment';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import Layout from '../../components/Layout';
 
 function AddPrescriptionForm() {
   const { user } = useSelector((state) => state.user);
@@ -14,7 +18,7 @@ function AddPrescriptionForm() {
 
   
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getAppointmentData= async()=>{
         try {
@@ -82,7 +86,9 @@ function AddPrescriptionForm() {
       });
       if (response.data.message === 'success') {
         // Handle successful submission, e.g., show a success message or redirect
-        alert('Prescription added successfully');
+        toast.success('Prescription added successfully');
+        navigate("/doctor/appointments");
+        
       }
     } catch (error) {
       console.error('Error adding prescription:', error);
@@ -90,6 +96,7 @@ function AddPrescriptionForm() {
   };
 
   return (
+    <Layout>
     <Box component="form" onSubmit={handleSubmit} sx={{ p: 4 }}>
       <FormControl fullWidth margin="normal">
         <InputLabel>Appointment</InputLabel>
@@ -102,7 +109,7 @@ function AddPrescriptionForm() {
           {appointments.length > 0 ? (
             appointments.map((appointment) => (
               <MenuItem key={appointment._id} value={appointment._id}>
-                {appointment.date} - {appointment.userInfo.name}
+                { moment(appointment.date).format("DD-MM-YYYY")} - {appointment.userInfo.name}
               </MenuItem>
             ))
           ) : (
@@ -168,6 +175,8 @@ function AddPrescriptionForm() {
         Submit Prescription
       </Button>
     </Box>
+
+    </Layout>
   );
 }
 

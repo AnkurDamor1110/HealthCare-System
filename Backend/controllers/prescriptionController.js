@@ -1,6 +1,6 @@
 const Prescription = require("../models/prescriptionModel.js");
 const Appointment = require("../models/appointmentModel.js");
-
+const User = require("../models/userModel.js");
 const getPrescriptions = async (req, res) => {
   try {
     const userType = req.sender.userType;
@@ -54,7 +54,7 @@ const getPrescriptions = async (req, res) => {
 
 const savePrescription = async (req, res) => {
   try {
-    const { appointmentId, prescribedMed, remarks, paid } = req.body;
+    const { appointmentId, prescribedMed, remarks, paid, userInfo } = req.body;
 
     const prescriptionDetails = await Prescription.create({
       appointmentId,
@@ -63,15 +63,25 @@ const savePrescription = async (req, res) => {
       paid,
     });
 
-    await Appointment.findByIdAndUpdate(appointmentId, {
+   const appointment = await Appointment.findByIdAndUpdate(appointmentId, {
       status: "completed",
     });
+
+    const user = await User.findOne({ _id: appointment.userId});
+    user.unseenNotifications.push({
+      type: "new-prescription",
+      message: `A new Prescription has been created for you  By Dr. ${appointment.doctorInfo.firstName} ${appointment.doctorInfo.lastName} `,
+      onclickPath: '/prescriptionview',
+    });
+
+    await user.save();
 
     res.status(200).json({ message: "success", prescription: prescriptionDetails });
   } catch (error) {
     res.status(400).json({ message: "error", errors: [error.message] });
   }
 };
+
 
 module.exports = {
   getPrescriptions,

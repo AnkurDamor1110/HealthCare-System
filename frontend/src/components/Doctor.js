@@ -17,4 +17,5 @@ function Doctor({ doctor }) {
     )
 }
 
+
 export default Doctor

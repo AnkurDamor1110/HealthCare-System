@@ -11,7 +11,7 @@ function Layout({ children }) {
     const { user } = useSelector((state) => state.user);
     const location = useLocation();
     const navigate = useNavigate();
-    
+ 
     const userMenu = [
         {
             name: 'Home',
@@ -21,6 +21,11 @@ function Layout({ children }) {
         {
             name: 'Appointments',
             path: '/appointments',
+            icon: ''
+        },
+        {
+            name: 'PrescriptionView',
+            path: '/prescriptionview',
             icon: ''
         },
         {

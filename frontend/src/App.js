@@ -20,6 +20,7 @@ import Addmedicine from './pages/Midiciens/Addmidiciens';
 import MedicineList from './pages/Midiciens/MedicineList';
 import Editmedicine from './pages/Midiciens/Editmidiciens';
 import AddPrescriptionForm from './pages/Prescriptions/PrescriptionForm';
+import PrescriptionView from './pages/Prescriptions/PrescriptionView';
 function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
@@ -33,12 +34,13 @@ function App() {
         )}
         <Toaster position="top-center" reverseOrder={false} />
         <Routes>
-
+        
           <Route path='/' element={<HomePage />} />
           <Route path='/medicines' element={<ProtectedRoute> <MedicineList/> </ProtectedRoute>} />
           <Route path='/medicines/add' element={<Addmedicine/>} />
           <Route path='/medicines/edit/:id' element={<Editmedicine/>} />
           <Route path='/prescriptions' element={<AddPrescriptionForm />} />
+          <Route path='/prescriptionview' element={ <PrescriptionView />} />
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/user-dashboard' element={ <ProtectedRoute> <UserDashboard /> </ProtectedRoute>} />

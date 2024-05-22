@@ -5,6 +5,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Register() {
 
@@ -28,9 +30,13 @@ function Register() {
     };
 
   return (
-    <div className='authentication'>
+
+    <>
+    <Header />
+
+    <div className='authentication hero__section'>
         <div className='authentication-form card p-3'>
-            <h1>Nice To Meet You</h1>
+            <h3 className='text-headingcolor text-[22px] leading-9 font-bold mb-4'>Create an <span className='text-primarycolor'>account</span></h3>
             <Form layout='vertical' onFinish={onFinish}>
                 <Form.Item label="Name" name="name" >
                 <Input placeholder='Name'/>
@@ -50,11 +56,17 @@ function Register() {
                 </Button>
                 </Form.Item>
                
-                    <Link to="/login" className='anchor mt-3'>click here to login</Link>
+                <p className='mt-4 text-textcolor text-center'>
+                    Already have an account?
+                <Link to="/login" className='anchor text-primarycolor font-medium ml-1'>Login</Link>
+                </p>
                 
             </Form>
         </div>
     </div>
+
+    <Footer />
+    </>
   )
 }
 

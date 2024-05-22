@@ -96,8 +96,8 @@ function Layout({ children }) {
 
     return (
         <div className='flex h-screen bg-gray-100'>
-            <div className={`flex flex-col ${collapsed ? 'w-20' : 'w-64'} bg-primarycolor text-white transition-all duration-300`}>
-                <div className="p-4 border-b border-blue-700 flex flex-col items-center">
+            <div className={`flex flex-col ${collapsed ? 'w-20' : 'w-64'} bg-[#31b372] text-black transition-all duration-300`}>
+                <div className="p-4 border-b border-[#83C5BE] flex flex-col items-center">
                     <h1 className="text-2xl font-bold">HealthCare</h1>
                     <h2 className="text-lg font-normal">{role}</h2>
                 </div>
@@ -105,7 +105,7 @@ function Layout({ children }) {
                     {menuToBeRendered.map((menu) => {
                         const isActive = location.pathname === menu.path;
                         return (
-                            <div key={menu.name} className={`flex items-center p-4 hover:bg-blue-700 ${isActive ? 'bg-blue-700' : ''}`}>
+                            <div key={menu.name} className={`flex items-center p-4 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''}`}>
                                 <Link to={menu.path} className="flex items-center space-x-4">
                                     <FontAwesomeIcon icon={menu.icon || faUser} />
                                     {!collapsed && <span>{menu.name}</span>}
@@ -123,7 +123,7 @@ function Layout({ children }) {
                 </div>
             </div>
             <div className="flex flex-col flex-1">
-                <div className="flex items-center justify-between p-4 bg-primarycolor text-white">
+                <div className="flex items-center justify-between p-4 bg-[#31b372] text-black">
                     <button onClick={() => setCollapsed(!collapsed)} className="focus:outline-none">
                         {collapsed ? 'Expand' : 'Collapse'}
                     </button>
@@ -131,7 +131,7 @@ function Layout({ children }) {
                         <Badge count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>
                             <FontAwesomeIcon icon={faBell} className="cursor-pointer" />
                         </Badge>
-                        <Link to='/profile' className="text-white">{user?.name}</Link>
+                        <Link to='/profile' className="text-black">{user?.name}</Link>
                     </div>
                 </div>
                 <div className="flex-1 p-4 bg-gray-100 overflow-y-auto">

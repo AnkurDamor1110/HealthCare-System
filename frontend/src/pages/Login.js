@@ -36,8 +36,15 @@ function Login() {
       <div className='authentication hero__section'>
         <div className='authentication-form card p-3'>
             <h3 className='text-headingcolor text-[22px] leading-9 font-bold mb-10'>Hello! <span className='text-primarycolor'>Welcome</span> Back 🎉</h3>
-            <Form layout='vertical' onFinish={onFinish}>
-                <Form.Item label="Email" name="email" >
+            <Form layout='vertical' onFinish={onFinish} requiredMark={false}>
+                <Form.Item 
+                label="Email" 
+                name="email"
+                rules={[
+                    { required: true, message: 'Please input your email!' },
+                    { type: 'email', message: 'The input is not valid E-mail!' }
+                  ]} 
+                >
                 <Input placeholder='Email' />
                 </Form.Item>
 

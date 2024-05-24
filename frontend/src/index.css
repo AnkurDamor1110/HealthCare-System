@@ -179,3 +179,11 @@ label{
   height: 5rem;
   color: white !important;
 }
+
+/* updated classes */
+
+.apply-dr-btn{
+  width: 20vh;
+  height: 5vh !important;
+  margin-top: 55px;
+}

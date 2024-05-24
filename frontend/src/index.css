@@ -32,6 +32,14 @@
   .hero__section {
     @apply bg-[url('./assets/images/hero-bg.png')] bg-no-repeat bg-cover;
   }
+
+  .form__label {
+    @apply text-textcolor font-semibold text-[16px] leading-7 mb-2;
+  }
+
+  .form__input {
+    @apply w-full px-4 py-3 border border-solid border-[#0066ff61] focus:outline-none focus:border-primarycolor text-[16px] leading-7 text-headingcolor placeholder:text-textcolor cursor-pointer rounded-md;
+  }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -140,6 +148,8 @@ label{
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -100px;
+  margin-bottom: -100px;
 }
 
 .authentication-form{
@@ -168,4 +178,12 @@ label{
   width: 5rem;
   height: 5rem;
   color: white !important;
+}
+
+/* updated classes */
+
+.apply-dr-btn{
+  width: 20vh;
+  height: 5vh !important;
+  margin-top: 55px;
 }

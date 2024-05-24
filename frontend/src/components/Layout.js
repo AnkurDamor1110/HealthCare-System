@@ -1,153 +1,144 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import "../layout.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import {Badge} from "antd";
+import { Badge } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse, faUser, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital } from "@fortawesome/free-solid-svg-icons";
 
 function Layout({ children }) {
-
-
     const [collapsed, setCollapsed] = useState(false);
     const { user } = useSelector((state) => state.user);
     const location = useLocation();
     const navigate = useNavigate();
- 
+
     const userMenu = [
         {
-            name: 'Home',
+            name: 'Dashboard',
             path: '/user-dashboard',
-            icon: 'ri-home-smile-line'
+            icon: faHouse,
         },
         {
             name: 'Appointments',
             path: '/appointments',
-            icon: ''
+            icon: faCalendarCheck,
         },
         {
             name: 'PrescriptionView',
             path: '/prescriptionview',
-            icon: ''
+            icon: faFileMedical,
         },
         {
             name: 'Apply Doctor',
             path: '/apply-doctor',
-            icon: ''
+            icon: faUserDoctor,
         },
-        // {
-        //     name: 'Profile',
-        //     path: '/profile',
-        //     icon: ''
-        // },
     ];
 
     const doctorMenu = [
         {
-            name: 'Home',
+            name: 'Dashboard',
             path: '/user-dashboard',
-            icon: 'ri-home-smile-line'
+            icon: faHouse,
         },
         {
             name: 'Appointments',
             path: '/doctor/appointments',
-            icon: ''
+            icon: faCalendarCheck,
         },
         {
             name: 'Profile',
             path: `/doctor/profile/${user?._id}`,
-            icon: ''
+            icon: faUser,
         },
         {
-            name: 'Mediciens',
+            name: 'Medicines',
             path: '/medicines',
-            icon: ''
+            icon: faCapsules,
         },
         {
             name: 'Prescriptions',
             path: '/prescriptions',
-            icon: ''
+            icon: faFileMedical,
         },
     ];
 
     const adminMenu = [
         {
-            name: 'Home',
+            name: 'Dashboard',
             path: '/user-dashboard',
-            icon: 'ri-home-smile-line'
+            icon: faHouse,
         },
         {
             name: 'Users',
             path: '/admin/userslist',
-            icon: ''
+            icon: faUsers,
         },
         {
             name: 'Doctors',
             path: '/admin/doctorslist',
-            icon: ''
+            icon: faHospital,
         },
         {
             name: 'Profile',
             path: '/profile',
-            icon: ''
+            icon: faUser,
         },
         {
-            name: 'Mediciens',
+            name: 'Medicines',
             path: '/medicines',
-            icon: ''
+            icon: faCapsules,
         },
     ];
 
     const menuToBeRendered = user?.isAdmin ? adminMenu : user?.isDoctor ? doctorMenu : userMenu;
     const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
+
     return (
-   
-        <div className='main'>
-            <div className="d-flex layout">
-                <div className={`${collapsed ? 'collapsed-sidebar' : 'sidebar'}`}>
-                    <div className="sidebar-header">
-                        <h1>HealthCare</h1>
-                        <h1 className="normal-text">{role}</h1>
-                    </div>
-                    <div className="menu">
-                        {menuToBeRendered.map((menu) => {
-                            const isActive = location.pathname == menu.path;
-                            return (<div className={`d-flex menu-item ${isActive && 'active-menu-item'}`}>
-                                <i className={menu.icon}></i>
-                                {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
+        <div className='flex h-screen bg-gray-100'>
+            <div className={`flex flex-col ${collapsed ? 'w-20' : 'w-64'} bg-[#31b372] text-black transition-all duration-300`}>
+                <div className="p-4 border-b border-[#83C5BE] flex flex-col items-center">
+                    <h1 className="text-2xl font-bold">HealthCare</h1>
+                    <h2 className="text-lg font-normal">{role}</h2>
+                </div>
+                <div className="flex flex-col mt-4 space-y-2">
+                    {menuToBeRendered.map((menu) => {
+                        const isActive = location.pathname === menu.path;
+                        return (
+                            <div key={menu.name} className={`flex items-center p-4 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''}`}>
+                                <Link to={menu.path} className="flex items-center space-x-4">
+                                    <FontAwesomeIcon icon={menu.icon || faUser} />
+                                    {!collapsed && <span>{menu.name}</span>}
+                                </Link>
                             </div>
-                            );
-                        })}
-                        <div className={`d-flex menu-item `} onClick={() => {
-                            localStorage.clear();
-                            navigate("/");
-                        }}>
-                            <i className=''></i>
-                            {!collapsed && <Link to='/'>Logout</Link>}
-                        </div>
+                        );
+                    })}
+                    <div className="flex items-center p-4 hover:bg-blue-700 cursor-pointer" onClick={() => {
+                        localStorage.clear();
+                        navigate("/");
+                    }}>
+                        <FontAwesomeIcon icon={faSignOutAlt} />
+                        {!collapsed && <span className="ml-4">Logout</span>}
                     </div>
                 </div>
-
-                <div className="content">
-
-                    <div className="header">
-                        {collapsed ? <i className='ri-close-fill icon mr-2' onClick={() => setCollapsed(false)}>X</i> : <i className='ri-close-fill icon' onClick={() => setCollapsed(true)}>=</i>}
-
-                        <div className="d-flex align-items-center px-4">
-                            <Badge count={user?.unseenNotifications.length} onClick={()=>navigate('/notifications')}> 
-                            <i className='ri -notification-line  px-2'>@</i>
-                            </Badge>
-                            
-                            <Link className='anchor' to='/profile'>{user?.name}</Link>
-                        </div>
+            </div>
+            <div className="flex flex-col flex-1">
+                <div className="flex items-center justify-between p-4 bg-[#31b372] text-black">
+                    <button onClick={() => setCollapsed(!collapsed)} className="focus:outline-none">
+                        {collapsed ? 'Expand' : 'Collapse'}
+                    </button>
+                    <div className="flex items-center space-x-4">
+                        <Badge count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>
+                            <FontAwesomeIcon icon={faBell} className="cursor-pointer" />
+                        </Badge>
+                        <Link to='/profile' className="text-black">{user?.name}</Link>
                     </div>
-
-                    <div className="body">
-                        {children}
-                    </div>
-
+                </div>
+                <div className="flex-1 p-4 bg-gray-100 overflow-y-auto">
+                    {children}
                 </div>
             </div>
         </div>
-        
     );
 }
 

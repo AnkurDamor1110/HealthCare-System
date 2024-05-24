@@ -89,7 +89,7 @@ const HomePage = () => {
 
       {/* ============= hero section end========= */}
 
-      <section >
+      <section className='pt-[60px]'>
         <div className='containerforhome'>
           <div className='lg:w-[470px] mx-auto'>
             <h2 className='heading text-center'>Providing the best medical services</h2>
@@ -162,7 +162,7 @@ const HomePage = () => {
      <About />
 
      {/* ========== service section ======= */}
-     <section>
+     <section className='pt-[60px]'>
       <div className='containerforhome'>
         <div className='xl:w-[470px] mx-auto'>
           <h2 className='heading text-center'>Our medical services</h2>
@@ -175,7 +175,7 @@ const HomePage = () => {
      {/* ========== service section end ======= */}
 
      {/* ========== feature section ======= */}
-     <section>
+     <section className='pt-[60px]'>
       <div className='flex items-center justify-between flex-col lg:flex-row'>
       {/* ========== feature content ======= */}
         <div className='xl:w-[670px]'>
@@ -234,7 +234,7 @@ const HomePage = () => {
      {/* ========== feature section end ======= */}
 
      {/* ========== our great doctors ======= */}
-     <section>
+     <section className='pt-[60px]'>
       <div className='containerforhome'>
         <div className='xl:w-[470px] mx-auto'>
           <h2 className='heading text-center'>
@@ -248,10 +248,10 @@ const HomePage = () => {
         <DoctorList />
       </div>
      </section>
-     {/* ========== our great doctors ======= */}
+     {/* ========== our great doctors end ======= */}
     
       {/* ========== faq section ======= */}
-      <section>
+      <section className='pt-[60px]'>
         <div className='containerforhome'>
           <div className='flex justify-between gap-[50px] lg:gap-0'>
             <div className='w-1/2 md:block'><img src={faqImg} alt='' /></div>
@@ -268,7 +268,7 @@ const HomePage = () => {
       {/* ========== faq section end ======= */}
 
       {/* ========== testimonial ======= */}
-      <section>
+      <section className='pt-[60px]'>
         <div className='containerforhome'>
         <div className='xl:w-[470px] mx-auto'>
           <h2 className='heading text-center'>

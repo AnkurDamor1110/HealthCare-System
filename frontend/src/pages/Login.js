@@ -5,6 +5,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 function Login() {
 
     const dispatch = useDispatch();
@@ -28,11 +30,21 @@ function Login() {
     };
 
   return (
-    <div className='authentication'>
+
+    <>
+        <Header />
+      <div className='authentication hero__section'>
         <div className='authentication-form card p-3'>
-            <h1>Welcome Back</h1>
-            <Form layout='vertical' onFinish={onFinish}>
-                <Form.Item label="Email" name="email" >
+            <h3 className='text-headingcolor text-[22px] leading-9 font-bold mb-10'>Hello! <span className='text-primarycolor'>Welcome</span> Back 🎉</h3>
+            <Form layout='vertical' onFinish={onFinish} requiredMark={false}>
+                <Form.Item 
+                label="Email" 
+                name="email"
+                rules={[
+                    { required: true, message: 'Please input your email!' },
+                    { type: 'email', message: 'The input is not valid E-mail!' }
+                  ]} 
+                >
                 <Input placeholder='Email' />
                 </Form.Item>
 
@@ -46,11 +58,17 @@ function Login() {
                 </Button>
                 </Form.Item>
                
-                    <Link to="/register" className='anchor mt-3'>click here to Register</Link>
+                <p className='mt-3 text-textcolor text-center'>
+                Don&apos;t have an account?{" "} <Link to="/register" className='text-primarycolor font-bold ml-1'>Register</Link>
+                </p>
+                    
                 
             </Form>
         </div>
     </div>
+
+    <Footer />
+    </>
   )
 }
 

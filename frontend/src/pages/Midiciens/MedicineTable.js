@@ -166,7 +166,7 @@ export default function UserTable({ medicineList, deleteMedicine }) {
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === "number"
                               ? column.format(value)
-                              : "$" + value}
+                              : "₹" + value}
                           </TableCell>
                         );
                       } else {

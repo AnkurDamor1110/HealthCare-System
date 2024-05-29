@@ -58,6 +58,7 @@ function App() {
           <Route path='/user-dashboard/book-appointment/:doctorId' element={ <ProtectedRoute> <BookAppointment/> </ProtectedRoute>} />
           <Route path='/appointments' element={ <ProtectedRoute> <Appointment/> </ProtectedRoute>} />
           <Route path='/doctor/appointments' element={ <ProtectedRoute> <DoctorsAppointment/> </ProtectedRoute>} />
+          
         </Routes>
       </BrowserRouter>
     </div>

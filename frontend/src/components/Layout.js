@@ -14,6 +14,11 @@ function Layout({ children }) {
 
     const userMenu = [
         {
+            name: 'Profile',
+            path: `/user-dashboard/profile/${user?._id}`,
+            icon: faUser,
+        },
+        {
             name: 'Dashboard',
             path: '/user-dashboard',
             icon: faHouse,

@@ -193,5 +193,24 @@ router.get('/get-appointments-by-user-id',authMiddleware, async (req, res) => {
     }
 });
 
+router.get('/get-user-info-by-user-id', async (req, res) => {
+    try {
+       const user = await User.find({userId: req.body.userId});
+       res.status(200).send({ message: "Appointments fetched successfully", success: true, data: user });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
 
+router.post('/update-user-profile', authMiddleware, async(req,res) =>{
+    try {
+        const user = await User.findOneAndUpdate({ _id: req.body.userId } , req.body);
+       console.log(user);
+        res.status(200).send({ success: true, message: " User Profile update successfully" , data: user,});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error getting Doctor info", success: false, error });
+    }
+});
 module.exports = router;

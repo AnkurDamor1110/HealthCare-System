@@ -110,11 +110,13 @@ function Layout({ children }) {
                     {menuToBeRendered.map((menu) => {
                         const isActive = location.pathname === menu.path;
                         return (
-                            <div key={menu.name} className={`flex items-center p-4 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''}`}>
-                                <Link to={menu.path} className="flex items-center space-x-4">
-                                    <FontAwesomeIcon icon={menu.icon || faUser} />
-                                    {!collapsed && <span>{menu.name}</span>}
-                                </Link>
+                            <div 
+                                key={menu.name} 
+                                className={`flex items-center p-4 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''} cursor-pointer`}
+                                onClick={() => navigate(menu.path)}
+                            >
+                                <FontAwesomeIcon icon={menu.icon || faUser} />
+                                {!collapsed && <span className="ml-4">{menu.name}</span>}
                             </div>
                         );
                     })}

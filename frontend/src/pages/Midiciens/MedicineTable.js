@@ -117,7 +117,7 @@ export default function UserTable({ medicineList, deleteMedicine }) {
                       const value = row[column.id];
                       if (
                         column.id === "actionsID" &&
-                        user?.isAdmin
+                        user?.isAdmin 
                       ) {
                         return (
                           <TableCell key={column.id} align={column.align}>

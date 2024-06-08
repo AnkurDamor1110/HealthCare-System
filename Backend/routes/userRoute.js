@@ -8,21 +8,40 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
 const moment = require('moment');
 
+const multer = require('multer');
+const { storage } = require('../config/cloudConfig');
+const upload = multer({ storage: storage });
 
-router.post('/register', async (req, res) => {
+
+router.post('/register',upload.single('profilePicture'), async (req, res) => {
     try {
         const userExists = await User.findOne({ email: req.body.email });
         console.log(req.body.email);
         if (userExists) {
             return res.status(200).send({ message: "User already exists", success: false });
         }
-            const password = req.body.password;
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(password, salt);
-            req.body.password = hashedPassword;
-            const newUser = new User(req.body);
-            await newUser.save();
-            res.status(200).send({ message: "User created successfully", success: true });
+
+           // Check if a file was uploaded
+        let profilePicture = null;
+        if (req.file) {
+            const url = req.file.path;
+            // const filename = req.file.filename;
+            profilePicture = { url };
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+        // Create a new user instance
+        const newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+            gender: req.body.gender,
+            profilePicture: profilePicture, // Assign the profile picture
+        });
+
+        await newUser.save();
+        res.status(200).send({ message: "User created successfully", success: true });
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error creating user", success: false, error });

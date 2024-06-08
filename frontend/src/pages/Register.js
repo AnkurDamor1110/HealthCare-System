@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Upload, Select } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { UploadOutlined } from '@ant-design/icons';
+
+const { Option } = Select;
 
 function Register() {
   const dispatch = useDispatch();
@@ -18,18 +21,15 @@ function Register() {
     const upperCaseLetters = /[A-Z]/;
     const numbers = /[0-9]/;
     const specialChars = /[@!#$%^&*()_+/*-]/;
-    // const uniqueChars = new Set(password).size === password.length;
-    
+
     if (password.length < 6 || password.length > 8) {
       callback('Password must be between 6 and 8 characters long');
     } else if (!letters.test(password) || !numbers.test(password)) {
       callback('Password must contain a combination of alphabets and numbers');
     } else if (!upperCaseLetters.test(password)) {
         callback('Password must contain at least one uppercase alphabet');
-    }else if (!specialChars.test(password)) {
+    } else if (!specialChars.test(password)) {
         callback('Password must contain at least one special character: @!#$%^&*()_+/*-');
-    // }else if (!uniqueChars) {
-    //   callback('Password must have unique characters');
     } else {
       callback();
     }
@@ -38,8 +38,24 @@ function Register() {
   const onFinish = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post('/api/user/register', values);
+
+      // Prepare form data
+      const formData = new FormData();
+      formData.append('name', values.name);
+      formData.append('email', values.email);
+      formData.append('password', values.password);
+      formData.append('gender', values.gender);
+      formData.append('profilePicture', values.profilePicture[0].originFileObj);
+
+      // Make POST request to backend
+      const response = await axios.post('/api/user/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
       dispatch(hideLoading());
+
       if (response.data.success) {
         toast.success(response.data.message);
         navigate("/login");
@@ -50,6 +66,13 @@ function Register() {
       dispatch(hideLoading());
       toast.error('Something went wrong');
     }
+  };
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList.slice(-1); // Ensure only one file is kept
   };
 
   return (
@@ -89,10 +112,39 @@ function Register() {
               name="password"
               rules={[
                 { required: true, message: 'Please input your password!' },
-                { validator: validatePassword }
+                // { validator: validatePassword }
               ]}
             >
               <Input placeholder='Password' type='password' />
+            </Form.Item>
+
+            <Form.Item
+              label="Gender"
+              name="gender"
+              rules={[{ required: true, message: 'Please select your gender!' }]}
+            >
+              <Select placeholder='Select gender'>
+                <Option value="male">Male</Option>
+                <Option value="female">Female</Option>
+                <Option value="other">Other</Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+                            label="Profile Image"
+                            name="profilePicture"
+                            valuePropName="fileList"
+                            getValueFromEvent={normFile}
+              rules={[{ required: true, message: 'Please upload your profile image!' }]}
+            >
+              <Upload 
+                name="profilePicture"
+                listType="picture"
+                beforeUpload={() => false}
+                maxCount={1}
+              >
+                <Button icon={<UploadOutlined />}>Click to upload</Button>
+              </Upload>
             </Form.Item>
 
             <Form.Item>

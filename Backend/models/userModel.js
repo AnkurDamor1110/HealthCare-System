@@ -29,12 +29,20 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-},
-    {
-        timestamps: true,
-    }
-);
+    profilePicture: {
+        url: {
+            type: String,
+        }
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'other'],
+        required: true,
+    },
+}, {
+    timestamps: true,
+});
 
-const userModel = mongoose.model("users", userSchema);
+const userModel = mongoose.model('users', userSchema);
 
 module.exports = userModel;

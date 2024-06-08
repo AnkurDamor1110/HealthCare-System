@@ -16,6 +16,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
 
+  
   const getUser = async () => {
     try {
       dispatch(showLoading());

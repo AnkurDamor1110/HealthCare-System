@@ -134,77 +134,81 @@ export default function PrescriptionView() {
             ))}
           </TextField>
         </div>
-        {filteredPrescriptions.map((prescription) => {
-          const appointment = getAppointmentById(prescription.appointmentId);
-          const doctorInfo = appointment.doctorInfo || {};
-          return (
-            <Paper
-              key={prescription._id}
-              sx={{
-                width: '95%',
-                overflow: 'hidden',
-                marginTop: 2,
-                boxShadow: '0 12px 24px rgba(0, 0, 0, 0.2) ',
-              }}
-            >
-              <h2>Prescription from Dr. {doctorInfo.firstName}</h2>
-              <p>Date: {prescription.createdAt && new Date(prescription.createdAt).toLocaleDateString()}</p>
-              <TableContainer>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow>
-                      {columns.map((column) => (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                      <TableCell align="right" style={{ fontWeight: 'bold' }}>
-                        Remarks
-                      </TableCell>
-                      <TableCell align="right" style={{ fontWeight: 'bold' }}>
-                        Paid
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {prescription.prescribedMed.map((medicine) => {
-                      const medDetails = getMedicineById(medicine.medicineId);
-                      return (
-                        <TableRow hover role="checkbox" tabIndex={-1} key={medicine._id}>
-                          <TableCell>{medDetails.name || medicine.medicineId}</TableCell>
-                          <TableCell>{medDetails.description}</TableCell>
-                          <TableCell>{medicine.dosage}</TableCell>
-                          <TableCell>{medicine.qty}</TableCell>
-                          <TableCell align="right">{prescription.remarks}</TableCell>
-                          <TableCell align="right">{prescription.paid ? 'Yes' : 'No'}</TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, 100]}
-                component="div"
-                count={filteredPrescriptions.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
+        {filteredPrescriptions.length > 0 ? (
+          filteredPrescriptions.map((prescription) => {
+            const appointment = getAppointmentById(prescription.appointmentId);
+            const doctorInfo = appointment.doctorInfo || {};
+            return (
+              <Paper
+                key={prescription._id}
                 sx={{
-                  '& p': {
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
-                  },
+                  width: '95%',
+                  overflow: 'hidden',
+                  marginTop: 2,
+                  boxShadow: '0 12px 24px rgba(0, 0, 0, 0.2) ',
                 }}
-              />
-            </Paper>
-          );
-        })}
+              >
+                <h2>Prescription from Dr. {doctorInfo.firstName}</h2>
+                <p>Date: {prescription.createdAt && new Date(prescription.createdAt).toLocaleDateString()}</p>
+                <TableContainer>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((column) => (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
+                          >
+                            {column.label}
+                          </TableCell>
+                        ))}
+                        <TableCell align="right" style={{ fontWeight: 'bold' }}>
+                          Remarks
+                        </TableCell>
+                        <TableCell align="right" style={{ fontWeight: 'bold' }}>
+                          Paid
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {prescription.prescribedMed.map((medicine) => {
+                        const medDetails = getMedicineById(medicine.medicineId);
+                        return (
+                          <TableRow hover role="checkbox" tabIndex={-1} key={medicine._id}>
+                            <TableCell>{medDetails.name || medicine.medicineId}</TableCell>
+                            <TableCell>{medDetails.description}</TableCell>
+                            <TableCell>{medicine.dosage}</TableCell>
+                            <TableCell>{medicine.qty}</TableCell>
+                            <TableCell align="right">{prescription.remarks}</TableCell>
+                            <TableCell align="right">{prescription.paid ? 'Yes' : 'No'}</TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, 100]}
+                  component="div"
+                  count={filteredPrescriptions.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  sx={{
+                    '& p': {
+                      marginTop: 'auto',
+                      marginBottom: 'auto',
+                    },
+                  }}
+                />
+              </Paper>
+            );
+          })
+        ) : (
+          <p>You have no prescriptions from any doctor yet.</p>
+        )}
       </div>
     </Layout>
   );

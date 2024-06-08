@@ -11,7 +11,7 @@ router.get("/prescriptions", getPrescriptions);
 
 router.get('/get-prescriptions-by-user-id', authMiddleware, async (req, res) => {
   try {
-    const userId = req.body._id; // Assuming you get the user ID from the auth middleware
+    const userId = req.body.userId; // Assuming you get the user ID from the auth middleware
     const prescriptions = await Prescription.find({ patientId: userId });
     res.status(200).send({ success: true, data: prescriptions });
   } catch (error) {

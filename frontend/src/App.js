@@ -25,6 +25,7 @@ import Editmedicine from './pages/Midiciens/Editmidiciens';
 import AddPrescriptionForm from './pages/Prescriptions/PrescriptionForm';
 import PrescriptionView from './pages/Prescriptions/PrescriptionView';
 import UserProfile from './pages/User/UserProfile';
+import Admindashboard from './pages/Dashboard/Admindashboard';
 function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path='/medicines/edit/:id' element={<Editmedicine/>} />
           <Route path='/prescriptions' element={<AddPrescriptionForm />} />
           <Route path='/prescriptionview' element={ <PrescriptionView />} />
+          <Route path='/admin-dashboard' element={ <Admindashboard/>} />
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/user-dashboard' element={ <ProtectedRoute> <UserDashboard /> </ProtectedRoute>} />
@@ -60,6 +62,7 @@ function App() {
           <Route path='/appointments' element={ <ProtectedRoute> <Appointment/> </ProtectedRoute>} />
           <Route path='/doctor/appointments' element={ <ProtectedRoute> <DoctorsAppointment/> </ProtectedRoute>} />
           <Route path='/user-dashboard/profile/:userId' element={ <ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
+
         </Routes>
       </BrowserRouter>
     </div>

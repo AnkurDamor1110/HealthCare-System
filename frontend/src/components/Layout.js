@@ -13,13 +13,14 @@ function Layout({ children }) {
     const navigate = useNavigate();
 
     const userMenu = [
-        {
-            name: 'Profile',
-            path: `/user-dashboard/profile/${user?._id}`,
-            icon: faUser,
-        },
+      
         {
             name: 'Dashboard',
+            path: '/dashboard',
+            icon: faHouse,
+        },
+        {
+            name: 'Approved Doctors',
             path: '/user-dashboard',
             icon: faHouse,
         },
@@ -38,11 +39,21 @@ function Layout({ children }) {
             path: '/apply-doctor',
             icon: faUserDoctor,
         },
+        {
+            name: 'Profile',
+            path: `/user-dashboard/profile/${user?._id}`,
+            icon: faUser,
+        },
     ];
 
     const doctorMenu = [
         {
             name: 'Dashboard',
+            path: '/doctor-dashboard',
+            icon: faHouse,
+        },
+        {
+            name: 'Approved Doctors',
             path: '/user-dashboard',
             icon: faHouse,
         },
@@ -50,11 +61,6 @@ function Layout({ children }) {
             name: 'Appointments',
             path: '/doctor/appointments',
             icon: faCalendarCheck,
-        },
-        {
-            name: 'Profile',
-            path: `/doctor/profile/${user?._id}`,
-            icon: faUser,
         },
         {
             name: 'Medicines',
@@ -66,11 +72,21 @@ function Layout({ children }) {
             path: '/prescriptions',
             icon: faFileMedical,
         },
+        {
+            name: 'Profile',
+            path: `/doctor/profile/${user?._id}`,
+            icon: faUser,
+        },
     ];
 
     const adminMenu = [
         {
             name: 'Dashboard',
+            path: '/admin-dashboard',
+            icon: faHouse,
+        },
+        {
+            name: 'Approved Doctors',
             path: '/user-dashboard',
             icon: faHouse,
         },
@@ -85,14 +101,14 @@ function Layout({ children }) {
             icon: faHospital,
         },
         {
-            name: 'Profile',
-            path: '/profile',
-            icon: faUser,
-        },
-        {
             name: 'Medicines',
             path: '/medicines',
             icon: faCapsules,
+        },
+        {
+            name: 'Profile',
+            path: '/profile',
+            icon: faUser,
         },
     ];
 

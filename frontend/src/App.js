@@ -26,6 +26,7 @@ import AddPrescriptionForm from './pages/Prescriptions/PrescriptionForm';
 import PrescriptionView from './pages/Prescriptions/PrescriptionView';
 import UserProfile from './pages/User/UserProfile';
 import Admindashboard from './pages/Dashboard/Admindashboard';
+import Doctordashboard from './pages/Dashboard/Doctordashboard';
 function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path='/prescriptions' element={<AddPrescriptionForm />} />
           <Route path='/prescriptionview' element={ <PrescriptionView />} />
           <Route path='/admin-dashboard' element={ <Admindashboard/>} />
+          <Route path='/doctor-dashboard' element={ <Doctordashboard/> }/>
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/user-dashboard' element={ <ProtectedRoute> <UserDashboard /> </ProtectedRoute>} />

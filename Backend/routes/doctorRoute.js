@@ -71,6 +71,60 @@ router.post('/change-appointment-status',authMiddleware, async (req, res) => {
     }
 });
 
+router.get('/get-success-appointments-by-doctor-id',authMiddleware, async (req, res) => {
+    try {
+        const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({doctorId: doctor._id , status: 'completed'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-padding-appointments-by-doctor-id',authMiddleware, async (req, res) => {
+    try {
+        const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({doctorId: doctor._id , status: 'padding'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-approved-appointments-by-doctor-id',authMiddleware, async (req, res) => {
+    try {
+        const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({doctorId: doctor._id , status: 'approved'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-rejected-appointments-by-doctor-id',authMiddleware, async (req, res) => {
+    try {
+        const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({doctorId: doctor._id , status: 'rejected'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-users-appointments-by-doctor-id',authMiddleware, async (req, res) => {
+    try {
+        const doctor = await Doctor.findOne({userId: req.body.userId });
+       const users = await Appointment.distinct('userId', { doctorId: doctor._id });
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: users });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
 
 
 module.exports = router;

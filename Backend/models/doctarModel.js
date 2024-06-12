@@ -26,7 +26,7 @@ const doctorShema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        specializaation: {
+        specialization: {
             type: String,
             required: true,
         },
@@ -34,7 +34,7 @@ const doctorShema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        freePeerCunsultation: {
+        feesPerConsultation: {
             type: Number,
             required: true,
         },
@@ -45,7 +45,13 @@ const doctorShema = new mongoose.Schema(
        status: {
             type: String,
             default: "pending",
-       }
+       },
+       photo:{
+           type: String,
+       },
+       resume:{
+        type: String,
+       },
 
     },
         {

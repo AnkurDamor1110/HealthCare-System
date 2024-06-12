@@ -17,6 +17,7 @@ function ApplyDoctor() {
     const onFinish = async (values) =>{
         try {
             dispatch(showLoading());
+            console.log(values);
             const response = await axios.post('/api/user/apply-doctor-account',
              {
                 ...values, 

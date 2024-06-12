@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Layout from "../../components/Layout";
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import axios from 'axios';
-import { Table } from 'antd';
-import {toast} from "react-hot-toast";
+import { Table, Modal } from 'antd'; // Import Modal from antd
+import { toast } from "react-hot-toast";
 import moment from 'moment';
-function Doctorslist() {
+import {Button} from 'antd';
 
+function Doctorslist() {
     const [doctors, setDoctors] = useState([]);
+    const [resumeUrl, setResumeUrl] = useState('');
+    const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
     const dispatch = useDispatch();
 
-    const getDoctorData= async()=>{
+    const getDoctorData = async () => {
         try {
             dispatch(showLoading());
             const response = await axios.get('/api/admin/get-all-doctors', {
@@ -20,7 +23,7 @@ function Doctorslist() {
                 },
             });
             dispatch(hideLoading());
-            if(response.data.success){
+            if (response.data.success) {
                 setDoctors(response.data.data);
             }
         } catch (error) {
@@ -28,18 +31,18 @@ function Doctorslist() {
         }
     };
 
-    const changeDoctorStatus= async(record, status)=>{
+    const changeDoctorStatus = async (record, status) => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/admin/change-account-doctor-status',{
-                doctorId: record._id, userId: record.userId,status: status
-            } ,{
+            const response = await axios.post('/api/admin/change-account-doctor-status', {
+                doctorId: record._id, userId: record.userId, status: status
+            }, {
                 headers: {
                     Authorization: `Bearer ` + localStorage.getItem('token'),
                 },
             });
             dispatch(hideLoading());
-            if(response.data.success){
+            if (response.data.success) {
                 toast.success(response.data.message);
                 getDoctorData();
             }
@@ -49,18 +52,24 @@ function Doctorslist() {
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         getDoctorData();
-    },[]);
+    }, []);
+
+    const handleViewResume = (record) => {
+        // Set the resume URL and show the modal
+        setResumeUrl(record.resume);
+        setIsModalVisible(true);
+    };
 
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
-            render: (text,record) =>{
+            render: (text, record) => {
                 return (
-                <span >{record.firstName} {record.lastName}</span>
-            )
+                    <span>{record.firstName} {record.lastName}</span>
+                )
             }
         },
         {
@@ -70,7 +79,18 @@ function Doctorslist() {
         {
             title: 'Created At',
             dataIndex: 'createdAt',
-            render: (text,record) =>  moment(record.createdAt).format("DD-MM-YYYY"),
+            render: (text, record) => moment(record.createdAt).format("DD-MM-YYYY"),
+        },
+        {
+            title: 'Resume',
+            dataIndex: 'resume',
+            render: (text, record) => {
+                return (
+                    <div className="d-flex">
+                        <Button type="primary" onClick={() => handleViewResume(record)}>View Resume</Button>
+                    </div>
+                )
+            }
         },
         {
             title: 'Status',
@@ -79,23 +99,44 @@ function Doctorslist() {
         {
             title: 'Actions',
             dataIndex: 'actions',
-            render: (text,record) =>{
+            render: (text, record) => {
                 return (
-                <div className="d-flex">
-                    {record.status == "pending" && <h1 className='anchor' onClick={()=>changeDoctorStatus(record,"approved")}>Approve</h1>}
-                    {record.status == "approved" && <h1 className='anchor' onClick={()=>changeDoctorStatus(record,"Block")}>Block</h1>}
-                </div>
+                    <div className="d-flex">
+                        {record.status === "pending" && <h1 className='anchor' onClick={() => changeDoctorStatus(record, "approved")}>Approve</h1>}
+                        {record.status === "approved" && <h1 className='anchor' onClick={() => changeDoctorStatus(record, "Block")}>Block</h1>}
+                        
+                    </div>
                 )
             }
         },
     ];
 
-  return (
-    <Layout>
-        <h1 className="page-title">Doctor List </h1>
-        <Table columns={columns} dataSource={doctors}/>
-    </Layout>
-  )
+    // Function to handle modal visibility
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    return (
+        <Layout>
+            <h1 className="page-title">Doctor List </h1>
+            <Table columns={columns} dataSource={doctors} />
+
+            {/* Modal for displaying resume */}
+            <Modal
+                title="Doctor's Resume"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                width={1000}
+            >
+                <iframe src={resumeUrl} style={{ width: '100%', height: '600px' }} />
+            </Modal>
+        </Layout>
+    );
 }
 
-export default Doctorslist
+export default Doctorslist;

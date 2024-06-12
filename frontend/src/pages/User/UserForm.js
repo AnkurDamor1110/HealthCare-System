@@ -1,19 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Button, Form, Input, Select, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-
+import toast from 'react-hot-toast';
 const { Option } = Select;
 
 function UserForm({ onFinish, initialValues }) {
+
   const normFile = (e) => {
+    console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
     }
-    return e && e.fileList.slice(-1); 
+    return e && e.fileList;
   };
 
-  return (  
-    <Form layout='vertical' onFinish={onFinish} requiredMark={false} initialValues={initialValues}>
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState('');
+
+  const saveImage = async (values) => { // Pass form values to the saveImage function
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "myCloud");
+    data.append("cloud_name", "drous2rbk");
+
+    try {
+      if (image === null) {
+        onFinish(values);
+        return;
+
+      }
+
+      const res = await fetch('https://api.cloudinary.com/v1_1/drous2rbk/image/upload', {
+        method: "POST",
+        body: data
+      });
+
+      const cloudData = await res.json();
+      setUrl(cloudData.url);
+      // toast.success("Image Upload Successfully");
+
+      // Call onFinish with the form values and the updated profilePicture URL
+      onFinish({ ...values, profilePicture: cloudData.url });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Error uploading image");
+    }
+  };
+
+  return (
+    <Form layout='vertical' onFinish={saveImage} requiredMark={false} initialValues={initialValues}>
       <Form.Item
         label="Name"
         name="name"
@@ -52,19 +87,17 @@ function UserForm({ onFinish, initialValues }) {
       <Form.Item
         label="Profile Image"
         name="profilePicture"
-        // valuePropName="fileList"
+        valuePropName="fileList"
         getValueFromEvent={normFile}
-        rules={[{ required: true, message: 'Please upload your profile image!' }]}
+        onChange={(e) => setImage(e.target.files[0])}
+        extra="Please upload a profile image"
       >
-        {initialValues && initialValues.profilePicture && (
-          <div>
-            <img 
-              src={initialValues.profilePicture.url} 
-              alt="Profile" 
-              style={{ width: 100, marginBottom: 10 }}
-            />
-          </div>
-        )}
+        <img 
+          src={initialValues.profilePicture} 
+          alt="Profile" 
+          style={{ width: 100, marginBottom: 10 }}
+        />
+      
         <Upload 
           name="profilePicture"
           listType="picture"
@@ -81,7 +114,7 @@ function UserForm({ onFinish, initialValues }) {
         </Button>
       </Form.Item>
     </Form>
-  )
+  );
 }
 
 export default UserForm;

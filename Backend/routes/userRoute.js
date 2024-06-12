@@ -26,7 +26,7 @@ router.post('/register',upload.single('profilePicture'), async (req, res) => {
         if (req.file) {
             const url = req.file.path;
             // const filename = req.file.filename;
-            profilePicture = { url };
+            profilePicture =  url ;
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -222,14 +222,14 @@ router.get('/get-user-info-by-user-id', async (req, res) => {
     }
 });
 
-router.post('/update-user-profile', authMiddleware, async(req,res) =>{
+router.post('/update-user-profile', upload.single('profilePicture'), authMiddleware, async (req, res) => {
     try {
         const user = await User.findOneAndUpdate({ _id: req.body.userId } , req.body);
-       console.log(user);
         res.status(200).send({ success: true, message: " User Profile update successfully" , data: user,});
     } catch (error) {
-        console.log(error);
-        res.status(500).send({ message: "Error getting Doctor info", success: false, error });
+      console.error('Error updating profile:', error); // Log error to the console for debugging
+      res.status(500).send({ message: "Error updating user profile", success: false, error });
     }
-});
+  });
+
 module.exports = router;

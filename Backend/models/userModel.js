@@ -30,10 +30,11 @@ const userSchema = new mongoose.Schema({
         default: [],
     },
     profilePicture: {
-        url: {
-            type: String,
-        }
-    },
+        type: String,
+        // required: true,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
     gender: {
         type: String,
         enum: ['male', 'female', 'other'],

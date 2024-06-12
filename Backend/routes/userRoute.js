@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/userModel");
 const Doctor = require("../models/doctarModel");
 const Appointment = require("../models/appointmentModel");
+const Interview = require('../models/interviewModel');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -232,5 +233,29 @@ router.post('/update-user-profile', upload.single('profilePicture'), authMiddlew
       res.status(500).send({ message: "Error updating user profile", success: false, error });
     }
   });
+
+  router.get('/interview-details', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.body.userId; // Assuming userId is available in req.user
+
+        // Find the doctor based on the userId
+        const doctor = await Doctor.findOne({ userId });
+
+        if (!doctor) {
+            return res.status(404).json({ success: false, message: 'Doctor not found.' });
+        }
+        const interviewDetails = await Interview.findOne({ doctorId: doctor._id });
+
+        if (interviewDetails) {
+            res.status(200).json({ success: true, interviewDetails });
+        } else {
+            res.status(404).json({ success: false, message: 'Interview details not found.' });
+        }
+    } catch (error) {
+        console.error('Error fetching interview details:', error);
+        res.status(500).json({ success: false, message: 'Failed to fetch interview details.' });
+    }
+});
+
 
 module.exports = router;

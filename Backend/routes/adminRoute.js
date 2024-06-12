@@ -5,6 +5,7 @@ const Doctor = require("../models/doctarModel");
 const authMiddleware = require("../middlewares/authMiddleware");
 const Appointment = require("../models/appointmentModel");
 const Medicine = require("../models/medicineModel");
+const Interview = require("../models/interviewModel");
 
 router.get('/get-all-doctors',authMiddleware, async (req, res) => {
     try {
@@ -23,6 +24,42 @@ router.get('/get-all-users',authMiddleware, async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error creating ", success: false, error });
+    }
+});
+
+router.post('/schedule-interview', async (req, res) => {
+    try {
+        // Extract the required data from the request body
+        const { doctorId, date, time, googleMeetLink } = req.body;
+
+        // Create a new interview instance
+        const interview = new Interview({
+            doctorId,
+            date,
+            time,
+            googleMeetLink
+        });
+
+        // Save the interview to the database
+        await interview.save();
+        const doctor = await Doctor.findById( {_id: doctorId});
+        const user = await User.findById( {_id: doctor.userId });
+
+        console.log(user.name);
+        const unseenNotifications = user.unseenNotifications;
+        user.unseenNotifications.push({
+        type: "new-doctor-request",
+        message: `You have interview schedule for you doctor Profile clicke for more information! `,
+        onclickPath: `/interview-details`
+       });
+       await user.save();
+       console.log(user.unseenNotifications);
+        // Respond with success message
+        res.status(200).send({ success: true, message: 'Interview scheduled successfully.' });
+    } catch (error) {
+        console.error('Error scheduling interview:', error);
+        // Respond with error message
+        res.status(500).send({ success: false, message: 'Failed to schedule interview.' });
     }
 });
 

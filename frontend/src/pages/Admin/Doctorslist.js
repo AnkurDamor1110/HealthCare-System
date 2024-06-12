@@ -3,15 +3,17 @@ import Layout from "../../components/Layout";
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import axios from 'axios';
-import { Table, Modal } from 'antd'; // Import Modal from antd
+import { Table, Modal, Button, DatePicker, Space } from 'antd'; // Import Modal, Button, DatePicker, Space from antd
 import { toast } from "react-hot-toast";
 import moment from 'moment';
-import {Button} from 'antd';
+import InterviewForm from './InterviewForm'; // Import the InterviewForm component
 
 function Doctorslist() {
     const [doctors, setDoctors] = useState([]);
     const [resumeUrl, setResumeUrl] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
+    const [selectedDoctor, setSelectedDoctor] = useState(null); // State to store the selected doctor
+    const [interviewDate, setInterviewDate] = useState(null); // State to store the interview date
     const dispatch = useDispatch();
 
     const getDoctorData = async () => {
@@ -52,15 +54,38 @@ function Doctorslist() {
         }
     };
 
-    useEffect(() => {
-        getDoctorData();
-    }, []);
-
     const handleViewResume = (record) => {
         // Set the resume URL and show the modal
         setResumeUrl(record.resume);
         setIsModalVisible(true);
     };
+
+    const handleSetInterview = (record) => {
+        // Set the selected doctor for the interview
+        setSelectedDoctor(record);
+        // Show the modal for setting interview
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        // Hide the modal
+        setIsModalVisible(false);
+        // Reset states
+        setSelectedDoctor(null);
+        setInterviewDate(null);
+    };
+
+    const handleCancel = () => {
+        // Hide the modal
+        setIsModalVisible(false);
+        // Reset states
+        setSelectedDoctor(null);
+        setInterviewDate(null);
+    };
+
+    useEffect(() => {
+        getDoctorData();
+    }, []);
 
     const columns = [
         {
@@ -104,36 +129,41 @@ function Doctorslist() {
                     <div className="d-flex">
                         {record.status === "pending" && <h1 className='anchor' onClick={() => changeDoctorStatus(record, "approved")}>Approve</h1>}
                         {record.status === "approved" && <h1 className='anchor' onClick={() => changeDoctorStatus(record, "Block")}>Block</h1>}
-                        
                     </div>
                 )
             }
         },
+        {
+            title: "Interview",
+            dataIndex: 'interview',
+            render: (text, record) => {
+                return (
+                    <Button type="primary" onClick={() => handleSetInterview(record)}>Set Interview</Button>
+                )
+            }
+        }
     ];
-
-    // Function to handle modal visibility
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
 
     return (
         <Layout>
             <h1 className="page-title">Doctor List </h1>
             <Table columns={columns} dataSource={doctors} />
 
-            {/* Modal for displaying resume */}
+            {/* Modal for displaying resume and setting interview */}
             <Modal
-                title="Doctor's Resume"
+                title={selectedDoctor ? `Set Interview for ${selectedDoctor.firstName} ${selectedDoctor.lastName}` : "Doctor's Resume"}
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
                 width={1000}
             >
-                <iframe src={resumeUrl} style={{ width: '100%', height: '600px' }} />
+                {selectedDoctor ? (
+                    <Space direction="vertical">
+                        <InterviewForm doctorId={selectedDoctor._id} />
+                    </Space>
+                ) : (
+                    <iframe src={resumeUrl} style={{ width: '100%', height: '600px' }} />
+                )}
             </Modal>
         </Layout>
     );

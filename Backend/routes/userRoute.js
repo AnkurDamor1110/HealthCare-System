@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const Doctor = require("../models/doctarModel");
 const Appointment = require("../models/appointmentModel");
 const Interview = require('../models/interviewModel');
+const Review =  require("../models/reviewModel");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -257,5 +258,23 @@ router.post('/update-user-profile', upload.single('profilePicture'), authMiddlew
     }
 });
 
+router.post('/submit-review', async (req, res) => {
+    try {
+        console.log(req.body);
+        
+        const { doctorId, userId, rating, comment } = req.body;
+        const review = new Review({
+            doctorId,
+            userId,
+            rating,
+            comment
+        });
+        console.log(review);
 
+        await review.save();
+        res.status(201).json({ success: true, message: 'Review submitted successfully', review });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to submit review', error });
+    }
+});
 module.exports = router;

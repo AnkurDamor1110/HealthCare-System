@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Layout from "../components/Layout";
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import axios from 'axios';
-import { Table } from 'antd';
-import {toast} from "react-hot-toast";
+import { Table, Modal, Button } from 'antd';
+import { toast } from "react-hot-toast";
 import moment from "moment";
+import ReviewForm from "../pages/Reviews/ReviewForm"; // Adjust the path as necessary
 
 function Appointment() {
-
     const [appointments, setAppointments] = useState([]);
+    const [selectedDoctorId, setSelectedDoctorId] = useState(null);
+    const [selectedUserId, setSelectedUserId] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const dispatch = useDispatch();
 
-    const getAppointmentData= async()=>{
+    const getAppointmentData = async () => {
         try {
             dispatch(showLoading());
             const response = await axios.get('/api/user/get-appointments-by-user-id', {
@@ -21,7 +24,7 @@ function Appointment() {
                 },
             });
             dispatch(hideLoading());
-            if(response.data.success){
+            if (response.data.success) {
                 setAppointments(response.data.data);
             }
         } catch (error) {
@@ -29,7 +32,16 @@ function Appointment() {
         }
     };
 
+    const showReviewModal = (doctorId,userId) => {
+        setSelectedDoctorId(doctorId);
+        setSelectedUserId(userId);
+        setIsModalVisible(true);
+    };
 
+    const handleCancel = () => {
+        setIsModalVisible(false);
+        setSelectedDoctorId(null);
+    };
 
     const columns = [
         {
@@ -39,46 +51,65 @@ function Appointment() {
         {
             title: 'Doctor',
             dataIndex: 'name',
-            render: (text,record) =>{
+            render: (text, record) => {
                 return (
-                <span >{record.doctorInfo.firstName} {record.doctorInfo.lastName}</span>
-            )
+                    <span>{record.doctorInfo.firstName} {record.doctorInfo.lastName}</span>
+                )
             }
         },
         {
             title: 'Phone',
             dataIndex: 'phoneNumber',
-            render: (text,record) =>{
+            render: (text, record) => {
                 return (
-                <span >{record.doctorInfo.phoneNumber}</span>
-            )
+                    <span>{record.doctorInfo.phoneNumber}</span>
+                )
             }
         },
         {
             title: 'Date & Time',
             dataIndex: 'createdAt',
-            render: (text,record) =>{
+            render: (text, record) => {
                 return (
-                <span >{moment(record.date).format("DD-MM-YYYY")} {moment(record.time).format("HH:mm")}</span>
-            )
+                    <span>{moment(record.date).format("DD-MM-YYYY")} {moment(record.time).format("HH:mm")}</span>
+                )
             }
         },
         {
             title: 'Status',
             dataIndex: 'status',
         },
+        {
+            title: 'Review',
+            dataIndex: 'review',
+            render: (text, record) => {
+                return (
+                    <Button type="primary" onClick={() => showReviewModal(record.doctorInfo._id , record.userInfo._id)}>
+                        Review
+                    </Button>
+                )
+            }
+        }
     ];
 
-    useEffect(()=>{
+    useEffect(() => {
         getAppointmentData();
-    },[]);
+    }, []);
 
-  return (
-    <Layout>
-    <h1 className="page-title">Appointments </h1>
-    <Table columns={columns} dataSource={appointments}/>
-    </Layout>
-  )
+    return (
+        <Layout>
+            <h1 className="page-title">Appointments</h1>
+            <Table columns={columns} dataSource={appointments} />
+            <Modal
+                title="Submit Review"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+            >
+                <ReviewForm doctorId={selectedDoctorId} userId={selectedUserId} />
+            </Modal>
+        </Layout>
+    )
 }
 
-export default Appointment
+export default Appointment;

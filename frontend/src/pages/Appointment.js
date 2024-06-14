@@ -32,7 +32,7 @@ function Appointment() {
         }
     };
 
-    const showReviewModal = (doctorId,userId) => {
+    const showReviewModal = (doctorId, userId) => {
         setSelectedDoctorId(doctorId);
         setSelectedUserId(userId);
         setIsModalVisible(true);
@@ -81,13 +81,17 @@ function Appointment() {
         },
         {
             title: 'Review',
-            dataIndex: 'review',
+            dataIndex: 'status',
             render: (text, record) => {
-                return (
-                    <Button type="primary" onClick={() => showReviewModal(record.doctorInfo._id , record.userInfo._id)}>
-                        Review
-                    </Button>
-                )
+                if (record.status === 'completed') {
+                    return (
+                        <Button type="primary" onClick={() => showReviewModal(record.doctorInfo._id, record.userInfo._id)}>
+                            Review
+                        </Button>
+                    )
+                } else {
+                    return null; // Render nothing if status is not 'completed'
+                }
             }
         }
     ];

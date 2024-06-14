@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Rate } from 'antd';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const ReviewForm = ({ doctorId, userId }) => {
     const [loading, setLoading] = useState(false);
-
+    const { user } = useSelector((state) => state.user);
     const onFinish = async (values) => {
         setLoading(true);
         try {
@@ -13,6 +14,7 @@ const ReviewForm = ({ doctorId, userId }) => {
             const response = await axios.post('/api/user/submit-review', {
                 doctorId,
                 userId,
+                userInfo:user,
                 rating: values.rating,
                 comment: values.comment
             }, {

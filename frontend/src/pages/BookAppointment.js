@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import { Button, Col, DatePicker, Row, TimePicker } from 'antd';
 import moment from 'moment';
+import DoctorReviews from './Reviews/Reviews';
 
 function BookAppointment() {
 
@@ -160,6 +161,8 @@ function BookAppointment() {
 
                         
                     </Row>
+
+                    <DoctorReviews  doctorId={doctor._id}/>
 
                 </div>
 

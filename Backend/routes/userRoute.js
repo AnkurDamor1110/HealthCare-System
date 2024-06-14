@@ -260,21 +260,37 @@ router.post('/update-user-profile', upload.single('profilePicture'), authMiddlew
 
 router.post('/submit-review', async (req, res) => {
     try {
-        console.log(req.body);
+    
         
-        const { doctorId, userId, rating, comment } = req.body;
+        const { doctorId, userId, userInfo, rating, comment } = req.body;
         const review = new Review({
             doctorId,
             userId,
+            userInfo,
             rating,
             comment
         });
-        console.log(review);
 
         await review.save();
-        res.status(201).json({ success: true, message: 'Review submitted successfully', review });
+        console.log(review);
+        res.status(200).json({ success: true, message: 'Review submitted successfully', review });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Failed to submit review', error });
+    }
+});
+
+
+router.get('/get-reviews-by-doctor-id',async (req, res) => {
+    try {
+    
+        const { doctorId } = req.query; 
+        console.log(doctorId);
+
+        const review = await Review.find({ doctorId  });
+        console.log(review);
+        res.status(200).json({ success: true, message: 'Review fetching successfully', review });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetching review', error });
     }
 });
 module.exports = router;

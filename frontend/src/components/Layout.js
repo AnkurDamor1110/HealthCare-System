@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { Badge } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faUser, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faUser,faUserMd, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital, faSquareH } from "@fortawesome/free-solid-svg-icons";
 
 function Layout({ children }) {
     const [collapsed, setCollapsed] = useState(false);
@@ -22,7 +22,7 @@ function Layout({ children }) {
         {
             name: 'Approved Doctors',
             path: '/user-dashboard',
-            icon: faHouse,
+            icon: faUserDoctor,
         },
         {
             name: 'Appointments',
@@ -55,7 +55,7 @@ function Layout({ children }) {
         {
             name: 'Approved Doctors',
             path: '/user-dashboard',
-            icon: faHouse,
+            icon: faUserDoctor,
         },
         {
             name: 'Appointments',
@@ -88,7 +88,7 @@ function Layout({ children }) {
         {
             name: 'Approved Doctors',
             path: '/user-dashboard',
-            icon: faHouse,
+            icon: faUserDoctor,
         },
         {
             name: 'Users',
@@ -119,7 +119,7 @@ function Layout({ children }) {
         <div className='flex h-screen bg-gray-100'>
             <div className={`flex flex-col ${collapsed ? 'w-20' : 'w-64'} bg-[#31b372] text-black transition-all duration-300`}>
                 <div className="p-4 border-b border-[#83C5BE] flex flex-col items-center">
-                    <h1 className="text-2xl font-bold">HealthCare</h1>
+                    {collapsed?<FontAwesomeIcon icon={faSquareH} className="icon" style={{ color: "#ffffff", fontSize: "1.5rem", justifyContent:'center' }} />:<h1 className="text-2xl font-bold">HealthCare</h1>}
                     <h2 className="text-lg font-normal">{role}</h2>
                 </div>
                 <div className="flex flex-col mt-4 space-y-2">
@@ -148,7 +148,7 @@ function Layout({ children }) {
             <div className="flex flex-col flex-1">
                 <div className="flex items-center justify-between p-4 bg-[#31b372] text-black">
                     <button onClick={() => setCollapsed(!collapsed)} className="focus:outline-none">
-                        {collapsed ? 'Expand' : 'Collapse'}
+                        {collapsed ? <i class="fa-solid fa-bars"></i> :<i class="fa-solid fa-arrow-left"></i>}
                     </button>
                     <div className="flex items-center space-x-4">
                         <Badge count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>

@@ -21,7 +21,7 @@ function Layout({ children }) {
         },
         {
             name: 'Approved Doctors',
-            path: '/user-dashboard',
+            path: '/approved-doctor',
             icon: faHouse,
         },
         {
@@ -54,7 +54,7 @@ function Layout({ children }) {
         },
         {
             name: 'Approved Doctors',
-            path: '/user-dashboard',
+            path: '/approved-doctor',
             icon: faHouse,
         },
         {
@@ -87,7 +87,7 @@ function Layout({ children }) {
         },
         {
             name: 'Approved Doctors',
-            path: '/user-dashboard',
+            path: '/approved-doctor',
             icon: faHouse,
         },
         {

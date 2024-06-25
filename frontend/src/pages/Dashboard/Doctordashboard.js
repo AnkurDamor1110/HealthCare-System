@@ -198,7 +198,7 @@ function Doctordashboard() {
       <div className="dashboard-header">
         <div className="header-background">
           <div className="header-content">
-            <h1>Welcome Dr. {user.name}</h1>
+            <h1>Welcome Dr. {user?.name}</h1>
           </div>
         </div>
         <hr />

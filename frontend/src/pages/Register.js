@@ -8,6 +8,7 @@ import { hideLoading, showLoading } from '../redux/alertsSlice';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { UploadOutlined } from '@ant-design/icons';
+import './Register.css';
 
 const { Option } = Select;
 
@@ -79,7 +80,7 @@ function Register() {
     <>
       <Header />
       <div className='authentication hero__section'>
-        <div className='authentication-form card p-3'>
+        <div className='authentication-form card-for-register p-3'>
           <h3 className='text-headingcolor text-[22px] leading-9 font-bold mb-4'>
             Create an <span className='text-primarycolor'>account</span>
           </h3>
@@ -117,6 +118,8 @@ function Register() {
             >
               <Input placeholder='Password' type='password' />
             </Form.Item>
+            
+            <div className='flex justify-between'>
 
             <Form.Item
               label="Gender"
@@ -131,22 +134,23 @@ function Register() {
             </Form.Item>
 
             <Form.Item
-                            label="Profile Image"
-                            name="profilePicture"
-                            valuePropName="fileList"
-                            getValueFromEvent={normFile}
+              label="Profile Image"
+              name="profilePicture"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
               rules={[{ required: true, message: 'Please upload your profile image!' }]}
-            >
+              >
               <Upload 
                 name="profilePicture"
                 listType="picture"
                 beforeUpload={() => false}
                 maxCount={1}
-              >
+                >
                 <Button icon={<UploadOutlined />}>Click to upload</Button>
               </Upload>
             </Form.Item>
 
+            </div>
             <Form.Item>
               <Button className="primary-button my-2" type="primary" htmlType="submit">
                 Register

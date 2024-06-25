@@ -1,0 +1,65 @@
+/* Global styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .authentication {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .hero__section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add padding if needed */
+  }
+  
+  .authentication-form {
+    width: 100%;
+    max-width: 400px; /* Example width */
+    margin: auto; /* Center horizontally */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add some shadow for better visual */
+    background-color: #fff; /* Ensure it's on top of any background */
+  }
+  
+  .primary-button {
+    width: 100%; /* Make the button full-width */
+  }
+  
+  .mt-4 {
+    margin-top: 1rem;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Header and Footer styles */
+  header, footer {
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background color */
+  }
+  
+  footer {
+    margin-top: auto; /* Push footer to the bottom */
+  }
+  
+  .text-headingcolor {
+    color: #333; /* Example heading color */
+  }
+  
+  .text-primarycolor {
+    color: #007bff; /* Example primary color */
+  }
+  
+  .text-textcolor {
+    color: #555; /* Example text color */
+  }
+  

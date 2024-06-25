@@ -15,15 +15,16 @@ function Layout({ children }) {
     const userMenu = [
       
         {
+            name: 'Approved Doctors',
+            path: '/approved-doctor',
+            icon: faUserDoctor,
+        },
+        {
             name: 'Dashboard',
             path: '/user-dashboard',
             icon: faHouse,
         },
-        {
-            name: 'Approved Doctors',
-            path: '/approved-doctor',
-            icon: faHouse,
-        },
+        
         {
             name: 'Appointments',
             path: '/appointments',
@@ -48,15 +49,16 @@ function Layout({ children }) {
 
     const doctorMenu = [
         {
+            name: 'Approved Doctors',
+            path: '/approved-doctor',
+            icon: faUserDoctor,
+        },
+        {
             name: 'Dashboard',
             path: '/doctor-dashboard',
             icon: faHouse,
         },
-        {
-            name: 'Approved Doctors',
-            path: '/approved-doctor',
-            icon: faHouse,
-        },
+        
         {
             name: 'Appointments',
             path: '/doctor/appointments',
@@ -81,15 +83,16 @@ function Layout({ children }) {
 
     const adminMenu = [
         {
+            name: 'Approved Doctors',
+            path: '/approved-doctor',
+            icon: faUserDoctor,
+        },
+        {
             name: 'Dashboard',
             path: '/admin-dashboard',
             icon: faHouse,
         },
-        {
-            name: 'Approved Doctors',
-            path: '/approved-doctor',
-            icon: faHouse,
-        },
+       
         {
             name: 'Users',
             path: '/admin/userslist',

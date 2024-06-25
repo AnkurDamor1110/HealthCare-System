@@ -76,7 +76,7 @@ const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <footer className='pb-16 pt-10'>
+    <footer className='pb-16 pt-10 mt-auto' >
       <div className='containerforhome'>
         <div className='flex justify-between flex-col md:flex-row flex-wrap gap-[30px]'>
           <div>

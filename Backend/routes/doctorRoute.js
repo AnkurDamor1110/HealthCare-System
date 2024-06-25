@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/userModel");
 const Doctor = require("../models/doctarModel");
 const Appointment = require("../models/appointmentModel");
+const TreatmentMeeting = require("../models/treatmentMeetingModel");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post('/get-doctor-info-by-user-id', authMiddleware, async(req,res) =>{
@@ -126,5 +127,60 @@ router.get('/get-users-appointments-by-doctor-id',authMiddleware, async (req, re
     }
 });
 
+router.post('/schedule-treatment-meeting', async (req, res) => {
+    try {
+        const { doctorId, userId, googleMeetLink, message, doctorInfo } = req.body;
+
+        if (!doctorId || !userId || !googleMeetLink || !message) {
+            return res.status(400).send({ message: "All fields are required", success: false });
+        }
+
+        const newMeeting = new TreatmentMeeting({
+            doctorId,
+            userId,
+            doctorInfo,
+            googleMeetLink,
+            message,
+        });
+        console.log(newMeeting);
+        await newMeeting.save();
+
+        const user = await User.findById( {_id: userId });
+        console.log(user);
+        user.unseenNotifications.push({
+        type: "new-doctor-request",
+        message: `You get Treatment meeting Video link with doctor click for more information! `,
+        onclickPath: `/Treatment-meeting-details`
+       });
+       await user.save();
+       console.log(user.unseenNotifications);
+
+        res.status(200).send({ message: "Treatment meeting Video link sent successfully", success: true, data: newMeeting });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error scheduling treatment meeting", success: false, error });
+    }
+});
+
+router.get('/get-treatment-meeting-details', authMiddleware, async (req, res) => {
+    try {
+        const { userId } = req.body;
+
+        if (!userId) {
+            return res.status(400).send({ message: "User ID is required", success: false });
+        }
+
+        const meetingDetails = await TreatmentMeeting.findOne({ userId }).populate('doctorId', 'name');
+
+        if (!meetingDetails) {
+            return res.status(404).send({ message: "No treatment meeting found", success: false });
+        }
+
+        res.status(200).send({ message: "Treatment meeting details fetched successfully", success: true, data: meetingDetails });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetching treatment meeting details", success: false, error });
+    }
+});
 
 module.exports = router;

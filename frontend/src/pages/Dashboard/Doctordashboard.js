@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import axios from "axios";
 import Layout from "../../components/Layout";
@@ -25,12 +25,14 @@ ChartJS.register(
 );
 
 function Doctordashboard() {
+  const { user } = useSelector((state) => state.user);
   const [appointments, setAppointments] = useState([]);
   const [sucessAppointments, setsucessAppointments] = useState([]);
   const [pendingAppointments, setpendingAppointments] = useState([]);
   const [approvedAppointments, setapprovedAppointments] = useState([]);
   const [rejectedAppointments, setrejectedAppointments] = useState([]);
   const [doctorUsers, setdoctorUsers] = useState([]);
+  const [userName, setUserName] = useState("Doctor Name"); // Replace with actual user name
   const dispatch = useDispatch();
 
   const getAppointments = async () => {
@@ -140,7 +142,7 @@ function Doctordashboard() {
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
-          },
+          }, 
         }
       );
       dispatch(hideLoading());
@@ -194,7 +196,11 @@ function Doctordashboard() {
   return (
     <Layout>
       <div className="dashboard-header">
-        <h1>Doctor Dashboard</h1>
+        <div className="header-background">
+          <div className="header-content">
+            <h1>Welcome Dr. {user.name}</h1>
+          </div>
+        </div>
         <hr />
       </div>
       <div className="dashboard-stats">

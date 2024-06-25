@@ -1,3 +1,24 @@
+/* Doctordashboard.css */
+
+.header-background {
+  background-image: url('./welcomeBanner.png');
+  background-size: cover;
+  /* background-position: center; */
+  position: relative;
+  height: 300px; 
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.header-content {
+  position: absolute;
+  color: white;
+  /* font-size: 2em;  */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+}
+
+
 .dashboard-header {
     margin-bottom: 25px;
     font-size: 25px;

@@ -35,7 +35,7 @@ function ApplyDoctor() {
             dispatch(hideLoading());
             if(response.data.success){
                 toast.success(response.data.message);
-                navigate("/user-dashboard");
+                navigate("/approved-doctor");
             }else{
                 toast.error(response.data.message);
             }

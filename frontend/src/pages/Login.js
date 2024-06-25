@@ -19,7 +19,7 @@ function Login() {
             if(response.data.success){
                 toast.success(response.data.message);
                 localStorage.setItem("token", response.data.data);
-                navigate("/user-dashboard");
+                navigate("/approved-doctor");
             }else{
                 toast.error(response.data.message);
             }

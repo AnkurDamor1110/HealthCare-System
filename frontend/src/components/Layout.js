@@ -16,12 +16,12 @@ function Layout({ children }) {
       
         {
             name: 'Dashboard',
-            path: '/dashboard',
+            path: '/user-dashboard',
             icon: faHouse,
         },
         {
             name: 'Approved Doctors',
-            path: '/user-dashboard',
+            path: '/approved-doctor',
             icon: faHouse,
         },
         {
@@ -41,7 +41,7 @@ function Layout({ children }) {
         },
         {
             name: 'Profile',
-            path: `/user-dashboard/profile/${user?._id}`,
+            path: `/user/profile/${user?._id}`,
             icon: faUser,
         },
     ];
@@ -54,7 +54,7 @@ function Layout({ children }) {
         },
         {
             name: 'Approved Doctors',
-            path: '/user-dashboard',
+            path: '/approved-doctor',
             icon: faHouse,
         },
         {
@@ -87,7 +87,7 @@ function Layout({ children }) {
         },
         {
             name: 'Approved Doctors',
-            path: '/user-dashboard',
+            path: '/approved-doctor',
             icon: faHouse,
         },
         {
@@ -107,7 +107,7 @@ function Layout({ children }) {
         },
         {
             name: 'Profile',
-            path: '/profile',
+            path: `/user/profile/${user?._id}`,
             icon: faUser,
         },
     ];

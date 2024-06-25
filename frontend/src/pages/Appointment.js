@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Table, Modal, Button } from 'antd';
 import { toast } from "react-hot-toast";
 import moment from "moment";
-import ReviewForm from "../pages/Reviews/ReviewForm"; // Adjust the path as necessary
+import ReviewForm from "../pages/Reviews/ReviewForm";
 
 function Appointment() {
     const [appointments, setAppointments] = useState([]);
@@ -90,7 +90,7 @@ function Appointment() {
                         </Button>
                     )
                 } else {
-                    return null; // Render nothing if status is not 'completed'
+                    return null; 
                 }
             }
         }

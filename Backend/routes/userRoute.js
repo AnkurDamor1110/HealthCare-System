@@ -293,4 +293,92 @@ router.get('/get-reviews-by-doctor-id',async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to fetching review', error });
     }
 });
+
+router.get('/get-user-doctors-by-user-id', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.body.userId;
+
+        if (!userId) {
+            return res.status(400).send({ message: "User ID is required", success: false });
+        }
+        const doctorIds = await Appointment.distinct('doctorId', { userId: userId });
+        const doctors = await Doctor.find({ _id: { $in: doctorIds } });
+        res.status(200).send({ message: "User's Doctors fetched successfully", success: true, data: doctors });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetching user's doctors", success: false, error });
+    }
+});
+
+router.get('/get-success-appointments-by-user-id',authMiddleware, async (req, res) => {
+    try {
+        // const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({userId: req.body.userId , status: 'completed'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+router.get('/get-padding-appointments-by-user-id',authMiddleware, async (req, res) => {
+    try {
+        // const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({userId: req.body.userId , status: 'padding'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-approved-appointments-by-user-id',authMiddleware, async (req, res) => {
+    try {
+        // const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({userId: req.body.userId , status: 'approved'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+router.get('/get-rejected-appointments-by-user-id',authMiddleware, async (req, res) => {
+    try {
+        // const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({userId: req.body.userId  , status: 'rejected'});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-appointments-by-user-id',authMiddleware, async (req, res) => {
+    try {
+        // const doctor = await Doctor.findOne({userId: req.body.userId });
+       const appointments = await Appointment.find({userId: req.body.userId});
+       res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+
+router.get('/get-doctors-rating', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.body.userId;
+        console.log(userId);
+        if (!userId) {
+            return res.status(400).send({ message: "User ID is required", success: false });
+        }
+        const ratings = await Review.find({ doctorId: userId });
+        console.log(ratings);
+        res.status(200).send({ message: "Doctor ratings fetched successfully", success: true, data: ratings });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetching ratings", success: false, error });
+    }
+});
+
+
 module.exports = router;

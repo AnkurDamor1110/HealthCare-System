@@ -6,7 +6,7 @@ import Doctor from '../components/Doctor';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 
-function Home() {
+function ApprovedDoctorHome() {
 
     const [doctors,setDoctor] = useState([]);
     const dispatch = useDispatch();
@@ -45,4 +45,4 @@ function Home() {
     </Layout>
 }
 
-export default Home
+export default ApprovedDoctorHome

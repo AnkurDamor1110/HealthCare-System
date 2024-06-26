@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { Toaster } from 'react-hot-toast';
-import UserDashboard from './pages/Home';
+import UserDashboard from './pages/ApprovedDoctorHome';
 import HomePage from './components/HomePage';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
@@ -28,6 +28,9 @@ import UserProfile from './pages/User/UserProfile';
 import Admindashboard from './pages/Dashboard/Admindashboard';
 import Doctordashboard from './pages/Dashboard/Doctordashboard';
 import UserInterviewDetails from './pages/Admin/InterviewView';
+import ApprovedDoctorHome from './pages/ApprovedDoctorHome';
+import Userdashboard from './pages/Dashboard/Userdashboard';
+import UserTreatmentView from './pages/Doctor/UserTreatmentView';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 function App() {
   const {loading} = useSelector((state) => state.alerts);
@@ -53,21 +56,22 @@ function App() {
           <Route path='/prescriptions' element={<AddPrescriptionForm />} />
           <Route path='/prescriptionview' element={ <PrescriptionView />} />
           <Route path='/admin-dashboard' element={ <Admindashboard/>} />
-          <Route path='/doctor-dashboard' element={ <Doctordashboard/> }/>
+          <Route path='/doctor-dashboard' element={ <Doctordashboard/> }/> 
+          <Route path='/user-dashboard' element={ <Userdashboard/> }/>
           <Route path='/interview-details' element={ <UserInterviewDetails/> }/>
+          <Route path='/treatment-meeting-details' element={ <UserTreatmentView/> }/>
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
-          <Route path='/user-dashboard' element={ <ProtectedRoute> <UserDashboard /> </ProtectedRoute>} />
+          <Route path='/approved-doctor' element={ <ProtectedRoute> <ApprovedDoctorHome/> </ProtectedRoute>} />
           <Route path='/apply-doctor' element={ <ProtectedRoute> <ApplyDoctor/> </ProtectedRoute>} />
           <Route path='/notifications' element={ <ProtectedRoute> <Notifications/> </ProtectedRoute>} />
           <Route path='/admin/userslist' element={ <ProtectedRoute> <Userslist/> </ProtectedRoute>} />
           <Route path='/admin/doctorslist' element={ <ProtectedRoute> <Doctorslist/> </ProtectedRoute>} />
           <Route path='/doctor/profile/:userId' element={ <ProtectedRoute> <Profile/> </ProtectedRoute>} />
-          <Route path='/user-dashboard/book-appointment/:doctorId' element={ <ProtectedRoute> <BookAppointment/> </ProtectedRoute>} />
+          <Route path='/approved-doctor/book-appointment/:doctorId' element={ <ProtectedRoute> <BookAppointment/> </ProtectedRoute>} />
           <Route path='/appointments' element={ <ProtectedRoute> <Appointment/> </ProtectedRoute>} />
           <Route path='/doctor/appointments' element={ <ProtectedRoute> <DoctorsAppointment/> </ProtectedRoute>} />
           <Route path='/user-dashboard/profile/:userId' element={ <ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
-          <Route path='/checkoutsuccess' element={ <ProtectedRoute> <CheckoutSuccess /> </ProtectedRoute>} />
 
         </Routes>
       </BrowserRouter>

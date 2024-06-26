@@ -15,15 +15,16 @@ function Layout({ children }) {
     const userMenu = [
       
         {
-            name: 'Dashboard',
-            path: '/dashboard',
-            icon: faHouse,
-        },
-        {
             name: 'Approved Doctors',
-            path: '/user-dashboard',
+            path: '/approved-doctor',
             icon: faUserDoctor,
         },
+        {
+            name: 'Dashboard',
+            path: '/user-dashboard',
+            icon: faHouse,
+        },
+        
         {
             name: 'Appointments',
             path: '/appointments',
@@ -41,22 +42,23 @@ function Layout({ children }) {
         },
         {
             name: 'Profile',
-            path: `/user-dashboard/profile/${user?._id}`,
+            path: `/user/profile/${user?._id}`,
             icon: faUser,
         },
     ];
 
     const doctorMenu = [
         {
+            name: 'Approved Doctors',
+            path: '/approved-doctor',
+            icon: faUserDoctor,
+        },
+        {
             name: 'Dashboard',
             path: '/doctor-dashboard',
             icon: faHouse,
         },
-        {
-            name: 'Approved Doctors',
-            path: '/user-dashboard',
-            icon: faUserDoctor,
-        },
+        
         {
             name: 'Appointments',
             path: '/doctor/appointments',
@@ -81,15 +83,16 @@ function Layout({ children }) {
 
     const adminMenu = [
         {
+            name: 'Approved Doctors',
+            path: '/approved-doctor',
+            icon: faUserDoctor,
+        },
+        {
             name: 'Dashboard',
             path: '/admin-dashboard',
             icon: faHouse,
         },
-        {
-            name: 'Approved Doctors',
-            path: '/user-dashboard',
-            icon: faUserDoctor,
-        },
+       
         {
             name: 'Users',
             path: '/admin/userslist',
@@ -107,7 +110,7 @@ function Layout({ children }) {
         },
         {
             name: 'Profile',
-            path: '/profile',
+            path: `/user/profile/${user?._id}`,
             icon: faUser,
         },
     ];

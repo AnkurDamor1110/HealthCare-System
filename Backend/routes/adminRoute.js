@@ -45,15 +45,14 @@ router.post('/schedule-interview', async (req, res) => {
         const doctor = await Doctor.findById( {_id: doctorId});
         const user = await User.findById( {_id: doctor.userId });
 
-        console.log(user.name);
-        const unseenNotifications = user.unseenNotifications;
+      
         user.unseenNotifications.push({
         type: "new-doctor-request",
-        message: `You have interview schedule for you doctor Profile clicke for more information! `,
+        message: `You get interview schedule for you doctor Profile click for more information! `,
         onclickPath: `/interview-details`
        });
        await user.save();
-       console.log(user.unseenNotifications);
+    
         // Respond with success message
         res.status(200).send({ success: true, message: 'Interview scheduled successfully.' });
     } catch (error) {
@@ -135,9 +134,10 @@ router.get('/get-all-rejected-appointments',authMiddleware, async (req, res) => 
 });
 
 
-router.get('/get-all-medicine',authMiddleware, async (req, res) => {
+router.get('/get-all-medicines',authMiddleware, async (req, res) => {
     try {
        const medicines = await Medicine.find();
+       console.log(medicines);
        res.status(200).send({ message: "Appointments fetched successfully", success: true, data: medicines });
     } catch (error) {
         console.log(error);

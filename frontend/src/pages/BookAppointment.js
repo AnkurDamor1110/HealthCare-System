@@ -195,7 +195,7 @@ function BookAppointment() {
                     </Row>
 
                     <DoctorReviews  doctorId={doctor._id}/>
-
+                    
                 </div>
 
             )}

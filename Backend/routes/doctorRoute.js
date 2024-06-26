@@ -150,7 +150,7 @@ router.post('/schedule-treatment-meeting', async (req, res) => {
         user.unseenNotifications.push({
         type: "new-doctor-request",
         message: `You get Treatment meeting Video link with doctor click for more information! `,
-        onclickPath: `/Treatment-meeting-details`
+        onclickPath: `/treatment-meeting-details`
        });
        await user.save();
        console.log(user.unseenNotifications);

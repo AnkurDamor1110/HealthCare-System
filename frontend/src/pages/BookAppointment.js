@@ -152,8 +152,8 @@ function BookAppointment() {
                     
                     <Row gutter={20} className='mt-5' align='middle'>
                     <Col span={8} sm={24} xs={24} lg={8}>
-                            <img src='https://c8.alamy.com/comp/PR8PD2/doctor-appointment-icon-with-stethoscope-PR8PD2.jpg'
-                             alt=''
+                            <img src={doctor.photo}
+                             alt='Doctor Picture'
                              width='100%'
                              height='400px'
                              />
@@ -163,7 +163,7 @@ function BookAppointment() {
                             <h1 className="normal-text"><b>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</h1>
                             <p><b>Phone Number:</b> {doctor.phoneNumber}</p>
                             <p><b>Address:</b> {doctor.address}</p>
-                            <p><b>Fee per Visit:</b> {doctor.freePeerCunsultation}</p>
+                            <p><b>Fee per Visit:</b> {doctor.feesPerConsultation}</p>
                             <p><b>Website:</b> {doctor.website}</p>
 
                             <div className="d-flex flex-column pt-2 mt-2">

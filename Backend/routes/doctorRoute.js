@@ -86,7 +86,7 @@ router.get('/get-success-appointments-by-doctor-id',authMiddleware, async (req, 
 router.get('/get-padding-appointments-by-doctor-id',authMiddleware, async (req, res) => {
     try {
         const doctor = await Doctor.findOne({userId: req.body.userId });
-       const appointments = await Appointment.find({doctorId: doctor._id , status: 'padding'});
+       const appointments = await Appointment.find({doctorId: doctor._id , status: 'pending'});
        res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
     } catch (error) {
         console.log(error);

@@ -9,9 +9,15 @@ const getCheckoutSession = async (req, res) => {
 
         const doctor = await Doctor.findById(doctorId);
         const user = await User.findById(userId);
-
+        console.log(doctor.feesPerConsultation);
         if (!doctor || !user) {
             return res.status(404).json({ success: false, message: "Doctor or user not found" });
+        }
+
+        const feesPerConsultation = parseFloat(doctor.feesPerConsultation);
+
+        if (isNaN(feesPerConsultation)) {
+            return res.status(400).json({ success: false, message: "Invalid doctor fees per consultation" });
         }
 
         const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -27,7 +33,7 @@ const getCheckoutSession = async (req, res) => {
                 {
                     price_data: {
                         currency: 'inr',
-                        unit_amount: doctor.feesPerConsultation * 100,
+                        unit_amount: Math.round(feesPerConsultation * 100),
                         product_data: {
                             name: doctor.firstName,
                             description: doctor.specialization,
@@ -48,7 +54,7 @@ const getCheckoutSession = async (req, res) => {
             session: session.id
         });
 
-        console.log("Booking object:", booking);
+        // console.log("Booking object:", booking);
 
         await booking.save();
 

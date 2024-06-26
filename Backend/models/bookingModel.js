@@ -12,7 +12,7 @@ const bookingSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
-        ticketprice: { type: String, required: true },
+        ticketPrice: { type: Number, required: true },
         status: {
             type:String,
             enum: ["pending", "approved", "cancelled"],

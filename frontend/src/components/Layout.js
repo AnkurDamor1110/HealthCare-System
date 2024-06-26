@@ -151,7 +151,7 @@ function Layout({ children }) {
             <div className="flex flex-col flex-1">
                 <div className="flex items-center justify-between p-4 bg-[#31b372] text-black">
                     <button onClick={() => setCollapsed(!collapsed)} className="focus:outline-none">
-                        {collapsed ? <i class="fa-solid fa-bars"></i> :<i class="fa-solid fa-arrow-left"></i>}
+                        {collapsed ? <i class="fa-solid fa-bars"></i> :<i className="fa-solid fa-xmark fa-lg"></i>}
                     </button>
                     <div className="flex items-center space-x-4">
                         <Badge count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>

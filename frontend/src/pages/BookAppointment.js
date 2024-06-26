@@ -107,8 +107,36 @@ function BookAppointment() {
         }
     }
 
-    useEffect(() => {
+    const bookingHandler = async () => {
+        try {
+            const response = await axios.post('/api/bookings/checkout-session', {
+                doctorId: params.doctorId,
+                userId: user._id,
+            }, {
+                headers: {
+                    Authorization: `Bearer ` + localStorage.getItem('token'),
+                }
+            });
+    
+            const data = response.data; // Axios automatically parses the JSON response
+    
+            console.log(data);
+            
+            if (response.status !== 200) {
+                throw new Error(data.message + ' Please try again');
+            }
+    
+            if (data.session.url) {
+                window.location.href = data.session.url;
+            }
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
+    
 
+    useEffect(() => {
+        
         getDoctorData();
 
     }, []);
@@ -154,7 +182,11 @@ function BookAppointment() {
                                )}
 
                                 {isAvailable && (
-                                    <Button className='primary-button mt-2 full-width-button' onClick={bookNow}>Book Now</Button>
+                                    <Button className='primary-button mt-2 full-width-button' onClick={() => {
+                                        // bookingHandler()
+                                        bookNow()
+                                        bookingHandler()
+                                    }}>Book Now</Button>
                                 )}
                             </div>
                         </Col>

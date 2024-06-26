@@ -28,6 +28,7 @@ import UserProfile from './pages/User/UserProfile';
 import Admindashboard from './pages/Dashboard/Admindashboard';
 import Doctordashboard from './pages/Dashboard/Doctordashboard';
 import UserInterviewDetails from './pages/Admin/InterviewView';
+import CheckoutSuccess from './pages/CheckoutSuccess';
 function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
@@ -66,6 +67,7 @@ function App() {
           <Route path='/appointments' element={ <ProtectedRoute> <Appointment/> </ProtectedRoute>} />
           <Route path='/doctor/appointments' element={ <ProtectedRoute> <DoctorsAppointment/> </ProtectedRoute>} />
           <Route path='/user-dashboard/profile/:userId' element={ <ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
+          <Route path='/checkoutsuccess' element={ <ProtectedRoute> <CheckoutSuccess /> </ProtectedRoute>} />
 
         </Routes>
       </BrowserRouter>

@@ -8,12 +8,14 @@ const adminRoute = require("./routes/adminRoute");
 const doctorRoute = require("./routes/doctorRoute");
 const medicineRoute = require("./routes/medicineRoutes");
 const prescriptionRoute = require("./routes/prescriptionRoute");
+const bookingRoute = require("./routes/booking");
 
 app.use('/api/user', userRoute);
 app.use('/api/admin',adminRoute);
 app.use('/api/doctor', doctorRoute);
 app.use('/api', medicineRoute );
-app.use('/api', prescriptionRoute)
+app.use('/api', prescriptionRoute);
+app.use('/api/bookings', bookingRoute);
 
 const port = process.env.PORT || 5000;
 

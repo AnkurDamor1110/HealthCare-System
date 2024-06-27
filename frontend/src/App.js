@@ -73,7 +73,6 @@ function App() {
           <Route path='/doctor/appointments' element={ <ProtectedRoute> <DoctorsAppointment/> </ProtectedRoute>} />
           <Route path='/user/profile/:userId' element={ <ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
           <Route path='/checkoutsuccess' element={ <ProtectedRoute> <CheckoutSuccess /> </ProtectedRoute>} />
-
         </Routes>
       </BrowserRouter>
     </div>

@@ -5,13 +5,33 @@ import { useSelector } from 'react-redux';
 import { Badge } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faUser, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital, faSquareH } from "@fortawesome/free-solid-svg-icons";
+// import axios from 'axios';
 
 function Layout({ children }) {
     const [collapsed, setCollapsed] = useState(false);
     const { user } = useSelector((state) => state.user);
     const location = useLocation();
     const navigate = useNavigate();
+    // const [image, setImage] = useState('');
 
+    // const fecthImg = async () =>{
+    //     try {
+    //         const imgUrl = await axios.get('/api/get-profilePicture-by-user-id',{
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //               },
+    //         });
+            
+    //         if(imgUrl.data.success){
+    //             setImage(imgUrl);
+    //         }
+    //         else{
+    //             console.log(imgUrl.data.message);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching Profile-Picture:', error);
+    //     }
+    // }
     const userMenu = [
       
         {
@@ -115,6 +135,10 @@ function Layout({ children }) {
         },
     ];
 
+    // useEffect(()=>{
+    //     fecthImg();
+    // },[user._id])
+
     const menuToBeRendered = user?.isAdmin ? adminMenu : user?.isDoctor ? doctorMenu : userMenu;
     const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
 
@@ -151,13 +175,17 @@ function Layout({ children }) {
             <div className="flex flex-col flex-1">
                 <div className="flex items-center justify-between p-4 bg-[#31b372] text-black">
                     <button onClick={() => setCollapsed(!collapsed)} className="focus:outline-none">
-                        {collapsed ? <i class="fa-solid fa-bars"></i> :<i class="fa-solid fa-arrow-left"></i>}
+                        {collapsed ? <i class="fa-solid fa-bars"></i> :<i className="fa-solid fa-xmark fa-lg"></i>}
                     </button>
                     <div className="flex items-center space-x-4">
                         <Badge count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>
                             <FontAwesomeIcon icon={faBell} className="cursor-pointer" />
                         </Badge>
-                        <Link to='/profile' className="text-black">{user?.name}</Link>
+                        <div className='flex flex-row items-center'>
+                            <img className='h-10 rounded-full ml-3' src="https://th.bing.com/th/id/OIP.YwA6xGkFItqFcdN8eHm-aAAAAA?rs=1&pid=ImgDetMain" alt="img" />
+                            <Link to='/profile' className="text-black text-lg mx-2 font-semibold">{user?.name}</Link>
+                        </div>
+                        
                     </div>
                 </div>
                 <div className="flex-1 p-4 bg-gray-100 overflow-y-auto">

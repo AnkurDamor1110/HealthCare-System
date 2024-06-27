@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import Layout from '../../components/Layout';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Layout from "../../components/Layout";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function PrescriptionView() {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -20,16 +20,19 @@ export default function PrescriptionView() {
   const user = useSelector((state) => state.user);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [selectedDoctor, setSelectedDoctor] = useState('');
+  const [selectedDoctor, setSelectedDoctor] = useState("");
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get('/api/user/get-appointments-by-user-id', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await axios.get(
+          "/api/user/get-appointments-by-user-id",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
         if (response.data.success) {
           setAppointments(response.data.data);
@@ -37,15 +40,15 @@ export default function PrescriptionView() {
           console.error(response.data.message);
         }
       } catch (error) {
-        console.error('Error fetching appointments:', error);
+        console.error("Error fetching appointments:", error);
       }
     };
 
     const fetchPrescriptions = async () => {
       try {
-        const response = await axios.get('/api/get-prescriptions-by-user-id', {
+        const response = await axios.get("/api/get-prescriptions-by-user-id", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -55,15 +58,15 @@ export default function PrescriptionView() {
           console.error(response.data.message);
         }
       } catch (error) {
-        console.error('Error fetching prescriptions:', error);
+        console.error("Error fetching prescriptions:", error);
       }
     };
 
     const fetchMedicines = async () => {
       try {
-        const response = await axios.get('/api/medicines', {
+        const response = await axios.get("/api/medicines", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -73,7 +76,7 @@ export default function PrescriptionView() {
           setMedicines([]);
         }
       } catch (error) {
-        console.error('Error fetching medicines:', error);
+        console.error("Error fetching medicines:", error);
         setMedicines([]);
       }
     };
@@ -93,7 +96,10 @@ export default function PrescriptionView() {
   };
 
   const getAppointmentById = (appointmentId) => {
-    return appointments.find((appointment) => appointment._id === appointmentId) || {};
+    return (
+      appointments.find((appointment) => appointment._id === appointmentId) ||
+      {}
+    );
   };
 
   const getMedicineById = (medicineId) => {
@@ -102,23 +108,32 @@ export default function PrescriptionView() {
 
   const filteredPrescriptions = prescriptions.filter((prescription) => {
     const appointment = getAppointmentById(prescription.appointmentId);
-    return !selectedDoctor || appointment.doctorInfo?.firstName === selectedDoctor;
+    return (
+      !selectedDoctor || appointment.doctorInfo?.firstName === selectedDoctor
+    );
   });
 
-  const uniqueDoctors = [...new Set(appointments.map(appointment => appointment.doctorInfo?.firstName))];
+  const uniqueDoctors = [
+    ...new Set(
+      appointments.map((appointment) => appointment.doctorInfo?.firstName)
+    ),
+  ];
 
   const columns = [
-    { id: 'medicineName', label: 'Medicine Name', minWidth: 170 },
-    { id: 'description', label: 'Medicine Description', minWidth: 170 },
-    { id: 'dosage', label: 'Dosage', minWidth: 100 },
-    { id: 'quantity', label: 'Quantity', minWidth: 100 },
+    { id: "medicineName", label: "Medicine Name", minWidth: 170 },
+    { id: "description", label: "Medicine Description", minWidth: 170 },
+    { id: "dosage", label: "Dosage", minWidth: 100 },
+    { id: "quantity", label: "Quantity", minWidth: 100 },
   ];
 
   return (
     <Layout>
       <div className="prescriptions">
-        <h1>Your Prescriptions</h1>
-        <div style={{ marginBottom: '1rem' }}>
+        <div className="bg-white flex items-center justify-center w-1/3 rounded-md my-1 shadow-sm">
+          <h1 className="py-2 text-lg font-semibold">Your Prescriptions</h1>
+        </div>
+
+        <div style={{ marginBottom: "1rem" }}>
           <TextField
             select
             label="Select Doctor"
@@ -142,14 +157,28 @@ export default function PrescriptionView() {
               <Paper
                 key={prescription._id}
                 sx={{
-                  width: '95%',
-                  overflow: 'hidden',
+                  width: "95%",
+                  overflow: "hidden",
                   marginTop: 2,
-                  boxShadow: '0 12px 24px rgba(0, 0, 0, 0.2) ',
+                  boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2) ",
                 }}
               >
-                <h2>Prescription from Dr. {doctorInfo.firstName}</h2>
-                <p>Date: {prescription.createdAt && new Date(prescription.createdAt).toLocaleDateString()}</p>
+                <div className="flex flex-row pl-3">
+                  <i className="fa-solid fa-notes-medical fa-sm pt-3" style={{color: "#6b6b6b"}} ></i>
+                  <h2 className="text-md font-semibold pl-1 pt-1.5 pb-2">
+                    Prescription from Dr. {doctorInfo.firstName}
+                  </h2>
+                </div>
+
+                <div className="flex flex-row pl-3">
+                  <i className="fa-solid fa-calendar-days fa-sm pt-2.5" style={{color: "#6b6b6b"}}></i>
+                  <p className="pl-1 text-sm text-gray-700">
+                    Date:{" "}
+                    {prescription.createdAt &&
+                      new Date(prescription.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+
                 <TableContainer>
                   <Table stickyHeader aria-label="sticky table">
                     <TableHead>
@@ -158,15 +187,18 @@ export default function PrescriptionView() {
                           <TableCell
                             key={column.id}
                             align={column.align}
-                            style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
+                            style={{
+                              minWidth: column.minWidth,
+                              fontWeight: "bold",
+                            }}
                           >
                             {column.label}
                           </TableCell>
                         ))}
-                        <TableCell align="right" style={{ fontWeight: 'bold' }}>
+                        <TableCell align="right" style={{ fontWeight: "bold" }}>
                           Remarks
                         </TableCell>
-                        <TableCell align="right" style={{ fontWeight: 'bold' }}>
+                        <TableCell align="right" style={{ fontWeight: "bold" }}>
                           Paid
                         </TableCell>
                       </TableRow>
@@ -175,13 +207,24 @@ export default function PrescriptionView() {
                       {prescription.prescribedMed.map((medicine) => {
                         const medDetails = getMedicineById(medicine.medicineId);
                         return (
-                          <TableRow hover role="checkbox" tabIndex={-1} key={medicine._id}>
-                            <TableCell>{medDetails.name || medicine.medicineId}</TableCell>
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={medicine._id}
+                          >
+                            <TableCell>
+                              {medDetails.name || medicine.medicineId}
+                            </TableCell>
                             <TableCell>{medDetails.description}</TableCell>
                             <TableCell>{medicine.dosage}</TableCell>
                             <TableCell>{medicine.qty}</TableCell>
-                            <TableCell align="right">{prescription.remarks}</TableCell>
-                            <TableCell align="right">{prescription.paid ? 'Yes' : 'No'}</TableCell>
+                            <TableCell align="right">
+                              {prescription.remarks}
+                            </TableCell>
+                            <TableCell align="right">
+                              {prescription.paid ? "Yes" : "No"}
+                            </TableCell>
                           </TableRow>
                         );
                       })}
@@ -197,9 +240,9 @@ export default function PrescriptionView() {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                   sx={{
-                    '& p': {
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
+                    "& p": {
+                      marginTop: "auto",
+                      marginBottom: "auto",
                     },
                   }}
                 />

@@ -294,6 +294,28 @@ router.get('/get-reviews-by-doctor-id',async (req, res) => {
     }
 });
 
+router.get('/get-reviews-rating', async (req, res) => {
+    try {
+        const { doctorId } = req.query;  // Change from req.body to req.query to handle GET request parameters
+        console.log(doctorId);
+
+        const reviews = await Review.find({ doctorId });
+
+        if (reviews.length === 0) {
+            return res.status(200).json({ success: true, message: 'No reviews found', averageRating: 0 });
+        }
+
+        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+        const averageRating = totalRating / reviews.length;
+        console.log(averageRating);
+
+        res.status(200).json({ success: true, message: 'Review fetched successfully', averageRating });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch review', error });
+    }
+});
+
+
 router.get('/get-user-doctors-by-user-id', authMiddleware, async (req, res) => {
     try {
         const userId = req.body.userId;

@@ -43,6 +43,7 @@ function Doctor({ doctor }) {
             <p><b>Fee per Visit:</b> {doctor.feesPerConsultation}</p>
             <p><b>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</p>
             <p>Rating: <Rate allowHalf value={rating} disabled /></p>
+            
         </div>
     )
 }

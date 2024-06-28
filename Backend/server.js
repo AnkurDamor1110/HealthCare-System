@@ -17,7 +17,7 @@ app.use('/api', medicineRoute );
 app.use('/api', prescriptionRoute);
 app.use('/api/bookings', bookingRoute);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000 ;
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

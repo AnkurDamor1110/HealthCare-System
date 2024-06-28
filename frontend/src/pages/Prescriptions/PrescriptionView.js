@@ -170,7 +170,7 @@ export default function PrescriptionView() {
               >
                 <div className="flex flex-row items-center pl-3 mb-2">
                   <i className="fa-solid fa-notes-medical fa-lg text-gray-600"></i>
-                  <h2 className="text-lg font-semibold pl-2">Prescription from Dr. {doctorInfo.firstName} {doctorInfo.lastName}</h2>
+                  <h2 className="text-lg font-semibold pl-1">Prescription from Dr. {doctorInfo.firstName} {doctorInfo.lastName}</h2>
                 </div>
 
                 <div className="flex flex-row items-center pl-3 mb-4">

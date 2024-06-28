@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import { Rate } from 'antd';
+import './Doctor.css';
 
 function Doctor({ doctor }) {
     const [rating, setRating] = useState(0); 
@@ -33,17 +34,25 @@ function Doctor({ doctor }) {
     }, [doctor._id]);
 
     return (
-        <div className='card p-2 cursor-pointer' onClick={() => navigate(`/approved-doctor/book-appointment/${doctor._id}`)}>
-            <h1 className="card-title"> Dr.{doctor.firstName} {doctor.lastName}</h1>
+        <div className='card-main'>
+        <div className='card' onClick={() => navigate(`/approved-doctor/book-appointment/${doctor._id}`)}>
+            
             <hr />
-            <img src={doctor.photo} width={'200px'} height={'200px'} alt={`${doctor.firstName} ${doctor.lastName}`} />
-            <p><b>Specialization:</b> {doctor.specialization}</p>
-            <p><b>Phone Number:</b> {doctor.phoneNumber}</p>
-            <p><b>Address:</b> {doctor.address}</p>
-            <p><b>Fee per Visit:</b> {doctor.feesPerConsultation}</p>
-            <p><b>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</p>
-            <p>Rating: <Rate allowHalf value={rating} disabled /></p>
+            <img src={doctor.photo} width={'200px'} height={'200px'} alt={`${doctor.firstName} ${doctor.lastName}`} 
+                className='image'
+            />
+            <h1 className="card-title">{doctor.firstName} {doctor.lastName}</h1>
+            <p className='Specialization'><b>Specialization:</b> {doctor.specialization}</p>
+            <p className='phone-number'><b>Phone Number:</b> {doctor.phoneNumber}</p>
+            <p className='address'><b>Address:</b> {doctor.address}</p>
+            <p className='fees'><b>Fee per Visit:</b> {doctor.feesPerConsultation}</p>
+            <p className='timings'><b>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</p>
+            <p className='rating'>Rating: <Rate allowHalf value={rating} disabled /></p>
+            
         </div>
+
+        </div>
+        
     )
 }
 

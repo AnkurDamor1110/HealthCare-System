@@ -1,0 +1,89 @@
+/* .card-main {
+    width: 300px;
+    padding: 20px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+} */
+ .address {
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -10px;
+    margin-bottom: 0px;
+}
+.phone-number {
+    
+     /* Move down */
+    left: 1px; /* Move to the right */
+    padding: 0px;
+    border-radius: 0px;
+    margin-top: -10px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+.image 
+{
+    width: 240px; 
+    height: 150px;
+    border-radius: 1rem 1rem 1rem 1rem; 
+  
+}
+.card
+{
+    width: 15rem;
+    border-radius: 1rem;
+    box-shadow: 0px 10px 8px #999;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+}
+.card-title
+{
+    
+    text-align: center;
+    color: #0073e6;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+
+}
+.card-main .fees {
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -30px;
+    margin-bottom: 0px;
+}
+.card-main .timings {
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -30px;
+    margin-bottom: 0px;
+}
+.card-main .rating {
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -30px;
+    margin-bottom: 0px;
+}
+.card-main .Specialization {
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -20px;
+    margin-bottom: 0px;
+} 

@@ -34,8 +34,8 @@ function Doctor({ doctor }) {
     }, [doctor._id]);
 
     return (
-        <div className='card-main'>
-        <div className='card' onClick={() => navigate(`/approved-doctor/book-appointment/${doctor._id}`)}>
+        <div>
+        <div className='card-main' onClick={() => navigate(`/approved-doctor/book-appointment/${doctor._id}`)}>
             
             <hr />
             <img src={doctor.photo} width={'200px'} height={'200px'} alt={`${doctor.firstName} ${doctor.lastName}`} 

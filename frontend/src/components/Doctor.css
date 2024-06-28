@@ -1,4 +1,4 @@
-.card-main {
+/* .card-main {
     width: 300px;
     padding: 20px;
     margin: auto;
@@ -7,18 +7,22 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
-}
-.card-main .address {
-    background-color: #e6f7ff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
+} */
+ .address {
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -10px;
+    margin-bottom: 0px;
 }
 .phone-number {
-    background-color: #ffebcc;
-    padding: 5px;
-    border-radius: 2px;
-    margin-top: 5px;
+    
+     /* Move down */
+    left: 1px; /* Move to the right */
+    padding: 0px;
+    border-radius: 0px;
+    margin-top: -10px;
     color: #333;
     font-weight: bold;
     text-align: center;
@@ -52,38 +56,34 @@
 
 }
 .card-main .fees {
-    background-color: #dff0d8;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    color: #3c763d;
-    font-weight: bold;
-    text-align: center;
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -30px;
+    margin-bottom: 0px;
 }
 .card-main .timings {
-    background-color: #f2dede;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    color: #a94442;
-    font-weight: bold;
-    text-align: center;
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -30px;
+    margin-bottom: 0px;
 }
 .card-main .rating {
-    background-color: #fff3cd;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    color: #856404;
-    font-weight: bold;
-    text-align: center;
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -30px;
+    margin-bottom: 0px;
 }
 .card-main .Specialization {
-    background-color: #e0f7fa;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    color: #00796b;
-    font-weight: bold;
-    text-align: center;
+    right: 5px;
+    left: 20px;
+    padding: 20px;
+    border-radius: 0px;
+    margin-top: -20px;
+    margin-bottom: 0px;
 } 

@@ -36,11 +36,12 @@ function Doctor({ doctor }) {
     return (
         <div className='card-main'>
         <div className='card' onClick={() => navigate(`/approved-doctor/book-appointment/${doctor._id}`)}>
-            <h1 className="card-title">{doctor.firstName} {doctor.lastName}</h1>
+            
             <hr />
             <img src={doctor.photo} width={'200px'} height={'200px'} alt={`${doctor.firstName} ${doctor.lastName}`} 
                 className='image'
             />
+            <h1 className="card-title">{doctor.firstName} {doctor.lastName}</h1>
             <p className='Specialization'><b>Specialization:</b> {doctor.specialization}</p>
             <p className='phone-number'><b>Phone Number:</b> {doctor.phoneNumber}</p>
             <p className='address'><b>Address:</b> {doctor.address}</p>

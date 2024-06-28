@@ -128,18 +128,19 @@ export default function PrescriptionView() {
 
   return (
     <Layout>
-      <div className="prescriptions">
-        <div className="bg-white flex items-center justify-center w-1/3 rounded-md my-1 shadow-sm">
-          <h1 className="py-2 text-lg font-semibold">Your Prescriptions</h1>
+      <div className="prescriptions p-4 bg-gray-100 min-h-screen">
+        <div className="bg-white flex items-center justify-center w-full md:w-1/3 mx-auto rounded-md my-4 shadow-lg">
+          <h1 className="py-2 text-2xl font-bold text-gray-800">Your Prescriptions</h1>
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="mb-6 flex justify-center">
           <TextField
             select
             label="Select Doctor"
             value={selectedDoctor}
             onChange={(e) => setSelectedDoctor(e.target.value)}
-            style={{ minWidth: 200 }}
+            variant="outlined"
+            className="w-full md:w-1/3"
           >
             <MenuItem value="">All</MenuItem>
             {uniqueDoctors.map((doctorName, index) => (
@@ -149,6 +150,7 @@ export default function PrescriptionView() {
             ))}
           </TextField>
         </div>
+
         {filteredPrescriptions.length > 0 ? (
           filteredPrescriptions.map((prescription) => {
             const appointment = getAppointmentById(prescription.appointmentId);
@@ -159,23 +161,22 @@ export default function PrescriptionView() {
                 sx={{
                   width: "95%",
                   overflow: "hidden",
-                  marginTop: 2,
-                  boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2) ",
+                  margin: "1rem auto",
+                  padding: "1rem",
+                  borderRadius: "1rem",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                  backgroundColor: "#fff",
                 }}
               >
-                <div className="flex flex-row pl-3">
-                  <i className="fa-solid fa-notes-medical fa-sm pt-3" style={{color: "#6b6b6b"}} ></i>
-                  <h2 className="text-md font-semibold pl-1 pt-1.5 pb-2">
-                    Prescription from Dr. {doctorInfo.firstName}
-                  </h2>
+                <div className="flex flex-row items-center pl-3 mb-2">
+                  <i className="fa-solid fa-notes-medical fa-lg text-gray-600"></i>
+                  <h2 className="text-lg font-semibold pl-2">Prescription from Dr. {doctorInfo.firstName} {doctorInfo.lastName}</h2>
                 </div>
 
-                <div className="flex flex-row pl-3">
-                  <i className="fa-solid fa-calendar-days fa-sm pt-2.5" style={{color: "#6b6b6b"}}></i>
-                  <p className="pl-1 text-sm text-gray-700">
-                    Date:{" "}
-                    {prescription.createdAt &&
-                      new Date(prescription.createdAt).toLocaleDateString()}
+                <div className="flex flex-row items-center pl-3 mb-4">
+                  <i className="fa-solid fa-calendar-days fa-lg text-gray-600"></i>
+                  <p className="pl-2 text-gray-700 text-sm">
+                    Date: {prescription.createdAt && new Date(prescription.createdAt).toLocaleDateString()}
                   </p>
                 </div>
 
@@ -187,44 +188,26 @@ export default function PrescriptionView() {
                           <TableCell
                             key={column.id}
                             align={column.align}
-                            style={{
-                              minWidth: column.minWidth,
-                              fontWeight: "bold",
-                            }}
+                            style={{ minWidth: column.minWidth, fontWeight: "bold" }}
                           >
                             {column.label}
                           </TableCell>
                         ))}
-                        <TableCell align="right" style={{ fontWeight: "bold" }}>
-                          Remarks
-                        </TableCell>
-                        <TableCell align="right" style={{ fontWeight: "bold" }}>
-                          Paid
-                        </TableCell>
+                        <TableCell align="right" style={{ fontWeight: "bold" }}>Remarks</TableCell>
+                        <TableCell align="right" style={{ fontWeight: "bold" }}>Paid</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {prescription.prescribedMed.map((medicine) => {
                         const medDetails = getMedicineById(medicine.medicineId);
                         return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={medicine._id}
-                          >
-                            <TableCell>
-                              {medDetails.name || medicine.medicineId}
-                            </TableCell>
+                          <TableRow hover role="checkbox" tabIndex={-1} key={medicine._id}>
+                            <TableCell>{medDetails.name || medicine.medicineId}</TableCell>
                             <TableCell>{medDetails.description}</TableCell>
                             <TableCell>{medicine.dosage}</TableCell>
                             <TableCell>{medicine.qty}</TableCell>
-                            <TableCell align="right">
-                              {prescription.remarks}
-                            </TableCell>
-                            <TableCell align="right">
-                              {prescription.paid ? "Yes" : "No"}
-                            </TableCell>
+                            <TableCell align="right">{prescription.remarks}</TableCell>
+                            <TableCell align="right">{prescription.paid ? "Yes" : "No"}</TableCell>
                           </TableRow>
                         );
                       })}
@@ -250,7 +233,7 @@ export default function PrescriptionView() {
             );
           })
         ) : (
-          <p>You have no prescriptions from any doctor yet.</p>
+          <p className="text-center text-gray-700 text-lg">You have no prescriptions from doctor yet.</p>
         )}
       </div>
     </Layout>

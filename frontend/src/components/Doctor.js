@@ -34,7 +34,7 @@ function Doctor({ doctor }) {
 
     return (
         <div className='card p-2 cursor-pointer' onClick={() => navigate(`/approved-doctor/book-appointment/${doctor._id}`)}>
-            <h1 className="card-title">{doctor.firstName} {doctor.lastName}</h1>
+            <h1 className="card-title"> Dr.{doctor.firstName} {doctor.lastName}</h1>
             <hr />
             <img src={doctor.photo} width={'200px'} height={'200px'} alt={`${doctor.firstName} ${doctor.lastName}`} />
             <p><b>Specialization:</b> {doctor.specialization}</p>

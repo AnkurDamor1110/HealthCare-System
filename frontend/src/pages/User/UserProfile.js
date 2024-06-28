@@ -15,7 +15,6 @@ export default function Profile() {
   const [userData, setUserData] = useState(null);
 
   const onFinish = async (values) => {
-    // console.log('Form values:', values);
     try {
       dispatch(showLoading());
   
@@ -24,12 +23,6 @@ export default function Profile() {
       formData.append('email', values.email);
       formData.append('gender', values.gender);
       formData.append('profilePicture', values.profilePicture);
-  
-      // console.log('Profile Picture:', formData.get('profilePicture')); // This should now log the file object
-  
-      // for (let pair of formData.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1]); 
-      // }
   
       const response = await axios.post(
         '/api/user/update-user-profile',
@@ -55,8 +48,6 @@ export default function Profile() {
       console.log(error);
     }
   };
-  
-  
 
   const getUser = async () => {
     try {
@@ -87,9 +78,11 @@ export default function Profile() {
 
   return (
     <Layout>
-      <h1 className="page-title">User Profile</h1>
-      <hr />
-      {userData && <UserForm onFinish={onFinish} initialValues={userData} />}
+      <div className="bg-gray-100 py-6 px-4 sm:px-6 lg:px-8 max-w-screen-md mx-auto rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-4">User Profile</h1>
+        <hr className="my-2" />
+        {userData && <UserForm onFinish={onFinish} initialValues={userData} />}
+      </div>
     </Layout>
   );
 }

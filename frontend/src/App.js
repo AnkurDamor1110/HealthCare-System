@@ -72,7 +72,7 @@ function App() {
           <Route path='/appointments' element={ <ProtectedRoute> <Appointment/> </ProtectedRoute>} />
           <Route path='/doctor/appointments' element={ <ProtectedRoute> <DoctorsAppointment/> </ProtectedRoute>} />
           <Route path='/user/profile/:userId' element={ <ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
-          <Route path='/checkoutsuccess' element={ <ProtectedRoute> <CheckoutSuccess /> </ProtectedRoute>} />
+          <Route path='/checkout-success' element={ <ProtectedRoute> <CheckoutSuccess /> </ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </div>

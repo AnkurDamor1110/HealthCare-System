@@ -37,7 +37,11 @@ const HomePage = () => {
                   </h1>
                   <p className='text__para'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam congue lacus risus, tempor placerat odio blandit a. Nulla facilisi. Quisque sed tempus nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
 
-                  <button className='btn'>Request an Appointment</button>
+                  <Link to="/login">
+                      <button className="btn">
+                        Request an Appointment
+                      </button>
+                  </Link>
                 </div>
 
                 {/*========= hero conter ======== */}

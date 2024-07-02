@@ -219,10 +219,10 @@ function BookAppointment() {
                                     }}
                                 />
                                 <TimePicker
-                                    format='HH:mm'
+                                    format='HH:mm'  
                                     className='mt-3'
-                                    disabledHours={disablePastTime().disabledHours}
-                                    disabledMinutes={disablePastTime().disabledMinutes}
+                                    // disabledHours={disablePastTime().disabledHours}
+                                    // disabledMinutes={disablePastTime().disabledMinutes}
                                     onChange={(value) => {
                                         setTime(value ? value.format("HH:mm") : null);
                                         setIsAvailable(false);

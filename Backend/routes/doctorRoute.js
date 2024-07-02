@@ -5,6 +5,7 @@ const Doctor = require("../models/doctarModel");
 const Appointment = require("../models/appointmentModel");
 const TreatmentMeeting = require("../models/treatmentMeetingModel");
 const authMiddleware = require("../middlewares/authMiddleware");
+const moment = require('moment');
 
 router.post('/get-doctor-info-by-user-id', authMiddleware, async(req,res) =>{
     try {
@@ -91,6 +92,33 @@ router.get('/get-padding-appointments-by-doctor-id',authMiddleware, async (req, 
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-today-appointments-by-doctor-id', authMiddleware, async (req, res) => {
+    try {
+        // Find the doctor based on the logged-in user ID
+        const doctor = await Doctor.findOne({ userId: req.body.userId });
+        
+        if (!doctor) {
+            return res.status(404).send({ message: "Doctor not found", success: false });
+        }
+
+        console.log(doctor);
+
+        const todayDate = moment().startOf('day').toDate();
+
+        // Query appointments for the doctor created today
+        const appointments = await Appointment.find({
+            doctorId: doctor._id,
+            createdAt: { $gte: todayDate, $lt: moment(todayDate).endOf('day').toDate() }
+        });
+
+
+        res.status(200).send({ message: "Doctor's today appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetching appointments", success: false, error });
     }
 });
 

@@ -342,10 +342,10 @@ router.get('/get-success-appointments-by-user-id',authMiddleware, async (req, re
         res.status(500).send({ message: "Error fetched appointments ", success: false, error });
     }
 });
-router.get('/get-padding-appointments-by-user-id',authMiddleware, async (req, res) => {
+router.get('/get-panding-appointments-by-user-id',authMiddleware, async (req, res) => {
     try {
         // const doctor = await Doctor.findOne({userId: req.body.userId });
-       const appointments = await Appointment.find({userId: req.body.userId , status: 'padding'});
+       const appointments = await Appointment.find({userId: req.body.userId , status: 'panding'});
        res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
     } catch (error) {
         console.log(error);
@@ -382,6 +382,33 @@ router.get('/get-appointments-by-user-id',authMiddleware, async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+router.get('/get-today-appointments-by-user-id', authMiddleware, async (req, res) => {
+    try {
+        // Find the doctor based on the logged-in user ID
+        // const user = await User.findOne({ userId: req.body.userId });
+        
+        // if (!user) {
+        //     return res.status(404).send({ message: "Doctor not found", success: false });
+        // }
+
+        // console.log(user);
+
+        const todayDate = moment().startOf('day').toDate();
+
+        // Query appointments for the doctor created today
+        const appointments = await Appointment.find({
+            userId: req.body.userId,
+            createdAt: { $gte: todayDate, $lt: moment(todayDate).endOf('day').toDate() }
+        });
+
+        console.log(appointments);
+        res.status(200).send({ message: "User's today appointments fetched successfully", success: true, data: appointments });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetching appointments", success: false, error });
     }
 });
 

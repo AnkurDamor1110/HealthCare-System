@@ -129,7 +129,7 @@ export default function PrescriptionView() {
   return (
     <Layout>
       <div className="prescriptions p-4 bg-gray-100 min-h-screen">
-        <div className="bg-white flex items-center justify-center w-full md:w-1/3 mx-auto rounded-md my-4 shadow-lg">
+        <div className="bg-white flex items-center justify-center w-full md:w-1/2 mx-auto rounded-md my-4 shadow-md">
           <h1 className="py-2 text-2xl font-bold text-gray-800">Your Prescriptions</h1>
         </div>
 

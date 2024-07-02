@@ -171,16 +171,26 @@ function BookAppointment() {
                                 <DatePicker format='DD-MM-YYYY' onChange={(value) =>{
                                         setDate((value).format("DD-MM-YYYY"))
                                         setIsAvailable(false);
-                                    }
-                                }  />
-                                <TimePicker format='HH:mm' className='mt-3' onChange={(value) => {
-                                    setIsAvailable(false);
-                                    setTime((value).format("HH:mm"));
-                                }} />
-
-                               {!isAvailable && (
-                                 <Button className='mt-2 w-full bg-white p-1 shadow-md transition duration-300 ease-in-out transform hover:scale-103 hover:shadow-lg' onClick={checkAvailability}>Cheack Availability</Button>
-                               )}
+                                    }}
+                                />
+                                <TimePicker
+                                    format='HH:mm'  
+                                    className='mt-3'
+                                    // disabledHours={disablePastTime().disabledHours}
+                                    // disabledMinutes={disablePastTime().disabledMinutes}
+                                    onChange={(value) => {
+                                        setTime(value ? value.format("HH:mm") : null);
+                                        setIsAvailable(false);
+                                    }}
+                                />
+                                {!isAvailable && (
+                                    <Button
+                                        className='primary-button mt-2 full-width-button'
+                                        onClick={checkAvailability}
+                                    >
+                                        Check Availability
+                                    </Button>
+                                )}
 
                                 {isAvailable && (
                                     <Button className='primary-button mt-2 full-width-button' onClick={() => {

@@ -31,10 +31,11 @@ function Doctordashboard() {
   const [pendingAppointments, setpendingAppointments] = useState([]);
   const [approvedAppointments, setapprovedAppointments] = useState([]);
   const [rejectedAppointments, setrejectedAppointments] = useState([]);
+  const [todaysappointments, settodaysappointments] = useState([]);
   const [doctorUsers, setdoctorUsers] = useState([]);
   const [userName, setUserName] = useState("Doctor Name"); // Replace with actual user name
   const dispatch = useDispatch();
-
+ 
   const getAppointments = async () => {
     try {
       dispatch(showLoading());
@@ -154,6 +155,26 @@ function Doctordashboard() {
     }
   };
 
+  const getTodaysAppointments = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.get(
+        "/api/doctor/get-today-appointments-by-doctor-id",
+        {
+          headers: {
+            Authorization: `Bearer ` + localStorage.getItem("token"),
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        settodaysappointments(response.data.data);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
+
   useEffect(() => {
     getAppointments();
     getSuccessAppointments();
@@ -161,7 +182,8 @@ function Doctordashboard() {
     getApprovedAppointments();
     getRejectedAppointments();
     getDoctorUser();
-  }, []);
+    getTodaysAppointments();
+  }, []);  
   
   const pieData = {
     labels: ["Success", "Pending", "Approved", "Rejected"],
@@ -204,6 +226,11 @@ function Doctordashboard() {
         <hr />
       </div>
       <div className="dashboard-stats">
+      <h2>
+          <i className="fas fa-calendar-check icon"></i>
+          Today's Appointments:{" "}
+          <span className="number">{todaysappointments.length}</span>
+        </h2>
         <h2>
           <i className="fas fa-calendar-check icon"></i>
           Total Appointments:{" "}

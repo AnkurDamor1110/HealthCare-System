@@ -29,6 +29,7 @@ function Userdashboard() {
   const [pendingAppointments, setpendingAppointments] = useState([]);
   const [approvedAppointments, setapprovedAppointments] = useState([]);
   const [rejectedAppointments, setrejectedAppointments] = useState([]);
+  const [todaysappointments, settodaysappointments] = useState([]);
   const [prescriptions, setprescriptions] = useState([]);
   const dispatch = useDispatch();
 
@@ -110,7 +111,7 @@ function Userdashboard() {
       dispatch(hideLoading());
     }
   };
-
+ 
   const getApprovedAppointments = async () => {
     try {
       dispatch(showLoading());
@@ -167,6 +168,25 @@ function Userdashboard() {
       dispatch(hideLoading());
     }
   };
+  const getTodaysAppointments = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.get(
+        "/api/user/get-today-appointments-by-user-id",
+        {
+          headers: {
+            Authorization: `Bearer ` + localStorage.getItem("token"),
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        settodaysappointments(response.data.data);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+    }
+  };
 
   const pieData = {
     labels: ["Success", "Approved", "Rejected", "Pending"],
@@ -205,6 +225,7 @@ function Userdashboard() {
     getPendingAppointments();
     getSuccessAppointments();
     getUserdoctors();
+    getTodaysAppointments();
   }, []);
 
   return (
@@ -217,6 +238,11 @@ function Userdashboard() {
           <i className="fa-solid fa-user-doctor fa-xl"></i>
           <h1 className="flex justify-center font-semibold">User's Doctor: </h1>
           <p className="font-bold text-2xl">{userDoctor.length}</p>
+        </div>
+        <div className="bg-white mx-1 mr-5 my-3 p-3 rounded-lg w-1/2 flex justify-between items-center shadow-md">
+          <i class="fa-solid fa-calendar-days fa-xl"></i>
+          <h1 className="flex justify-center font-semibold"> Toady'sAppointments: </h1>
+          <p className="font-bold text-2xl">{todaysappointments.length}</p>
         </div>
         <div className="bg-white mx-1 mr-5 my-3 p-3 rounded-lg w-1/2 flex justify-between items-center shadow-md">
           <i class="fa-solid fa-calendar-days fa-xl"></i>

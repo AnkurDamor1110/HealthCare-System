@@ -183,7 +183,7 @@ function Layout({ children }) {
                         {collapsed ? <i class="fa-solid fa-bars"></i> :<i className="fa-solid fa-xmark fa-lg"></i>}
                     </button>
                     <div className="flex items-center space-x-4">
-                        <Badge count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>
+                        <Badge className='cursor-pointer' count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>
                             <FontAwesomeIcon icon={faBell} className="cursor-pointer" />
                         </Badge>
                         <div className='flex flex-row items-center'>

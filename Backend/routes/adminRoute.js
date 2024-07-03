@@ -6,6 +6,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const Appointment = require("../models/appointmentModel");
 const Medicine = require("../models/medicineModel");
 const Interview = require("../models/interviewModel");
+const Contact = require("../models/contactModel");
 
 router.get('/get-all-doctors',authMiddleware, async (req, res) => {
     try {
@@ -142,6 +143,18 @@ router.get('/get-all-medicines',authMiddleware, async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Error fetched appointments ", success: false, error });
+    }
+});
+
+
+router.get('/customercare',authMiddleware, async (req, res) => {
+    try {
+       const contactOfCustomer = await Contact.find();
+       console.log(contactOfCustomer);
+       res.status(200).send({ message: "Customer suggetions fetched successfully", success: true, data: contactOfCustomer });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Error fetched suggetions ", success: false, error });
     }
 });
 

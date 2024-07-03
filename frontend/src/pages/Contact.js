@@ -1,8 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+// import toast from 'react-hot-toast';
+
+
+const defaultContactFormData = {
+  email: " ",
+  subject: " ",
+  message: " ",
+};
 
 const Contact = () => {
+
+
+  const [contact, setContact] = useState(defaultContactFormData);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setContact((prevContact) => ({
+      ...prevContact,
+      [id]: value,
+    }));
+  };
+  // console.log(contact);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+
+      const response = await fetch("/api/form/contact", {
+        method : 'Post',
+        headers : {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact),
+      }); 
+
+      if(response.ok){
+        setContact(defaultContactFormData);
+        const data = await response.json();
+        console.log(data);
+        alert("Message send successfully");
+        // toast.success(response.data.message);
+      }
+    } catch(error){
+      alert("Message not send");
+      // toast.error('Something went wrong');
+      console.log(error);
+    }
+  };
+
+
   return (
     <>
     <Header />
@@ -14,7 +61,7 @@ const Contact = () => {
           Got a technical issue? Want to send feedback about a beta feature? Let us know.
         </p>
         
-        <form action='#' className='space-y-8'>
+        <form action='#' className='space-y-8' onSubmit={handleSubmit} >
           <div>
             <label htmlFor='email' className='form__label'>Your Email</label>
             <input 
@@ -22,6 +69,7 @@ const Contact = () => {
               id='email'
               placeholder='example@gmail.com'
               className='form__input mt-1'
+              onChange={handleChange}
               />
           </div>
 
@@ -32,6 +80,7 @@ const Contact = () => {
               id='subject'
               placeholder='Let us know how we can help you'
               className='form__input mt-1'
+              onChange={handleChange}
               />
           </div>
 
@@ -43,12 +92,13 @@ const Contact = () => {
               id='message'
               placeholder='Leave a comment....'
               className='form__input mt-1'
+              onChange={handleChange}
               />
           </div>
-          <button type='submit' className='btn rounded sm:w-fit'>Submit</button>
+          <button type='submit' className='btn rounded sm:w-fit'  >Submit</button>
         </form>
       </div>
-    </section>
+    </section> 
     
     <Footer />
     </>

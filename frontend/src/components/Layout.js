@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { Badge } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faUser, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital, faSquareH } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faUser, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital, faSquareH, faEnvelopeOpenText, faEnvelopesBulk } from "@fortawesome/free-solid-svg-icons";
 // import axios from 'axios';
 
 function Layout({ children }) {
@@ -117,6 +117,11 @@ function Layout({ children }) {
             name: 'Users',
             path: '/admin/userslist',
             icon: faUsers,
+        },
+        {
+            name: 'Customer suggetions',
+            path: '/admin/contactlist',
+            icon: faEnvelopeOpenText,
         },
         {
             name: 'Doctors',

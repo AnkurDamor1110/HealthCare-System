@@ -44,10 +44,10 @@ function Appointment() {
     };
 
     const columns = [
-        {
-            title: 'Id',
-            dataIndex: '_id',
-        },
+        // {
+        //     title: 'Id',
+        //     dataIndex: '_id',
+        // },
         {
             title: 'Doctor',
             dataIndex: 'name',

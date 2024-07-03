@@ -69,10 +69,10 @@ function DoctorsAppointment() {
     };
 
     const columns = [
-        {
-            title: 'Id',
-            dataIndex: '_id',
-        },
+        // {
+        //     title: 'Id',
+        //     dataIndex: '_id',
+        // },
         {
             title: 'Patient',
             dataIndex: 'name',
@@ -82,15 +82,15 @@ function DoctorsAppointment() {
                 )
             }
         },
-        {
-            title: 'Phone',
-            dataIndex: 'phoneNumber',
-            render: (text, record) => {
-                return (
-                    <span>{record.userInfo.phoneNumber}</span>
-                )
-            }
-        },
+        // {
+        //     title: 'Phone',
+        //     dataIndex: 'phoneNumber',
+        //     render: (text, record) => {
+        //         return (
+        //             <span>{record.userInfo.phoneNumber}</span>
+        //         )
+        //     }
+        // },
         {
             title: 'Date & Time',
             dataIndex: 'createdAt',

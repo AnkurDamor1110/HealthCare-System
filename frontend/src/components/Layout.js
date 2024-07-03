@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { Badge } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faUser, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital, faSquareH } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faUser, faUserDoctor, faBell, faCalendarCheck, faFileMedical, faSignOutAlt, faCapsules, faUsers, faHospital, faSquareH, faEnvelopeOpenText, faEnvelopesBulk } from "@fortawesome/free-solid-svg-icons";
 // import axios from 'axios';
 
 function Layout({ children }) {
@@ -119,6 +119,11 @@ function Layout({ children }) {
             icon: faUsers,
         },
         {
+            name: 'Customer suggetions',
+            path: '/admin/contactlist',
+            icon: faEnvelopeOpenText,
+        },
+        {
             name: 'Doctors',
             path: '/admin/doctorslist',
             icon: faHospital,
@@ -178,7 +183,7 @@ function Layout({ children }) {
                         {collapsed ? <i class="fa-solid fa-bars"></i> :<i className="fa-solid fa-xmark fa-lg"></i>}
                     </button>
                     <div className="flex items-center space-x-4">
-                        <Badge count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>
+                        <Badge className='cursor-pointer' count={user?.unseenNotifications.length} onClick={() => navigate('/notifications')}>
                             <FontAwesomeIcon icon={faBell} className="cursor-pointer" />
                         </Badge>
                         <div className='flex flex-row items-center'>

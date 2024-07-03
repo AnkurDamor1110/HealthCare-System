@@ -102,8 +102,14 @@ function Appointment() {
 
     return (
         <Layout>
-            <h1 className="page-title">Appointments</h1>
-            <Table columns={columns} dataSource={appointments} />
+            <div className='flex justify-center'>
+                <div className='bg-white my-2 flex justify-center w-1/2 rounded-md shadow-md'>
+                    <h1 className="page-title p-2">Appointments</h1>
+                </div>
+            </div>
+            <div className='shadow-md mt-1'>
+                <Table columns={columns} dataSource={appointments} />
+            </div>
             <Modal
                 title="Submit Review"
                 visible={isModalVisible}

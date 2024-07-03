@@ -78,8 +78,13 @@ export default function Profile() {
 
   return (
     <Layout>
-      <div className="bg-gray-100 py-6 px-4 sm:px-6 lg:px-8 max-w-screen-md mx-auto rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">User Profile</h1>
+      <div className="bg-gray-200 py-6 px-4 sm:px-6 lg:px-8 w-1/2 mx-auto rounded-lg shadow-md">
+        <div className="flex justify-center">
+          <div className="flex justify-center bg-white w-1/2 rounded-md">
+            <h1 className="text-2xl font-bold py-2">User Profile</h1>
+          </div>
+        </div>
+        
         <hr className="my-2" />
         {userData && <UserForm onFinish={onFinish} initialValues={userData} />}
       </div>

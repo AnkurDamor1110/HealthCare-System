@@ -13,6 +13,7 @@ const moment = require('moment');
 const multer = require('multer');
 const { storage } = require('../config/cloudConfig');
 const upload = multer({ storage: storage });
+const nodemailer = require("nodemailer");
 
 
 router.post('/register',upload.single('profilePicture'), async (req, res) => {
@@ -427,6 +428,109 @@ router.get('/get-doctors-rating', authMiddleware, async (req, res) => {
         console.log(error);
         res.status(500).send({ message: "Error fetching ratings", success: false, error });
     }
+});
+
+// email config 
+
+const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth:{
+        user:"sahilmachhar26@gmail.com",
+        pass:"mjws ymgy uvaa rjtb"
+    }
+});
+
+router.post("/sendpasswordlink", async (req, res) => {
+    console.log(req.body);
+
+    const {email} = req.body;
+
+    if(!email){
+        res.status(401).json({status:401,message:"Enter your email"})
+    }
+
+    try{
+
+        const userfind = await User.findOne({email:email});
+
+        //token generate for reset password
+        const token = jwt.sign({id: userfind._id}, process.env.JWT_SECRET, {expiresIn: "1d"});
+
+        const setusertoken = await User.findByIdAndUpdate({_id:userfind._id},{verifytoken:token},{new:true});
+
+        if(setusertoken){
+            const mailOptions = {
+                from:"sahilmachhar26@gmail.com",
+                to:email,
+                subject:"sending Email For password Reset",
+                text:`This Link Valid For 2 Mintutes http://localhost:3000/forget-password/${userfind.id}/${setusertoken.verifytoken}`
+
+            }
+
+            transporter.sendMail(mailOptions,(error,info)=>{
+                if(error){
+                    console.log("error",error);
+                    res.status(401).json({status:401,message:'email not send'})
+                }else{
+                    console.log("Email sent",info.response);
+                    res.status(201).json({status:201,message:'email send successfully'})
+                }
+            })
+        }
+
+    } catch(error){
+
+        res.status(401).json({status:401,message:'invalid user'});
+    }
+
+    //verify user for forgot password time
+    router.get("/forget-password/:id/:token",async(req,res)=>{
+        const {id,token} = req.params;
+        
+        try{
+            const validuser = await User.findOne({_id:id,verifytoken:token});
+            console.log(validuser);
+            
+            const verifyToken = jwt.verify(token,process.env.JWT_SECRET);
+
+            console.log(verifyToken);
+            if(validuser && verifyToken._id){
+                res.status(201).json({status:201,validuser})
+            }else{
+                res.status(401).json({status:401,message:"user not exist"})
+            }
+        }catch(error){
+            res.status(401).json({status:401,error})
+        }
+    })
+
+    //change password
+    router.post("/:id/:token",async(req,res)=>{
+        const {id,token} = req.params;
+
+        const {password} = req.body;
+
+        try{
+            const validuser = await User.findOne({_id:id,verifytoken:token});
+            
+            const verifyToken = jwt.verify(token,process.env.JWT_SECRET);
+
+            if(validuser && verifyToken._id){
+                const newpassword = await bcrypt.hash(password,10);
+
+                const setnewuserpass = await User.findByIdAndUpdate({_id:id},{password:newpassword});
+
+                setnewuserpass.save();
+                res.status(201).json({status:201,setnewuserpass})
+
+            }else{
+                res.status(401).json({status:401,message:"user not exist"})
+            }
+            
+        }catch(error){
+            res.status(401).json({status:401,error})
+        }
+    })
 });
 
 

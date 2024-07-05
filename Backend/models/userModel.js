@@ -40,6 +40,9 @@ const userSchema = new mongoose.Schema({
         enum: ['male', 'female', 'other'],
         required: false,
     },
+    verifytoken:{
+        type: String,
+    },
 }, {
     timestamps: true,
 });

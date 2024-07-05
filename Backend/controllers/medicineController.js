@@ -91,8 +91,15 @@ const updateMedicine = async (req, res) => {
 
 const deleteMedicine = async (req, res) => {
   try {
-    const deletedmedicine = await Medicine.deleteOne({ _id: req.params.id });
-    res.status(200).json(deletedmedicine);
+    const { id } = req.params;
+    const deletedMedicine = await Medicine.deleteOne({ _id: id });
+
+    if (deletedMedicine.deletedCount === 0) {
+      return res.status(404).json({ message: "Medicine not found" });
+    }
+
+    console.log(deletedMedicine);
+    res.status(200).json(deletedMedicine);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

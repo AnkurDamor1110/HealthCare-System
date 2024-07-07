@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 
-const TreatmentMeetingForm = ({ doctorId, userId }) => {
+const TreatmentMeetingForm = ({ doctorId, userId,appointmentId }) => {
     const [loading, setLoading] = useState(false);
     // const params = useParams();
     const dispatch = useDispatch();
@@ -45,6 +45,7 @@ const TreatmentMeetingForm = ({ doctorId, userId }) => {
             const response = await axios.post('/api/doctor/schedule-treatment-meeting', {
                 doctorId,
                 userId,
+                appointmentId, 
                 doctorInfo:doctor,
                 googleMeetLink: values.googleMeetLink,
                 message: values.message,

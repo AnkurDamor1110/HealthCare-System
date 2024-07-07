@@ -284,10 +284,8 @@ router.get('/get-reviews-by-doctor-id',async (req, res) => {
     try {
     
         const { doctorId } = req.query; 
-        console.log(doctorId);
 
         const review = await Review.find({ doctorId  });
-        console.log(review);
         res.status(200).json({ success: true, message: 'Review fetching successfully', review });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Failed to fetching review', error });
@@ -296,8 +294,7 @@ router.get('/get-reviews-by-doctor-id',async (req, res) => {
 
 router.get('/get-reviews-rating', async (req, res) => {
     try {
-        const { doctorId } = req.query;  // Change from req.body to req.query to handle GET request parameters
-        console.log(doctorId);
+        const { doctorId } = req.query; 
 
         const reviews = await Review.find({ doctorId });
 
@@ -307,7 +304,6 @@ router.get('/get-reviews-rating', async (req, res) => {
 
         const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
         const averageRating = totalRating / reviews.length;
-        console.log(averageRating);
 
         res.status(200).json({ success: true, message: 'Review fetched successfully', averageRating });
     } catch (error) {
@@ -403,8 +399,6 @@ router.get('/get-today-appointments-by-user-id', authMiddleware, async (req, res
             userId: req.body.userId,
             createdAt: { $gte: todayDate, $lt: moment(todayDate).endOf('day').toDate() }
         });
-
-        console.log(appointments);
         res.status(200).send({ message: "User's today appointments fetched successfully", success: true, data: appointments });
     } catch (error) {
         console.log(error);
@@ -416,12 +410,10 @@ router.get('/get-today-appointments-by-user-id', authMiddleware, async (req, res
 router.get('/get-doctors-rating', authMiddleware, async (req, res) => {
     try {
         const userId = req.body.userId;
-        console.log(userId);
         if (!userId) {
             return res.status(400).send({ message: "User ID is required", success: false });
         }
         const ratings = await Review.find({ doctorId: userId });
-        console.log(ratings);
         res.status(200).send({ message: "Doctor ratings fetched successfully", success: true, data: ratings });
     } catch (error) {
         console.log(error);

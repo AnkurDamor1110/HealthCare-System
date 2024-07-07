@@ -109,6 +109,7 @@ function BookAppointment() {
                 }
             });
 
+            bookNow();
             const data = response.data;
 
             if (response.status !== 200) {
@@ -118,7 +119,7 @@ function BookAppointment() {
             if (data.session.url) {
                 window.location.href = data.session.url;
             }
-            bookNow();
+            
         } catch (err) {
             toast.error(err.message);
         }

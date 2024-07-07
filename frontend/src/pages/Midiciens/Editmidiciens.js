@@ -4,6 +4,7 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Layout from "../../components/Layout";
 
 function Editmedicine() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function Editmedicine() {
   };
 
   return (
+    <Layout>
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <div className="page-wrapper">
         <div className="content">
@@ -142,6 +144,7 @@ function Editmedicine() {
         </div>
       </div>
     </Box>
+    </Layout>
   );
 }
 

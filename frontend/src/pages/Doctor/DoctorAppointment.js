@@ -105,7 +105,7 @@ function DoctorsAppointment() {
             dataIndex: 'status',
         },
         {
-            title: 'Actions', 
+            title: 'Actions',
             dataIndex: 'actions',
             render: (text, record) => {
                 return (
@@ -119,7 +119,16 @@ function DoctorsAppointment() {
                                     onClick={() => changeAppointmentStatus(record, "rejected")}>Reject</h1>
                             </div>
                         )}
-                        
+
+                        {(record.status == "approved" || record.status == "rejected" || record.status == "completed" ) && (
+                            <div className="d-flex">
+                                <h1 className=' px-2 '
+                                    >completed</h1>
+ 
+                                
+                            </div>
+                        )}
+
                     </div>
                 )
             }
@@ -130,11 +139,11 @@ function DoctorsAppointment() {
             render: (text, record) => {
                 return (
                     <div>
-                        {record.status != "completed" && record.status != "rejected"  &&(
+                        {record.status != "completed" && record.status != "rejected" && (
                             <Button type="primary" onClick={() => handleSetTreatmentMeeting(record)}>Set Treatment Meeting</Button>
                         )}
                     </div>
-                    
+
                 )
             }
         }
@@ -157,7 +166,7 @@ function DoctorsAppointment() {
             >
                 {selectedAppointment && (
                     <Space direction="vertical">
-                        <TreatmentMeetingForm doctorId={selectedAppointment.doctorId} userId={selectedAppointment.userId} />
+                        <TreatmentMeetingForm doctorId={selectedAppointment.doctorId} userId={selectedAppointment.userId} appointmentId={selectedAppointment._id} />
                     </Space>
                 )}
             </Modal>

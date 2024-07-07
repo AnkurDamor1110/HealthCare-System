@@ -157,7 +157,7 @@ router.get('/get-users-appointments-by-doctor-id',authMiddleware, async (req, re
 
 router.post('/schedule-treatment-meeting', async (req, res) => {
     try {
-        const { doctorId, userId, googleMeetLink, message, doctorInfo } = req.body;
+        const { doctorId, userId, googleMeetLink, message, doctorInfo,appointmentId } = req.body;
 
         if (!doctorId || !userId || !googleMeetLink || !message) {
             return res.status(400).send({ message: "All fields are required", success: false });
@@ -166,6 +166,7 @@ router.post('/schedule-treatment-meeting', async (req, res) => {
         const newMeeting = new TreatmentMeeting({
             doctorId,
             userId,
+            appointmentId,
             doctorInfo,
             googleMeetLink,
             message,
@@ -178,7 +179,7 @@ router.post('/schedule-treatment-meeting', async (req, res) => {
         user.unseenNotifications.push({
         type: "new-doctor-request",
         message: `You get Treatment meeting Video link with doctor click for more information! `,
-        onclickPath: `/treatment-meeting-details`
+        onclickPath: `/appointments`
        });
        await user.save();
        console.log(user.unseenNotifications);
@@ -192,14 +193,15 @@ router.post('/schedule-treatment-meeting', async (req, res) => {
 
 router.get('/get-treatment-meeting-details', authMiddleware, async (req, res) => {
     try {
-        const { userId } = req.body;
-
+        const { userId, doctorId, appointmentId } = req.query;
+        console.log(req.query);
         if (!userId) {
             return res.status(400).send({ message: "User ID is required", success: false });
         }
 
-        const meetingDetails = await TreatmentMeeting.findOne({ userId }).populate('doctorId', 'name');
+        const meetingDetails = await TreatmentMeeting.findOne({ userId, doctorId, appointmentId });
 
+        console.log(meetingDetails);
         if (!meetingDetails) {
             return res.status(404).send({ message: "No treatment meeting found", success: false });
         }
@@ -210,5 +212,6 @@ router.get('/get-treatment-meeting-details', authMiddleware, async (req, res) =>
         res.status(500).send({ message: "Error fetching treatment meeting details", success: false, error });
     }
 });
+
 
 module.exports = router;

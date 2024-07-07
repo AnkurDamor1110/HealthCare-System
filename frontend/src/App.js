@@ -60,7 +60,7 @@ function App() {
           <Route path='/doctor-dashboard' element={ <Doctordashboard/> }/> 
           <Route path='/user-dashboard' element={ <Userdashboard/> }/>
           <Route path='/interview-details' element={ <UserInterviewDetails/> }/>
-          <Route path='/treatment-meeting-details' element={ <UserTreatmentView/> }/>
+          {/* <Route path='/treatment-meeting-details' element={ <UserTreatmentView/> }/> */}
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/approved-doctor' element={ <ProtectedRoute> <ApprovedDoctorHome/> </ProtectedRoute>} />

@@ -7,12 +7,15 @@ import { Table, Modal, Button } from 'antd';
 import { toast } from "react-hot-toast";
 import moment from "moment";
 import ReviewForm from "../pages/Reviews/ReviewForm";
+import UserTreatmentView from './Doctor/UserTreatmentView';
 
 function Appointment() {
     const [appointments, setAppointments] = useState([]);
     const [selectedDoctorId, setSelectedDoctorId] = useState(null);
     const [selectedUserId, setSelectedUserId] = useState(null);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
+    const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
+    const [isTreatmentModalVisible, setIsTreatmentModalVisible] = useState(false);
     const dispatch = useDispatch();
 
     const getAppointmentData = async () => {
@@ -35,19 +38,25 @@ function Appointment() {
     const showReviewModal = (doctorId, userId) => {
         setSelectedDoctorId(doctorId);
         setSelectedUserId(userId);
-        setIsModalVisible(true);
+        setIsReviewModalVisible(true);
+    };
+
+    const showTreatmentModal = (doctorId, userId, appointmentId) => {
+        setSelectedDoctorId(doctorId);
+        setSelectedUserId(userId);
+        setSelectedAppointmentId(appointmentId);
+        setIsTreatmentModalVisible(true);
     };
 
     const handleCancel = () => {
-        setIsModalVisible(false);
+        setIsReviewModalVisible(false);
+        setIsTreatmentModalVisible(false);
         setSelectedDoctorId(null);
+        setSelectedUserId(null);
+        setSelectedAppointmentId(null);
     };
 
     const columns = [
-        // {
-        //     title: 'Id',
-        //     dataIndex: '_id',
-        // },
         {
             title: 'Doctor',
             dataIndex: 'name',
@@ -90,10 +99,36 @@ function Appointment() {
                         </Button>
                     )
                 } else {
-                    return null; 
+                    return null;
                 }
             }
-        }
+        },
+        {
+            title: 'Treatment Meeting',
+            dataIndex: 'treatmentMeeting',
+            render: (text, record) => {
+                if (!record.doctorInfo || !record.userInfo || !record._id) {
+                    return <h1>Invalid Data</h1>;
+                }
+        
+                if (record.status === 'approved') {
+                    return (
+                        <Button 
+                            type="primary" 
+                            onClick={() => showTreatmentModal(record.doctorInfo._id, record.userInfo._id, record._id)}
+                            aria-label="Schedule Treatment Meeting"
+                        >
+                            Treatment Meeting
+                        </Button>
+                    );
+                } else if (record.status === 'pending' || record.status === 'rejected') {
+                    return <h1>Not revised link</h1>;
+                } else {
+                    return <h1>Completed</h1>;
+                }
+            }
+        },
+        
     ];
 
     useEffect(() => {
@@ -112,11 +147,20 @@ function Appointment() {
             </div>
             <Modal
                 title="Submit Review"
-                visible={isModalVisible}
+                visible={isReviewModalVisible}
                 onCancel={handleCancel}
                 footer={null}
             >
                 <ReviewForm doctorId={selectedDoctorId} userId={selectedUserId} />
+            </Modal>
+
+            <Modal
+                title="Treatment Meeting"
+                visible={isTreatmentModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+            >
+                <UserTreatmentView doctorId={selectedDoctorId} userId={selectedUserId} appointmentId={selectedAppointmentId} />
             </Modal>
         </Layout>
     )

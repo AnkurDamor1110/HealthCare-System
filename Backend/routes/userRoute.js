@@ -422,6 +422,7 @@ router.get('/get-doctors-rating', authMiddleware, async (req, res) => {
     }
 });
 
+
 // email config 
 
 const transporter = nodemailer.createTransport({
@@ -444,7 +445,7 @@ router.post("/sendpasswordlink", async (req, res) => {
     try{
 
         const userfind = await User.findOne({email:email});
-
+        const user = userfind.name;
         //token generate for reset password
         const token = jwt.sign({id: userfind._id}, process.env.JWT_SECRET, {expiresIn: "1d"});
 
@@ -452,12 +453,33 @@ router.post("/sendpasswordlink", async (req, res) => {
 
         if(setusertoken){
             const mailOptions = {
-                from:"sahilmachhar26@gmail.com",
-                to:email,
-                subject:"sending Email For password Reset",
-                text:`This Link Valid For 2 Mintutes http://localhost:3000/forget-password/${userfind.id}/${setusertoken.verifytoken}`
+                from: "sahilmachhar26@gmail.com",
+                to: email,
+                subject: "Password Reset",
+                html: `
+                    <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                        <h2 style="color: #333;">Password Reset</h2>
+                        <p style="color: #333;">
+                            Hello, ${userfind.name}
+                        </p>
+                        <p style="color: #333;">
+                            We received a request to reset your password. Click the link below to choose a new password:
+                        </p>
 
-            }
+                        <p><b>http://localhost:3000/forget-password/${userfind._id}/${setusertoken.verifytoken}</b></p>
+                        <p style="color: #333;">
+                            If you did not request a password reset, please ignore this email or contact support if you have questions.
+                        </p>
+                        <p style="color: #333;">
+                            This link is valid for 5 hours.
+                        </p>
+                        <p style="color: #333;">
+                            Best regards,<br/>
+                            HealthCare
+                        </p>
+                    </div>
+                `
+            };
 
             transporter.sendMail(mailOptions,(error,info)=>{
                 if(error){
@@ -474,6 +496,34 @@ router.post("/sendpasswordlink", async (req, res) => {
 
         res.status(401).json({status:401,message:'invalid user'});
     }
+});
+
+    //change password
+router.post("/:id/:token", async (req, res) => {
+    const { id, token } = req.params;
+    const { password } = req.body;
+
+    try {
+        const validuser = await User.findOne({ _id: id, verifytoken: token });
+        console.log(validuser);
+        if (!validuser) {
+            return res.status(401).json({ status: 401, message: "User not found" });
+        }
+
+        const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+
+        if (verifyToken.id === id) {
+            const newpassword = await bcrypt.hash(password, 10);
+
+            await User.findByIdAndUpdate(id, { password: newpassword });
+            res.status(201).json({ status: 201, message: 'Password updated successfully' });
+        } else {
+            res.status(401).json({ status: 401, message: "Token not valid" });
+        }
+    } catch (error) {
+        res.status(401).json({ status: 401, error });
+    }
+});
 
     //verify user for forgot password time
     router.get("/forget-password/:id/:token",async(req,res)=>{
@@ -494,36 +544,29 @@ router.post("/sendpasswordlink", async (req, res) => {
         }catch(error){
             res.status(401).json({status:401,error})
         }
-    })
+    });
 
-    //change password
-    router.post("/:id/:token",async(req,res)=>{
+
+    //verify user for forgot password time
+    router.get("/forget-password/:id/:token",async(req,res)=>{
         const {id,token} = req.params;
-
-        const {password} = req.body;
-
+        
         try{
             const validuser = await User.findOne({_id:id,verifytoken:token});
+            console.log(validuser);
             
             const verifyToken = jwt.verify(token,process.env.JWT_SECRET);
 
+            console.log(verifyToken);
             if(validuser && verifyToken._id){
-                const newpassword = await bcrypt.hash(password,10);
-
-                const setnewuserpass = await User.findByIdAndUpdate({_id:id},{password:newpassword});
-
-                setnewuserpass.save();
-                res.status(201).json({status:201,setnewuserpass})
-
+                res.status(201).json({status:201,validuser})
             }else{
                 res.status(401).json({status:401,message:"user not exist"})
             }
-            
         }catch(error){
             res.status(401).json({status:401,error})
         }
-    })
-});
+    });
 
 
 module.exports = router;

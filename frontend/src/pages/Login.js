@@ -61,6 +61,9 @@ function Login() {
                 <p className='mt-3 text-textcolor text-center'>
                 Don&apos;t have an account?{" "} <Link to="/register" className='text-primarycolor font-bold ml-1'>Register</Link>
                 </p>
+                <p className='mt-3 text-textcolor text-center'>
+                Forget password{" "} <Link to="/reset-password" className='text-primarycolor font-bold ml-1'>Click here</Link>
+                </p>
                     
                 
             </Form>

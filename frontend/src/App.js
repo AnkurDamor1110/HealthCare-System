@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Forgetpassword from './pages/Forget-Reset/Forgetpassword';
 import { Toaster } from 'react-hot-toast';
 import UserDashboard from './pages/ApprovedDoctorHome';
 import HomePage from './components/HomePage';
@@ -33,6 +34,9 @@ import ApprovedDoctorHome from './pages/ApprovedDoctorHome';
 import Userdashboard from './pages/Dashboard/Userdashboard';
 import UserTreatmentView from './pages/Doctor/UserTreatmentView';
 import CheckoutSuccess from './pages/CheckoutSuccess';
+import Resetpassword from './pages/Forget-Reset/Resetpassword';
+import ErrorPage from './pages/errorpage';
+
 function App() {
   const {loading} = useSelector((state) => state.alerts);
   return (
@@ -48,6 +52,7 @@ function App() {
         <Routes>
         
           <Route path='/' element={<HomePage />} />
+          <Route path='*' element={<ErrorPage />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/services' element={<Services />} />
           <Route path='/doctors' element={<DoctorsForHome />} />
@@ -63,6 +68,8 @@ function App() {
           {/* <Route path='/treatment-meeting-details' element={ <UserTreatmentView/> }/> */}
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
+          <Route path='/forget-password/:id/:token' element={<PublicRoutes> <Forgetpassword /> </PublicRoutes>} />
+          <Route path='/reset-password' element={<PublicRoutes> <Resetpassword /> </PublicRoutes>} />
           <Route path='/approved-doctor' element={ <ProtectedRoute> <ApprovedDoctorHome/> </ProtectedRoute>} />
           <Route path='/apply-doctor' element={ <ProtectedRoute> <ApplyDoctor/> </ProtectedRoute>} />
           <Route path='/notifications' element={ <ProtectedRoute> <Notifications/> </ProtectedRoute>} />

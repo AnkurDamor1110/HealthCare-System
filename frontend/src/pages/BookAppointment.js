@@ -186,63 +186,60 @@ function BookAppointment() {
         <Layout>
             {doctor && (
                 <div>
-                    <h1 className="page-title">
-                        {doctor.firstName} {doctor.lastName}
+                    <h1 className="page-title border-b-2 border-gray-400 pb-1">
+                        Dr. {doctor.firstName} {doctor.lastName}
                     </h1>
-                    <hr />
-                    
-                    <Row gutter={20} className='mt-5' align='middle'>
-                        <Col span={8} sm={24} xs={24} lg={8}>
-                            <img src={doctor.photo} alt='Doctor Picture' width='100%' height='400px' />
-                        </Col>
-                        <Col span={8} sm={24} xs={24} lg={8}>
-                            <h1 className="normal-text"><b>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</h1>
-                            <p><b>Phone Number:</b> {doctor.phoneNumber}</p>
-                            <p><b>Address:</b> {doctor.address}</p>
-                            <p><b>Fee per Visit:</b> {doctor.feesPerConsultation}</p>
-                            <p><b>Website:</b> {doctor.website}</p>
+                        <Row gutter={20} className='mt-5 pb-4 flex justify-center border-b-1 border-gray-500 shadow-md' align='middle'>
+                            <Col className='mr-10' span={8} sm={24} xs={24} lg={8}>
+                                <img src={doctor.photo} alt='Doctor Picture' width='100%' height='400px' />
+                            </Col>
+                            <Col span={8} sm={24} xs={24} lg={8}>
+                                <p className="mx-1"><b className='text-gray-800'>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</p>
+                                <p className="mx-1"><b className='text-gray-800'>Phone Number:</b> {doctor.phoneNumber}</p>
+                                <p className="mx-1"><b className='text-gray-800'>Address:</b> {doctor.address}</p>
+                                <p className="mx-1"><b className='text-gray-800'>Fee per Visit:</b> {doctor.feesPerConsultation}</p>
+                                <p className="mx-1"><b className='text-gray-800'>Website:</b> {doctor.website}</p>
 
-                            <div className="d-flex flex-column pt-2 mt-2">
-                                <DatePicker 
-                                    format='DD-MM-YYYY' 
-                                    disabledDate={disablePastDates}
-                                    onChange={(value) => {
-                                        setDate(value ? value.format("DD-MM-YYYY") : null);
-                                        setIsAvailable(false);
-                                    }}  
-                                />
-                                <TimePicker 
-                                    format='HH:mm' 
-                                    className='mt-3' 
-                                    disabledHours={disablePastTime().disabledHours}
-                                    disabledMinutes={disablePastTime().disabledMinutes}
-                                    onChange={(value) => {
-                                        setTime(value ? value.format("HH:mm") : null);
-                                        setIsAvailable(false);
-                                    }} 
-                                />
+                                <div className="d-flex flex-column pt-2 mt-2">
+                                    <DatePicker 
+                                        format='DD-MM-YYYY' 
+                                        disabledDate={disablePastDates}
+                                        onChange={(value) => {
+                                            setDate(value ? value.format("DD-MM-YYYY") : null);
+                                            setIsAvailable(false);
+                                        }}  
+                                    />
+                                    <TimePicker 
+                                        format='HH:mm' 
+                                        className='mt-3' 
+                                        disabledHours={disablePastTime().disabledHours}
+                                        disabledMinutes={disablePastTime().disabledMinutes}
+                                        onChange={(value) => {
+                                            setTime(value ? value.format("HH:mm") : null);
+                                            setIsAvailable(false);
+                                        }} 
+                                    />
 
-                                {!isAvailable && (
-                                    <Button 
-                                        className='primary-button mt-2 full-width-button' 
-                                        onClick={checkAvailability}
-                                    >
-                                        Check Availability
-                                    </Button>
-                                )}
+                                    {!isAvailable && (
+                                        <Button 
+                                            className='primary-button mt-2 full-width-button' 
+                                            onClick={checkAvailability}
+                                        >
+                                            Check Availability
+                                        </Button>
+                                    )}
 
-                                {isAvailable && (
-                                    <Button 
-                                        className='primary-button mt-2 full-width-button' 
-                                        onClick={bookingHandler}
-                                    >
-                                        Book Now
-                                    </Button>
-                                )}
-                            </div>
-                        </Col>
-                    </Row>
-
+                                    {isAvailable && (
+                                        <Button 
+                                            className='primary-button mt-2 full-width-button' 
+                                            onClick={bookingHandler}
+                                        >
+                                            Book Now
+                                        </Button>
+                                    )}
+                                </div>
+                            </Col>
+                        </Row>
                     <DoctorReviews doctorId={doctor._id} />
                 </div>
             )}

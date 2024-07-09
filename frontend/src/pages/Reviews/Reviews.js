@@ -48,13 +48,13 @@ const DoctorReviews = ({ doctorId }) => {
     return (
         <div className="doctor-reviews-container">
             <div className='flex justify-center'>
-                <div className="bg-white shadow-md rounded-md my-2 w-1/3 flex justify-center items-center">
+                <div className="bg-white shadow-md rounded-md my-2 w-7/12 flex justify-center items-center">
                     <h1 className="text-2xl font-semibold p-2">Doctor Reviews</h1>
                 </div>
             </div>
             <Spin spinning={loading}>
                 <div className='flex justify-center'>
-                    <Row className='w-9/12' gutter={[16, 16]}>
+                    <Row className='w-9/12 flex justify-center' gutter={[16, 16]}>
                         {reviews.length > 0 ? (
                             reviews.map(review => (
                                 <Col key={review._id} xs={24} sm={24} md={24} lg={24}>
@@ -83,7 +83,9 @@ const DoctorReviews = ({ doctorId }) => {
                                 </Col>
                             ))
                         ) : (
-                            <p>No reviews found</p>
+                            <div className=' flex justify-center w-1/3 mt-2'>
+                                <p className='p-2 text-gray-500 font-semibold flex justify-center text-lg'>No reviews found</p>
+                            </div>
                         )}
                     </Row>
                 </div>

@@ -187,7 +187,7 @@ function Layout({ children }) {
                             <FontAwesomeIcon icon={faBell} className="cursor-pointer" />
                         </Badge>
                         <div className='flex flex-row items-center'>
-                            <img className='h-10 rounded-full ml-3' src={user?.profilePicture} alt="img" />
+                            <img className='h-10 w-10 rounded-full ml-3' src={user?.profilePicture} alt="img" />
                             <Link to={`/user/profile/${user?._id}`} className="text-black text-lg mx-2 font-semibold">{user?.name}</Link>
                         </div>
                         

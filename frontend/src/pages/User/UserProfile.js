@@ -78,9 +78,9 @@ export default function Profile() {
 
   return (
     <Layout>
-      <div className="bg-gray-200 py-6 px-4 sm:px-6 lg:px-8 w-1/2 mx-auto rounded-lg shadow-md">
+      <div className="bg-gray-100 py-6 px-4 sm:px-6 lg:px-8 w-1/2 mx-auto rounded-lg shadow-md">
         <div className="flex justify-center">
-          <div className="flex justify-center bg-white w-1/2 rounded-md">
+          <div className="flex justify-center bg-white w-9/12 rounded-md shadow-sm">
             <h1 className="text-2xl font-bold py-2">User Profile</h1>
           </div>
         </div>

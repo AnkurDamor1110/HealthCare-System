@@ -160,7 +160,7 @@ function Layout({ children }) {
                         return (
                             <div 
                                 key={menu.name} 
-                                className={`flex items-center p-4 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''} cursor-pointer`}
+                                className={`flex items-center !p-5 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''} cursor-pointer`}
                                 onClick={() => navigate(menu.path)}
                             >
                                 <FontAwesomeIcon icon={menu.icon || faUser} />
@@ -168,7 +168,7 @@ function Layout({ children }) {
                             </div>
                         );
                     })}
-                    <div className="flex items-center p-4 hover:bg-blue-700 cursor-pointer" onClick={() => {
+                    <div className="flex items-center !p-5 hover:bg-blue-700 cursor-pointer" onClick={() => {
                         localStorage.clear();
                         navigate("/");
                     }}>

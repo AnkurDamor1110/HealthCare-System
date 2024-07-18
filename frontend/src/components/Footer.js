@@ -80,8 +80,8 @@ const Footer = () => {
       <div className='containerforhome'>
         <div className='flex justify-between flex-col md:flex-row flex-wrap gap-[30px]'>
           <div >
-            <div className="h-15 w-25">
-            {/* <img src={logo} alt='' /> */}
+            <div style={{height: "70px", width: "140px", marginTop:"10px"}}>
+            <img src={logo} alt='' />
             </div>
             <p className='text-[16px] leading-7 font-[400] text-textcolor'>Copyright &copy; {currentYear} devloped by HelathCare all right reserved</p>
 

@@ -3,10 +3,12 @@ import { Form, Input, Button, Rate } from 'antd';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const ReviewForm = ({ doctorId, userId }) => {
     const [loading, setLoading] = useState(false);
     const { user } = useSelector((state) => state.user);
+    const navigate = useNavigate();
     const onFinish = async (values) => {
         setLoading(true);
         try {
@@ -24,6 +26,7 @@ const ReviewForm = ({ doctorId, userId }) => {
             });
             if (response.data.success) {
                 toast.success(response.data.message);
+                navigate("/approved-doctor");
             } else {
                 toast.error(response.data.message);
             }
@@ -33,7 +36,7 @@ const ReviewForm = ({ doctorId, userId }) => {
             setLoading(false);
         }
     };
-
+    
     return (
         <Form
             name="reviewForm"
@@ -57,7 +60,7 @@ const ReviewForm = ({ doctorId, userId }) => {
             </Form.Item>
 
             <Form.Item>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button type="primary" htmlType="submit" loading={loading} >
                     Submit
                 </Button>
             </Form.Item>

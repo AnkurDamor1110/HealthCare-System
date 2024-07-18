@@ -76,6 +76,7 @@ function BookAppointment() {
             toast.error('Please select date and time');
             return;
         }
+        
 
         try {
             dispatch(showLoading());

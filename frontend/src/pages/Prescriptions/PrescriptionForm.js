@@ -77,7 +77,7 @@ function AddPrescriptionForm() {
       appointmentId: selectedAppointment,
       prescribedMed,
       remarks,
-      paid: false, // Default value
+      paid: true, // Default value
     };
 
     try {

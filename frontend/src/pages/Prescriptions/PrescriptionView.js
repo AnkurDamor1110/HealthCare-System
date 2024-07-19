@@ -115,13 +115,16 @@ export default function PrescriptionView() {
 
   const uniqueDoctors = [
     ...new Set(
-      appointments.map((appointment) => appointment.doctorInfo?.firstName)
+      appointments.map((appointment) => appointment.doctorInfo?.firstName )
     ),
   ];
 
   const columns = [
     { id: "medicineName", label: "Medicine Name", minWidth: 170 },
+    { id: "price", label: "Medicine Price", minWidth: 170 },
     { id: "description", label: "Medicine Description", minWidth: 170 },
+   
+    
     { id: "dosage", label: "Dosage", minWidth: 100 },
     { id: "quantity", label: "Quantity", minWidth: 100 },
   ];
@@ -203,6 +206,7 @@ export default function PrescriptionView() {
                         return (
                           <TableRow hover role="checkbox" tabIndex={-1} key={medicine._id}>
                             <TableCell>{medDetails.name || medicine.medicineId}</TableCell>
+                            <TableCell>{medDetails.price}</TableCell>
                             <TableCell>{medDetails.description}</TableCell>
                             <TableCell>{medicine.dosage}</TableCell>
                             <TableCell>{medicine.qty}</TableCell>
@@ -230,7 +234,7 @@ export default function PrescriptionView() {
                   }}
                 />
               </Paper>
-            );
+            ); 
           })
         ) : (
           <p className="text-center text-gray-700 text-lg">You have no prescriptions from doctor yet.</p>

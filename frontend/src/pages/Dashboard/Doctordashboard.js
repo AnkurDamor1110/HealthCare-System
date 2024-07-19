@@ -218,9 +218,14 @@ function Doctordashboard() {
   return (
     <Layout>
       <div className="dashboard-header">
-        <div className="header-background">
-          <div className="header-content">
-            <h1>Welcome Dr. {user?.name}</h1>
+        <div className="header-background rounded-xl">
+          <div className=" flex flex-col justify-between"><div>
+            <h1 className="my-5 flex justify-start text-white pl-10">Welcome Dr. {user?.name}</h1>
+            <div>
+            <p className="flex justify-start text-white pl-10 text-lg font-medium my-0.5">We are glad to have you back <i className="fa-solid fa-face-grin-wide fa-white pl-2 pt-1.5"></i></p>
+            <p className="flex justify-start text-white pl-10 text-lg font-medium my-0.5">Here's the latest update on your patients today.</p>
+            </div>
+          </div>
           </div>
         </div>
         <hr />

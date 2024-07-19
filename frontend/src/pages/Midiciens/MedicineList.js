@@ -57,7 +57,7 @@ function MedicineList() {
             </div>
             <form action="/medicines" name="userFilter">
               <div className="row filter-row">
-                <div className="col-sm-4 col-md-4">
+                <div className="col-sm-4 col-md-4 flex items-center">
                   <div className="form-floating">
                     <input
                       type="text"
@@ -67,11 +67,11 @@ function MedicineList() {
                     />
                     <label className="focus-label">Medicine Name</label>
                   </div>
-                </div>
-                <div className="col-sm-4 col-md-4">
-                  <button type="submit" className="btn btn-primary btn-block">
-                    Search
-                  </button>
+                  <div className="col-sm-4 col-md-4 ml-5 mb-4">
+                    <button type="submit" className="btn btn-primary btn-block">
+                      Search
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>

@@ -160,7 +160,7 @@ function Layout({ children }) {
                         return (
                             <div 
                                 key={menu.name} 
-                                className={`flex items-center p-4 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''} cursor-pointer`}
+                                className={`flex items-center !p-5 hover:bg-[#E4D9FF] ${isActive ? 'bg-[#E4D9FF]' : ''} cursor-pointer`}
                                 onClick={() => navigate(menu.path)}
                             >
                                 <FontAwesomeIcon icon={menu.icon || faUser} />
@@ -168,7 +168,7 @@ function Layout({ children }) {
                             </div>
                         );
                     })}
-                    <div className="flex items-center p-4 hover:bg-blue-700 cursor-pointer" onClick={() => {
+                    <div className="flex items-center !p-5 hover:bg-blue-700 cursor-pointer" onClick={() => {
                         localStorage.clear();
                         navigate("/");
                     }}>
@@ -187,7 +187,7 @@ function Layout({ children }) {
                             <FontAwesomeIcon icon={faBell} className="cursor-pointer" />
                         </Badge>
                         <div className='flex flex-row items-center'>
-                            <img className='h-10 rounded-full ml-3' src={user?.profilePicture} alt="img" />
+                            <img className='h-10 w-10 rounded-full ml-3' src={user?.profilePicture} alt="img" />
                             <Link to={`/user/profile/${user?._id}`} className="text-black text-lg mx-2 font-semibold">{user?.name}</Link>
                         </div>
                         

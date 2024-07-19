@@ -79,9 +79,11 @@ const Footer = () => {
     <footer className='pb-16 pt-10 mt-auto' >
       <div className='containerforhome'>
         <div className='flex justify-between flex-col md:flex-row flex-wrap gap-[30px]'>
-          <div>
+          <div >
+            <div style={{height: "70px", width: "140px", marginTop:"10px"}}>
             <img src={logo} alt='' />
-            <p className='text-[16px] leading-7 font-[400] text-textcolor'>Copyright &copy; {currentYear} devloped by Medicare all right reserved</p>
+            </div>
+            <p className='text-[16px] leading-7 font-[400] text-textcolor'>Copyright &copy; {currentYear} devloped by HelathCare all right reserved</p>
 
             <div className='flex items-center gap-3 mt-4'>
               {socialLinks.map((link, index) => (

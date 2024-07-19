@@ -342,7 +342,7 @@ router.get('/get-success-appointments-by-user-id',authMiddleware, async (req, re
 router.get('/get-panding-appointments-by-user-id',authMiddleware, async (req, res) => {
     try {
         // const doctor = await Doctor.findOne({userId: req.body.userId });
-       const appointments = await Appointment.find({userId: req.body.userId , status: 'panding'});
+       const appointments = await Appointment.find({userId: req.body.userId , status: 'pending'});
        res.status(200).send({ message: "Doctor Appointments fetched successfully", success: true, data: appointments });
     } catch (error) {
         console.log(error);

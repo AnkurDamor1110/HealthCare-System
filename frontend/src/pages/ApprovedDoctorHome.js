@@ -93,6 +93,11 @@ function ApprovedDoctorHome({ initialValues = {} }) {
           (doctor) => doctor.feesPerConsultation >= 2500 && doctor.feesPerConsultation <= 3000
         );
         break;
+      case "3000+":
+      filteredDoctors = originalDoctors.filter(
+        (doctor) => doctor.feesPerConsultation >= 3000
+      );
+        break;
       default:
         filteredDoctors = originalDoctors;
         break;
@@ -160,6 +165,9 @@ function ApprovedDoctorHome({ initialValues = {} }) {
                   </option>
                   <option className="mr-2 text-md" value="2500-3000">
                     2500-3000
+                  </option>
+                  <option className="mr-2 text-md" value="3000+">
+                    3000+
                   </option>
                 </select>
               </div>

@@ -13,6 +13,8 @@ import './Register.css';
 const { Option } = Select;
 
 function Register() {
+
+  const apiUrl = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -49,7 +51,7 @@ function Register() {
       formData.append('profilePicture', values.profilePicture[0].originFileObj);
 
       // Make POST request to backend
-      const response = await axios.post('/api/user/register', formData, {
+      const response = await axios.post(`${apiUrl}/api/user/register`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

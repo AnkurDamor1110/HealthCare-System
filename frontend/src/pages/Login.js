@@ -9,12 +9,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 function Login() {
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const onFinish = async (values) =>{
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/user/login', values);
+            const response = await axios.post(`${apiUrl}/api/user/login`, values);
             dispatch(hideLoading());
             if(response.data.success){
                 toast.success(response.data.message);

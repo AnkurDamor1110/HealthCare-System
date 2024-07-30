@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Layout from "../../components/Layout";
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
@@ -13,10 +13,9 @@ function Doctorslist() {
     const [resumeUrl, setResumeUrl] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
     const [selectedDoctor, setSelectedDoctor] = useState(null); // State to store the selected doctor
-    // const [interviewDate, setInterviewDate] = useState(null); // State to store the interview date
     const dispatch = useDispatch();
 
-    const getDoctorData = async () => {
+    const getDoctorData = useCallback(async () => {
         try {
             dispatch(showLoading());
             const response = await axios.get('/api/admin/get-all-doctors', {
@@ -31,7 +30,11 @@ function Doctorslist() {
         } catch (error) {
             dispatch(hideLoading());
         }
-    };
+    }, [dispatch]);
+
+    useEffect(() => {
+        getDoctorData();
+    }, [getDoctorData]);
 
     const changeDoctorStatus = async (record, status) => {
         try {
@@ -46,7 +49,7 @@ function Doctorslist() {
             dispatch(hideLoading());
             if (response.data.success) {
                 toast.success(response.data.message);
-                getDoctorData();
+                getDoctorData(); // Ensure getDoctorData is accessible here
             }
         } catch (error) {
             toast.error("Error changing Doctor account status");
@@ -72,7 +75,6 @@ function Doctorslist() {
         setIsModalVisible(false);
         // Reset states
         setSelectedDoctor(null);
-        // setInterviewDate(null);
     };
 
     const handleCancel = () => {
@@ -80,12 +82,7 @@ function Doctorslist() {
         setIsModalVisible(false);
         // Reset states
         setSelectedDoctor(null);
-        // setInterviewDate(null);
     };
-
-    useEffect(() => {
-        getDoctorData();
-    }, []);
 
     const columns = [
         {
@@ -146,7 +143,7 @@ function Doctorslist() {
 
     return (
         <Layout>
-            <h1 className="page-title">Doctor List </h1>
+            <h1 className="page-title">Doctor List</h1>
             <Table columns={columns} dataSource={doctors} />
 
             {/* Modal for displaying resume and setting interview */}
@@ -158,13 +155,18 @@ function Doctorslist() {
                 width={1000}
             >
                 {selectedDoctor ? (
-                    <Space direction="vertical">
+                    <Space direction="vertical" key={selectedDoctor._id}>
                         <InterviewForm doctorId={selectedDoctor._id} />
                     </Space>
                 ) : (
-                    <iframe src={resumeUrl} style={{ width: '100%', height: '600px' }} />
+                    <iframe
+                        title="Doctor's Resume"
+                        src={resumeUrl}
+                        style={{ width: '100%', height: '600px' }}
+                    />
                 )}
             </Modal>
+
         </Layout>
     );
 }

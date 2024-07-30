@@ -16,19 +16,20 @@ function Editmedicine() {
   const { id } = useParams();
 
   useEffect(() => {
-    getmedicineById();
-  }, []);
 
-  const getmedicineById = async () => {
-    const response = await axios.get(
-      `/api/medicines/${id}`
-    );
-    console.log(response);
-    setCompany(response.data.company);
-    setName(response.data.name);
-    setDescription(response.data.description);
-    setPrice(response.data.price);
-  };
+    const getmedicineById = async () => {
+      const response = await axios.get(
+        `/api/medicines/${id}`
+      );
+      console.log(response);
+      setCompany(response.data.company);
+      setName(response.data.name);
+      setDescription(response.data.description);
+      setPrice(response.data.price);
+    };
+
+    getmedicineById();
+  }, [id]);
 
   const updatemedicine = async (e) => {
     e.preventDefault();

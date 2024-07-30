@@ -13,7 +13,7 @@ const contactRoute = require("./routes/contactRoute");
 const cors = require('cors');
 
 app.use(cors({
-    origin: 'https://66a93a9d891ff300081ae1ed--healthcare1110.netlify.app'
+    origin: 'https://main--healthcare1110.netlify.app/'
   }));
 
 app.use('/api/user', userRoute);

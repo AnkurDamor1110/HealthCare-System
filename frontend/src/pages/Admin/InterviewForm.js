@@ -4,13 +4,14 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
 const InterviewForm = ({ doctorId }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [loading, setLoading] = useState(false);
 
     const onFinish = async (values) => {
         setLoading(true);
         try {
             // Make API call to submit interview details
-            const response = await axios.post('/api/admin/schedule-interview', {
+            const response = await axios.post(`${apiUrl}/api/admin/schedule-interview`, {
                 doctorId,
                 date: values.date,
                 time: values.time,

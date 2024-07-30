@@ -7,6 +7,7 @@ import Footer from '../../components/Footer';
 
 function Resetpassword() {
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [email,setEmail] = useState("");
 
     const [message,setMessage] = useState("");
@@ -18,7 +19,7 @@ function Resetpassword() {
     const onFinish = async (e) => {
         // e.preventDefault();
 
-        const response = await fetch("/api/user/sendpasswordlink",{
+        const response = await fetch(`${apiUrl}/api/user/sendpasswordlink`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json",

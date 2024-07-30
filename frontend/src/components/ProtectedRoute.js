@@ -8,6 +8,7 @@ import { hideLoading, showLoading } from '../redux/alertsSlice';
 
 function ProtectedRoute(props) {
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const {user} = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
@@ -19,7 +20,7 @@ function ProtectedRoute(props) {
 
                 try {
                     dispatch(showLoading());
-                    const response = await axios.post('/api/user/get-user-info-by-id', {token: localStorage.getItem('token')} , {
+                    const response = await axios.post(`${apiUrl}/api/user/get-user-info-by-id`, {token: localStorage.getItem('token')} , {
                         headers: {
                             Authorization: `Bearer ` + localStorage.getItem('token'),
                         }

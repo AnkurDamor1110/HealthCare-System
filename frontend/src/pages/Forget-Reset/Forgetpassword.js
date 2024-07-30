@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 function ForgetPassword() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { id, token } = useParams();
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -14,7 +15,7 @@ function ForgetPassword() {
 
     const handleSubmit = async () => {
         try {
-            const res = await fetch(`/api/user/${id}/${token}`, {
+            const res = await fetch(`${apiUrl}/api/user/${id}/${token}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

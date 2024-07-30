@@ -8,13 +8,14 @@ import moment from 'moment';
 
 function Userslist() {
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [users, setUsers] = useState([]);
     const dispatch = useDispatch();
 
     const getUserData = useCallback(async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.get('/api/admin/get-all-users', {
+            const response = await axios.get(`${apiUrl}/api/admin/get-all-users`, {
                 headers: {
                     Authorization: `Bearer ` + localStorage.getItem('token'),
                 },

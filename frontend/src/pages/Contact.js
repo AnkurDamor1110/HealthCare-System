@@ -9,6 +9,8 @@ const defaultContactFormData = {
 };
 
 const Contact = () => {
+
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [contact, setContact] = useState(defaultContactFormData);
 
   const handleChange = (e) => {
@@ -22,7 +24,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/form/contact", {
+      const response = await fetch(`${apiUrl}/api/form/contact`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

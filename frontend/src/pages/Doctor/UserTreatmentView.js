@@ -4,6 +4,8 @@ import { Card, Spin } from 'antd';
 import { toast } from 'react-hot-toast';
 
 const UserTreatmentView = ({ doctorId, userId, appointmentId }) => {
+
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [meetingDetails, setMeetingDetails] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -11,7 +13,7 @@ const UserTreatmentView = ({ doctorId, userId, appointmentId }) => {
         const fetchMeetingDetails = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('/api/doctor/get-treatment-meeting-details', {
+                const response = await axios.get(`${apiUrl}/api/doctor/get-treatment-meeting-details`, {
                     params: {
                         doctorId: doctorId,
                         userId: userId,

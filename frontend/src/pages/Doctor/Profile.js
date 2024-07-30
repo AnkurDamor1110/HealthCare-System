@@ -10,7 +10,7 @@ import axios from 'axios';
 // import moment from "moment";
 function Profile() {
 
-    
+    const apiUrl = process.env.REACT_APP_API_URL;
     const {user} = useSelector( (state) => state.user);
     const params = useParams();
     const [doctor,setDoctor] = useState(null);
@@ -20,7 +20,7 @@ function Profile() {
     const onFinish = async (values) =>{
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/doctor/update-doctor-profile', 
+            const response = await axios.post(`${apiUrl}/api/doctor/update-doctor-profile`, 
             {
                 ...values, 
                 userId: user._id,
@@ -55,7 +55,7 @@ function Profile() {
 
                 try {
                     dispatch(showLoading());
-                    const response = await axios.post('/api/doctor/get-doctor-info-by-user-id',
+                    const response = await axios.post(`${apiUrl}/api/doctor/get-doctor-info-by-user-id`,
                     {
                         userId: params.userId,
                     },

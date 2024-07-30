@@ -3,8 +3,6 @@ import { Form, Input, Button, DatePicker, TimePicker } from 'antd';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
-const { RangePicker } = DatePicker;
-
 const InterviewForm = ({ doctorId }) => {
     const [loading, setLoading] = useState(false);
 
@@ -16,7 +14,7 @@ const InterviewForm = ({ doctorId }) => {
                 doctorId,
                 date: values.date,
                 time: values.time,
-                googleMeetLink: values.googleMeetLink
+                googleMeetLink: values.googleMeetLink 
             });
             if (response.data.success) {
                 toast.success(response.data.message);

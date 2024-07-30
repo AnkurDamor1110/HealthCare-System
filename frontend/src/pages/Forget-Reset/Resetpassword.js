@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form, Input } from 'antd';
-import {Link, json, useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import {Link} from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
@@ -30,7 +28,7 @@ function Resetpassword() {
 
         const data = await response.json();
         console.log(data);
-        if(data.status == 201){
+        if(data.status === 201){
             setEmail("");
             setMessage(true)
         }else{

@@ -3,8 +3,6 @@ import { Form, Input, Button, DatePicker, TimePicker } from 'antd';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
-const { RangePicker } = DatePicker;
-
 const InterviewForm = ({ doctorId }) => {
     const [loading, setLoading] = useState(false);
 

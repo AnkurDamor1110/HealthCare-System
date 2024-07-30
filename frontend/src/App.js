@@ -4,7 +4,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Forgetpassword from './pages/Forget-Reset/Forgetpassword';
 import { Toaster } from 'react-hot-toast';
-import UserDashboard from './pages/ApprovedDoctorHome';
 import HomePage from './components/HomePage';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
@@ -32,7 +31,6 @@ import Doctordashboard from './pages/Dashboard/Doctordashboard';
 import UserInterviewDetails from './pages/Admin/InterviewView';
 import ApprovedDoctorHome from './pages/ApprovedDoctorHome';
 import Userdashboard from './pages/Dashboard/Userdashboard';
-import UserTreatmentView from './pages/Doctor/UserTreatmentView';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import Resetpassword from './pages/Forget-Reset/Resetpassword';
 import ErrorPage from './pages/errorpage';
@@ -65,7 +63,6 @@ function App() {
           <Route path='/doctor-dashboard' element={ <Doctordashboard/> }/> 
           <Route path='/user-dashboard' element={ <Userdashboard/> }/>
           <Route path='/interview-details' element={ <UserInterviewDetails/> }/>
-          {/* <Route path='/treatment-meeting-details' element={ <UserTreatmentView/> }/> */}
           <Route path='/login' element={<PublicRoutes> <Login /> </PublicRoutes>} />
           <Route path='/register' element={<PublicRoutes> <Register /> </PublicRoutes>} />
           <Route path='/forget-password/:id/:token' element={<PublicRoutes> <Forgetpassword /> </PublicRoutes>} />

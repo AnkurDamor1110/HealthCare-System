@@ -14,6 +14,7 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 
 export default function PrescriptionView() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [prescriptions, setPrescriptions] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [medicines, setMedicines] = useState([]);
@@ -26,7 +27,7 @@ export default function PrescriptionView() {
     const fetchAppointments = async () => {
       try {
         const response = await axios.get(
-          "/api/user/get-appointments-by-user-id",
+          `${apiUrl}/api/user/get-appointments-by-user-id`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,7 +47,7 @@ export default function PrescriptionView() {
 
     const fetchPrescriptions = async () => {
       try {
-        const response = await axios.get("/api/get-prescriptions-by-user-id", {
+        const response = await axios.get(`${apiUrl}/api/get-prescriptions-by-user-id`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -64,7 +65,7 @@ export default function PrescriptionView() {
 
     const fetchMedicines = async () => {
       try {
-        const response = await axios.get("/api/medicines", {
+        const response = await axios.get(`${apiUrl}/api/medicines`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

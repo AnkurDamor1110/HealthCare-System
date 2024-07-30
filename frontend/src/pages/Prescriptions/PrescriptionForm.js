@@ -10,6 +10,7 @@ import Layout from '../../components/Layout';
 
 function AddPrescriptionForm() {
   // const { user } = useSelector((state) => state.user);
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [appointments, setAppointments] = useState([]);
   const [medicines, setMedicines] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState('');
@@ -23,7 +24,7 @@ function AddPrescriptionForm() {
     const getAppointmentData = async () => {
       try {
         dispatch(showLoading());
-        const response = await axios.get('/api/doctor/get-appointments-by-doctor-id', {
+        const response = await axios.get(`${apiUrl}/api/doctor/get-appointments-by-doctor-id`, {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem('token'),
           },
@@ -39,7 +40,7 @@ function AddPrescriptionForm() {
 
     const fetchMedicines = async () => {
       try {
-        const response = await axios.get('/api/medicines', {
+        const response = await axios.get(`${apiUrl}/api/medicines`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         if (Array.isArray(response.data)) {
@@ -81,7 +82,7 @@ function AddPrescriptionForm() {
     };
 
     try {
-      const response = await axios.post('/api/prescriptions', payload, {
+      const response = await axios.post(`${apiUrl}/api/prescriptions`, payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       if (response.data.message === 'success') {

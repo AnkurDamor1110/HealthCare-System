@@ -6,6 +6,7 @@ import moment from 'moment';
 import './DoctorReviews.css'; 
 
 const DoctorReviews = ({ doctorId }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expandedComment, setExpandedComment] = useState({});
@@ -13,7 +14,7 @@ const DoctorReviews = ({ doctorId }) => {
     const fetchReviews = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('/api/user/get-reviews-by-doctor-id', {
+            const response = await axios.get(`${apiUrl}/api/user/get-reviews-by-doctor-id`, {
                 params: { doctorId },
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,

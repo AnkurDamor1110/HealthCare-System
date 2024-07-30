@@ -34,7 +34,7 @@ function Editmedicine() {
     e.preventDefault();
     // Update Medicine using Axios Method
 
-    const response = await axios.put(
+     await axios.put(
       `/api/medicines/${id}`,
       {
         company,

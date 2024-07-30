@@ -48,7 +48,7 @@ function Admindashboard() {
         fetchData(`${apiUrl}/api/admin/get-all-approved-appointments`, setApprovedAppointments);
         fetchData(`${apiUrl}/api/admin/get-all-rejected-appointments`, setRejectedAppointments);
         fetchData(`${apiUrl}/api/admin/get-all-medicines`, setMedicines);
-    }, [dispatch]);
+    }, [dispatch, apiUrl]);
 
     const pieData = {
         labels: ['Success', 'Pending', 'Approved', 'Rejected'],

@@ -53,7 +53,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const getAppointments = useCallback(async () => {
     try {
@@ -73,7 +73,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const getSuccessAppointments = useCallback(async () => {
     try {
@@ -93,7 +93,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const getPendingAppointments = useCallback(async () => {
     try {
@@ -113,7 +113,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const getApprovedAppointments = useCallback(async () => {
     try {
@@ -133,7 +133,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const getRejectedAppointments = useCallback(async () => {
     try {
@@ -153,7 +153,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const getPrescriptions = useCallback(async () => {
     try {
@@ -170,7 +170,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const getTodaysAppointments = useCallback(async () => {
     try {
@@ -190,7 +190,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const pieData = {
     labels: ["Success", "Approved", "Rejected", "Pending"],

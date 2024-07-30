@@ -188,7 +188,7 @@ function Doctordashboard() {
     getRejectedAppointments();
     getDoctorUser();
     getTodaysAppointments();
-  }, [dispatch]);  
+  }, [dispatch, apiUrl]);  
   
   const pieData = {
     labels: ["Success", "Pending", "Approved", "Rejected"],

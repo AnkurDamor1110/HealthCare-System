@@ -79,7 +79,7 @@ function Profile() {
 
             getDoctorData();
            
-        },[dispatch, params.userId]);
+        },[dispatch, params.userId, apiUrl]);
 
   return (
     <Layout>

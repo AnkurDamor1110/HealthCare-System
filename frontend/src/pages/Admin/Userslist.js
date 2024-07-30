@@ -27,7 +27,7 @@ function Userslist() {
         } catch (error) {
             dispatch(hideLoading());
         }
-    }, [dispatch]);
+    }, [dispatch, apiUrl]);
 
     useEffect(() => {
         getUserData();

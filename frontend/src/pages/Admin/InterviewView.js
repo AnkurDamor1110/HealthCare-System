@@ -32,7 +32,7 @@ const UserInterviewDetails = () => {
         };
 
         fetchInterviewDetails();
-    }, []);
+    }, [apiUrl]);
 
     return (
         <Layout>

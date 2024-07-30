@@ -36,7 +36,7 @@ const UserTreatmentView = ({ doctorId, userId, appointmentId }) => {
         };
 
         fetchMeetingDetails();
-    }, [doctorId, userId, appointmentId]);
+    }, [doctorId, userId, appointmentId, apiUrl]);
 
     return (
         <div>

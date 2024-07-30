@@ -32,7 +32,7 @@ function Contactlist() {
         }
 
         getContactData();
-    },[dispatch]);
+    },[dispatch, apiUrl]);
 
     const columns = [
         {

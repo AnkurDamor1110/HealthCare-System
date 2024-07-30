@@ -33,7 +33,7 @@ const TreatmentMeetingForm = ({ doctorId, userId, appointmentId }) => {
         };
  
         getDoctorData();
-    }, [dispatch, doctorId]);
+    }, [dispatch, doctorId, apiUrl]);
 
     const onFinish = async (values) => {
         setLoading(true);

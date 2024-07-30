@@ -31,7 +31,7 @@ function DoctorsAppointment() {
         } catch (error) {
             dispatch(hideLoading());
         }
-    }, [dispatch]);
+    }, [dispatch, apiUrl]);
 
     const changeAppointmentStatus = async (record, status) => {
         try {

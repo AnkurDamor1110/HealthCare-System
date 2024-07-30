@@ -7,6 +7,7 @@ import { Table } from 'antd';
 
 function Contactlist() {
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [contacts, setContacts] = useState([]);
     const dispatch = useDispatch();
 
@@ -16,7 +17,7 @@ function Contactlist() {
         const getContactData= async()=>{
             try {
                 dispatch(showLoading());
-                const response = await axios.get('/api/admin/customercare', {
+                const response = await axios.get(`${apiUrl}/api/admin/customercare`, {
                     headers: {
                         Authorization: `Bearer ` + localStorage.getItem('token'),
                     },

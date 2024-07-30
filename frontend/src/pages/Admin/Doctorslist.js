@@ -9,6 +9,7 @@ import moment from 'moment';
 import InterviewForm from './InterviewForm'; // Import the InterviewForm component
 
 function Doctorslist() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [doctors, setDoctors] = useState([]);
     const [resumeUrl, setResumeUrl] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
@@ -18,7 +19,7 @@ function Doctorslist() {
     const getDoctorData = useCallback(async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.get('/api/admin/get-all-doctors', {
+            const response = await axios.get(`${apiUrl}/api/admin/get-all-doctors`, {
                 headers: {
                     Authorization: `Bearer ` + localStorage.getItem('token'),
                 },
@@ -39,7 +40,7 @@ function Doctorslist() {
     const changeDoctorStatus = async (record, status) => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/admin/change-account-doctor-status', {
+            const response = await axios.post(`${apiUrl}/api/admin/change-account-doctor-status`, {
                 doctorId: record._id, userId: record.userId, status: status
             }, {
                 headers: {

@@ -24,6 +24,7 @@ ChartJS.register(
 );
 
 function Userdashboard() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [userDoctor, setuserDoctor] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [sucessAppointments, setsucessAppointments] = useState([]);
@@ -38,7 +39,7 @@ function Userdashboard() {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/user/get-user-doctors-by-user-id",
+        `${apiUrl}/api/user/get-user-doctors-by-user-id`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -58,7 +59,7 @@ function Userdashboard() {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/user/get-appointments-by-user-id",
+        `${apiUrl}/api/user/get-appointments-by-user-id`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -78,7 +79,7 @@ function Userdashboard() {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/user/get-success-appointments-by-user-id",
+        `${apiUrl}/api/user/get-success-appointments-by-user-id`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -98,7 +99,7 @@ function Userdashboard() {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/user/get-panding-appointments-by-user-id",
+        `${apiUrl}/api/user/get-panding-appointments-by-user-id`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -118,7 +119,7 @@ function Userdashboard() {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/user/get-approved-appointments-by-user-id",
+        `${apiUrl}/api/user/get-approved-appointments-by-user-id`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -138,7 +139,7 @@ function Userdashboard() {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/user/get-rejected-appointments-by-user-id",
+        `${apiUrl}/api/user/get-rejected-appointments-by-user-id`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -157,7 +158,7 @@ function Userdashboard() {
   const getPrescriptions = useCallback(async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("/api/get-prescriptions-by-user-id", {
+      const response = await axios.get(`${apiUrl}/api/get-prescriptions-by-user-id`, {
         headers: {
           Authorization: `Bearer ` + localStorage.getItem("token"),
         },
@@ -175,7 +176,7 @@ function Userdashboard() {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/user/get-today-appointments-by-user-id",
+        `${apiUrl}/api/user/get-today-appointments-by-user-id`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),

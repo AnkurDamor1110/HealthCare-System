@@ -9,6 +9,7 @@ import Layout from '../../components/Layout';
 import './Admindashboard.css';
 
 function Admindashboard() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [doctors, setDoctors] = useState([]);
     const [users, setUsers] = useState([]);
     const [appointments, setAppointments] = useState([]);
@@ -39,14 +40,14 @@ function Admindashboard() {
             }
         };
 
-        fetchData('/api/admin/get-all-doctors', setDoctors);
-        fetchData('/api/admin/get-all-users', setUsers);
-        fetchData('/api/admin/get-all-appointments', setAppointments);
-        fetchData('/api/admin/get-all-success-appointments', setSuccessAppointments);
-        fetchData('/api/admin/get-all-pending-appointments', setPendingAppointments);
-        fetchData('/api/admin/get-all-approved-appointments', setApprovedAppointments);
-        fetchData('/api/admin/get-all-rejected-appointments', setRejectedAppointments);
-        fetchData('/api/admin/get-all-medicines', setMedicines);
+        fetchData(`${apiUrl}/api/admin/get-all-doctors`, setDoctors);
+        fetchData(`${apiUrl}/api/admin/get-all-users`, setUsers);
+        fetchData(`${apiUrl}/api/admin/get-all-appointments`, setAppointments);
+        fetchData(`${apiUrl}/api/admin/get-all-success-appointments`, setSuccessAppointments);
+        fetchData(`${apiUrl}/api/admin/get-all-pending-appointments`, setPendingAppointments);
+        fetchData(`${apiUrl}/api/admin/get-all-approved-appointments`, setApprovedAppointments);
+        fetchData(`${apiUrl}/api/admin/get-all-rejected-appointments`, setRejectedAppointments);
+        fetchData(`${apiUrl}/api/admin/get-all-medicines`, setMedicines);
     }, [dispatch]);
 
     const pieData = {

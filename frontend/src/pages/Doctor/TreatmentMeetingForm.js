@@ -6,6 +6,7 @@ import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import { useDispatch } from 'react-redux';
 
 const TreatmentMeetingForm = ({ doctorId, userId, appointmentId }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [doctor, setDoctor] = useState(null);
@@ -14,7 +15,7 @@ const TreatmentMeetingForm = ({ doctorId, userId, appointmentId }) => {
         const getDoctorData = async () => {
             try {
                 dispatch(showLoading());
-                const response = await axios.post('/api/doctor/get-doctor-info-by-id', {
+                const response = await axios.post(`${apiUrl}/api/doctor/get-doctor-info-by-id`, {
                     doctorId: doctorId,
                 }, {
                     headers: {
@@ -37,7 +38,7 @@ const TreatmentMeetingForm = ({ doctorId, userId, appointmentId }) => {
     const onFinish = async (values) => {
         setLoading(true);
         try {
-            const response = await axios.post('/api/doctor/schedule-treatment-meeting', {
+            const response = await axios.post(`${apiUrl}/api/doctor/schedule-treatment-meeting`, {
                 doctorId,
                 userId,
                 appointmentId,

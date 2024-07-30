@@ -25,6 +25,8 @@ ChartJS.register(
 );
 
 function Doctordashboard() {
+
+  const apiUrl = process.env.REACT_APP_API_URL;
   const { user } = useSelector((state) => state.user);
   const [appointments, setAppointments] = useState([]);
   const [sucessAppointments, setsucessAppointments] = useState([]);
@@ -43,7 +45,7 @@ function Doctordashboard() {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          "/api/doctor/get-appointments-by-doctor-id",
+          `${apiUrl}/api/doctor/get-appointments-by-doctor-id`,
           {
             headers: {
               Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -63,7 +65,7 @@ function Doctordashboard() {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          "/api/doctor/get-success-appointments-by-doctor-id",
+          `${apiUrl}/api/doctor/get-success-appointments-by-doctor-id`,
           {
             headers: {
               Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -83,7 +85,7 @@ function Doctordashboard() {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          "/api/doctor/get-padding-appointments-by-doctor-id",
+          `${apiUrl}/api/doctor/get-padding-appointments-by-doctor-id`,
           {
             headers: {
               Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -103,7 +105,7 @@ function Doctordashboard() {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          "/api/doctor/get-approved-appointments-by-doctor-id",
+          `${apiUrl}/api/doctor/get-approved-appointments-by-doctor-id`,
           {
             headers: {
               Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -123,7 +125,7 @@ function Doctordashboard() {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          "/api/doctor/get-rejected-appointments-by-doctor-id",
+          `${apiUrl}/api/doctor/get-rejected-appointments-by-doctor-id`,
           {
             headers: {
               Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -142,7 +144,7 @@ function Doctordashboard() {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          "/api/doctor/get-users-appointments-by-doctor-id",
+          `${apiUrl}/api/doctor/get-users-appointments-by-doctor-id`,
           {
             headers: {
               Authorization: `Bearer ` + localStorage.getItem("token"),
@@ -162,7 +164,7 @@ function Doctordashboard() {
       try {
         dispatch(showLoading());
         const response = await axios.get(
-          "/api/doctor/get-today-appointments-by-doctor-id",
+          `${apiUrl}/api/doctor/get-today-appointments-by-doctor-id`,
           {
             headers: {
               Authorization: `Bearer ` + localStorage.getItem("token"),

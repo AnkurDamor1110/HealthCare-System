@@ -10,6 +10,7 @@ import TreatmentMeetingForm from './TreatmentMeetingForm'; // Import the Treatme
 
 function DoctorsAppointment() {
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [appointments, setAppointments] = useState([]);
@@ -18,7 +19,7 @@ function DoctorsAppointment() {
     const getAppointmentData = useCallback(async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.get('/api/doctor/get-appointments-by-doctor-id', {
+            const response = await axios.get(`${apiUrl}/api/doctor/get-appointments-by-doctor-id`, {
                 headers: {
                     Authorization: `Bearer ` + localStorage.getItem('token'),
                 },
@@ -35,7 +36,7 @@ function DoctorsAppointment() {
     const changeAppointmentStatus = async (record, status) => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/doctor/change-appointment-status', {
+            const response = await axios.post(`${apiUrl}/api/doctor/change-appointment-status`, {
                 appointmentId: record._id, status: status
             }, {
                 headers: {

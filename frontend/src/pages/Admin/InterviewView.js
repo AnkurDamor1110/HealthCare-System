@@ -6,6 +6,7 @@ import Layout from '../../components/Layout';
 import moment from 'moment'; // Import moment library
 
 const UserInterviewDetails = () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [interviewDetails, setInterviewDetails] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -13,7 +14,7 @@ const UserInterviewDetails = () => {
         const fetchInterviewDetails = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`/api/user/interview-details`, {
+                const response = await axios.get(`${apiUrl}/api/user/interview-details`, {
                     headers: {
                         Authorization: `Bearer ` + localStorage.getItem('token'),
                     },

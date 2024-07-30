@@ -19,24 +19,26 @@ function Admindashboard() {
     const [medicines, setMedicines] = useState([]);
     const dispatch = useDispatch();
 
-    const fetchData = async (url, setState) => {
-        try {
-            dispatch(showLoading());
-            const response = await axios.get(url, {
-                headers: {
-                    Authorization: `Bearer ` + localStorage.getItem('token'),
-                },
-            });
-            dispatch(hideLoading());
-            if (response.data.success) {
-                setState(response.data.data);
-            }
-        } catch (error) {
-            dispatch(hideLoading());
-        }
-    };
 
     useEffect(() => {
+
+        const fetchData = async (url, setState) => {
+            try {
+                dispatch(showLoading());
+                const response = await axios.get(url, {
+                    headers: {
+                        Authorization: `Bearer ` + localStorage.getItem('token'),
+                    },
+                });
+                dispatch(hideLoading());
+                if (response.data.success) {
+                    setState(response.data.data);
+                }
+            } catch (error) {
+                dispatch(hideLoading());
+            }
+        };
+
         fetchData('/api/admin/get-all-doctors', setDoctors);
         fetchData('/api/admin/get-all-users', setUsers);
         fetchData('/api/admin/get-all-appointments', setAppointments);
@@ -45,7 +47,7 @@ function Admindashboard() {
         fetchData('/api/admin/get-all-approved-appointments', setApprovedAppointments);
         fetchData('/api/admin/get-all-rejected-appointments', setRejectedAppointments);
         fetchData('/api/admin/get-all-medicines', setMedicines);
-    }, []);
+    }, [dispatch]);
 
     const pieData = {
         labels: ['Success', 'Pending', 'Approved', 'Rejected'],

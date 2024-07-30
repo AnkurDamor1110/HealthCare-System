@@ -10,26 +10,28 @@ function Contactlist() {
     const [contacts, setContacts] = useState([]);
     const dispatch = useDispatch();
 
-    const getContactData= async()=>{
-        try {
-            dispatch(showLoading());
-            const response = await axios.get('/api/admin/customercare', {
-                headers: {
-                    Authorization: `Bearer ` + localStorage.getItem('token'),
-                },
-            });
-            dispatch(hideLoading());
-            if(response.data.success){
-                setContacts(response.data.data);
-            }
-        } catch (error) {
-            dispatch(hideLoading());
-        }
-    }
 
     useEffect(()=>{
+
+        const getContactData= async()=>{
+            try {
+                dispatch(showLoading());
+                const response = await axios.get('/api/admin/customercare', {
+                    headers: {
+                        Authorization: `Bearer ` + localStorage.getItem('token'),
+                    },
+                });
+                dispatch(hideLoading());
+                if(response.data.success){
+                    setContacts(response.data.data);
+                }
+            } catch (error) {
+                dispatch(hideLoading());
+            }
+        }
+
         getContactData();
-    },[]);
+    },[dispatch]);
 
     const columns = [
         {

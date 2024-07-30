@@ -192,7 +192,7 @@ function BookAppointment() {
                         <Row gutter={20} className='mt-5 pb-4 flex justify-center border-b-1 border-gray-500 shadow-md' align='middle'>
                             <Col className='mr-10' span={8} sm={24} xs={24} lg={8}>
                                 <image src={doctor.photo} alt='Doctor Picture' width='100%' height='400px' />
-                            </Col>
+                            </Col> 
                             <Col span={8} sm={24} xs={24} lg={8}>
                                 <p className="mx-1"><b className='text-gray-800'>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</p>
                                 <p className="mx-1"><b className='text-gray-800'>Phone Number:</b> {doctor.phoneNumber}</p>

@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "v20.5.0"
+  },
   "name": "backend",
   "version": "1.0.0",
   "description": "This is Backend folder of project",

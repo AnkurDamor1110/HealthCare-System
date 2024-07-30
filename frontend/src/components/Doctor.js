@@ -10,11 +10,13 @@ function Doctor({ doctor }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const getRating = async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        `/api/user/get-reviews-rating?doctorId=${doctor._id}`,
+        `${apiUrl}/api/user/get-reviews-rating?doctorId=${doctor._id}`,
         {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),

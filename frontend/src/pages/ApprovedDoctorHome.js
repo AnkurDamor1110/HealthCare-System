@@ -118,7 +118,7 @@ function ApprovedDoctorHome({ initialValues = {} }) {
     };
 
     getData();
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   return (
     <Layout>

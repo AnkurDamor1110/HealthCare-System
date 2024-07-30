@@ -85,7 +85,7 @@ export default function PrescriptionView() {
     fetchAppointments();
     fetchPrescriptions();
     fetchMedicines();
-  }, [user._id]);
+  }, [user._id, apiUrl]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

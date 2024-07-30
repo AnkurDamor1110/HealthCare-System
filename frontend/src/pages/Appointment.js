@@ -137,7 +137,7 @@ function Appointment() {
         };
 
         getAppointmentData();
-    }, [dispatch]);
+    }, [dispatch, apiUrl]);
 
     return (
         <Layout>

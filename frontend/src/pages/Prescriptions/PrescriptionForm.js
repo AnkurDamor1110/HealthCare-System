@@ -56,7 +56,7 @@ function AddPrescriptionForm() {
 
     getAppointmentData();
     fetchMedicines();
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   const handleAddMedicine = () => {
     setPrescribedMed([...prescribedMed, { medicineId: '', dosage: '', qty: '' }]);

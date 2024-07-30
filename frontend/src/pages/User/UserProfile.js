@@ -77,7 +77,7 @@ export default function Profile() {
     };
 
     getUser();
-  }, [dispatch]);
+  }, [dispatch, apiUrl]);
 
   return (
     <Layout>

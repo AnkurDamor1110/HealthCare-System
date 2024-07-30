@@ -128,7 +128,7 @@ function BookAppointment() {
             }
         };
         getDoctorData();
-    }, [dispatch, params.doctorId]);
+    }, [dispatch, params.doctorId, apiUrl]);
 
     // Disable past dates
     const disablePastDates = current => {

@@ -24,7 +24,7 @@ function MedicineList() {
       toast.error("Error fetching medicines");
       console.error("Error fetching medicines:", error);
     }
-  }, [name]);
+  }, [name, apiUrl]);
 
   useEffect(() => {
     getMedicines();

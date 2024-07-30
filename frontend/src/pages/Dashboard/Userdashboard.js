@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import axios from "axios";
@@ -13,6 +13,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -33,7 +34,7 @@ function Userdashboard() {
   const [prescriptions, setprescriptions] = useState([]);
   const dispatch = useDispatch();
 
-  const getUserdoctors = async () => {
+  const getUserdoctors = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
@@ -51,9 +52,9 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
+  }, [dispatch]);
 
-  const getAppointments = async () => {
+  const getAppointments = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
@@ -71,8 +72,9 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
-  const getSuccessAppointments = async () => {
+  }, [dispatch]);
+
+  const getSuccessAppointments = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
@@ -90,9 +92,9 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
+  }, [dispatch]);
 
-  const getPendingAppointments = async () => {
+  const getPendingAppointments = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
@@ -110,9 +112,9 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
- 
-  const getApprovedAppointments = async () => {
+  }, [dispatch]);
+
+  const getApprovedAppointments = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
@@ -130,9 +132,9 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
+  }, [dispatch]);
 
-  const getRejectedAppointments = async () => {
+  const getRejectedAppointments = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
@@ -150,9 +152,9 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
+  }, [dispatch]);
 
-  const getPrescriptions = async () => {
+  const getPrescriptions = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get("/api/get-prescriptions-by-user-id", {
@@ -167,8 +169,9 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
-  const getTodaysAppointments = async () => {
+  }, [dispatch]);
+
+  const getTodaysAppointments = useCallback(async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
@@ -186,7 +189,7 @@ function Userdashboard() {
     } catch (error) {
       dispatch(hideLoading());
     }
-  };
+  }, [dispatch]);
 
   const pieData = {
     labels: ["Success", "Approved", "Rejected", "Pending"],
@@ -203,19 +206,6 @@ function Userdashboard() {
       },
     ],
   };
-  // const pieOptions = {
-  //   responsive: true,
-  //   maintainAspectRatio: false,
-  //   plugins: {
-  //     legend: {
-  //       position: "top",
-  //     },
-  //     title: {
-  //       display: true,
-  //       text: "Appointments Overview",
-  //     },
-  //   },
-  // };
 
   useEffect(() => {
     getPrescriptions();
@@ -226,7 +216,16 @@ function Userdashboard() {
     getSuccessAppointments();
     getUserdoctors();
     getTodaysAppointments();
-  }, []);
+  }, [
+    getPrescriptions,
+    getAppointments,
+    getApprovedAppointments,
+    getRejectedAppointments,
+    getPendingAppointments,
+    getSuccessAppointments,
+    getUserdoctors,
+    getTodaysAppointments,
+  ]);
 
   return (
     <Layout>
@@ -240,33 +239,33 @@ function Userdashboard() {
           <p className="font-bold text-2xl">{userDoctor.length}</p>
         </div>
         <div className="bg-white mx-1 mr-5 my-3 p-3 rounded-lg w-1/2 flex justify-between items-center shadow-md">
-          <i class="fa-solid fa-calendar-days fa-xl"></i>
-          <h1 className="flex justify-center font-semibold"> Toady'sAppointments: </h1>
+          <i className="fa-solid fa-calendar-days fa-xl"></i>
+          <h1 className="flex justify-center font-semibold"> Toady's Appointments: </h1>
           <p className="font-bold text-2xl">{todaysappointments.length}</p>
         </div>
         <div className="bg-white mx-1 mr-5 my-3 p-3 rounded-lg w-1/2 flex justify-between items-center shadow-md">
-          <i class="fa-solid fa-calendar-days fa-xl"></i>
+          <i className="fa-solid fa-calendar-days fa-xl"></i>
           <h1 className="flex justify-center font-semibold">Appointments: </h1>
           <p className="font-bold text-2xl">{appointments.length}</p>
         </div>
       </div>
       <div className=" flex">
         <div className="bg-white m-2 p-3 rounded-lg h-20 w-1/3 flex justify-between items-center shadow-md">
-          <i class="fa-solid fa-square-check fa-xl"></i>
+          <i className="fa-solid fa-square-check fa-xl"></i>
           <h1 className="flex justify-center font-semibold">
             Success Appointments :{" "}
           </h1>
           <p className="font-bold text-2xl">{sucessAppointments.length}</p>
         </div>
         <div className="bg-white m-2 p-3 rounded-lg h-20 w-1/3 flex justify-between items-center shadow-md">
-          <i class="fa-solid fa-calendar-check fa-xl"></i>
+          <i className="fa-solid fa-calendar-check fa-xl"></i>
           <h1 className="flex justify-center font-semibold">
             Approved Appointments:{" "}
           </h1>
           <p className="font-bold text-2xl">{approvedAppointments.length}</p>
         </div>
         <div className="bg-white m-2 p-3 rounded-lg h-20 w-1/3 flex justify-between items-center shadow-md">
-          <i class="fa-regular fa-calendar-xmark fa-xl"></i>
+          <i className="fa-regular fa-calendar-xmark fa-xl"></i>
           <h1 className="flex justify-center font-semibold">
             Rejected Appointments:{" "}
           </h1>
@@ -275,14 +274,14 @@ function Userdashboard() {
       </div>
       <div className=" flex justify-center">
         <div className="bg-white m-2 p-3 rounded-lg h-20 w-1/3 flex justify-between items-center shadow-md">
-          <i class="fa-solid fa-calendar-day fa-xl"></i>
+          <i className="fa-solid fa-calendar-day fa-xl"></i>
           <h1 className="flex justify-center font-semibold">
             Pending Appointments:{" "}
           </h1>
           <p className="font-bold text-2xl">{pendingAppointments.length}</p>
         </div>
         <div className="bg-white m-2 p-3 rounded-lg h-20 w-1/3 flex justify-between items-center shadow-md">
-          <i class="fa-solid fa-clipboard fa-xl"></i>
+          <i className="fa-solid fa-clipboard fa-xl"></i>
           <h1 className="flex justify-center font-semibold">
             Prescriptions Appointments:{" "}
           </h1>

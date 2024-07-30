@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Layout from "../../components/Layout";
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
@@ -15,7 +15,7 @@ function DoctorsAppointment() {
     const [appointments, setAppointments] = useState([]);
     const dispatch = useDispatch();
 
-    const getAppointmentData = async () => {
+    const getAppointmentData = useCallback(async () => {
         try {
             dispatch(showLoading());
             const response = await axios.get('/api/doctor/get-appointments-by-doctor-id', {
@@ -30,7 +30,7 @@ function DoctorsAppointment() {
         } catch (error) {
             dispatch(hideLoading());
         }
-    };
+    }, [dispatch]);
 
     const changeAppointmentStatus = async (record, status) => {
         try {
@@ -120,12 +120,10 @@ function DoctorsAppointment() {
                             </div>
                         )}
 
-                        {(record.status === "approved" || record.status === "rejected" || record.status === "completed" ) && (
+                        {(record.status === "approved" || record.status === "rejected" || record.status === "completed") && (
                             <div className="d-flex">
                                 <h1 className=' px-2 '
-                                    >completed</h1>
- 
-                                
+                                >completed</h1>
                             </div>
                         )}
 
@@ -151,7 +149,7 @@ function DoctorsAppointment() {
 
     useEffect(() => {
         getAppointmentData();
-    }, []);
+    }, [getAppointmentData]);
 
     return (
         <Layout>

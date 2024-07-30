@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "v20.5.0"
+  },
   "name": "frontend",
   "version": "0.1.0",
   "private": true,

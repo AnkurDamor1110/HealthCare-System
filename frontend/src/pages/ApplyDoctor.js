@@ -1,13 +1,12 @@
 import React from 'react'
 import Layout from '../components/Layout'
-import { Button, Col, Form, Input, Row, TimePicker  } from 'antd'
 import { useSelector, useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import toast from 'react-hot-toast';
-import {Link, useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import DoctorForm from '../components/DoctorForm';
-import moment from 'moment';
+
 function ApplyDoctor() {
 
     const dispatch = useDispatch();

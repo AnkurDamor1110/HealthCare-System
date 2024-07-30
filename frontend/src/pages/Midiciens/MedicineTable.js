@@ -28,7 +28,7 @@ function createData(Company, Name, Description, Price, actionsID) {
 }
 
 export default function MedicineTable({ medicineList, deleteMedicine }) {
-  const { currentUser } = useContext(UserContext);
+  // const { currentUser } = useContext(UserContext);
   const { user } = useSelector((state) => state.user);
 
   let tableColumns = user?.isAdmin || user?.isDoctor

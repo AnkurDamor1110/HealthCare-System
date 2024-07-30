@@ -33,149 +33,152 @@ function Doctordashboard() {
   const [rejectedAppointments, setrejectedAppointments] = useState([]);
   const [todaysappointments, settodaysappointments] = useState([]);
   const [doctorUsers, setdoctorUsers] = useState([]);
-  const [userName, setUserName] = useState("Doctor Name"); // Replace with actual user name
+  // const [userName, setUserName] = useState("Doctor Name"); // Replace with actual user name
   const dispatch = useDispatch();
  
-  const getAppointments = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get(
-        "/api/doctor/get-appointments-by-doctor-id",
-        {
-          headers: {
-            Authorization: `Bearer ` + localStorage.getItem("token"),
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        setAppointments(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
-
-  const getSuccessAppointments = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get(
-        "/api/doctor/get-success-appointments-by-doctor-id",
-        {
-          headers: {
-            Authorization: `Bearer ` + localStorage.getItem("token"),
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        setsucessAppointments(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
-
-  const getPendingAppointments = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get(
-        "/api/doctor/get-padding-appointments-by-doctor-id",
-        {
-          headers: {
-            Authorization: `Bearer ` + localStorage.getItem("token"),
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        setpendingAppointments(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
-
-  const getApprovedAppointments = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get(
-        "/api/doctor/get-approved-appointments-by-doctor-id",
-        {
-          headers: {
-            Authorization: `Bearer ` + localStorage.getItem("token"),
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        setapprovedAppointments(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
-
-  const getRejectedAppointments = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get(
-        "/api/doctor/get-rejected-appointments-by-doctor-id",
-        {
-          headers: {
-            Authorization: `Bearer ` + localStorage.getItem("token"),
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        setrejectedAppointments(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
-  const getDoctorUser = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get(
-        "/api/doctor/get-users-appointments-by-doctor-id",
-        {
-          headers: {
-            Authorization: `Bearer ` + localStorage.getItem("token"),
-          }, 
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        setdoctorUsers(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
-
-  const getTodaysAppointments = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get(
-        "/api/doctor/get-today-appointments-by-doctor-id",
-        {
-          headers: {
-            Authorization: `Bearer ` + localStorage.getItem("token"),
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (response.data.success) {
-        settodaysappointments(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
 
   useEffect(() => {
+
+    const getAppointments = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(
+          "/api/doctor/get-appointments-by-doctor-id",
+          {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("token"),
+            },
+          }
+        );
+        dispatch(hideLoading());
+        if (response.data.success) {
+          setAppointments(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+  
+    const getSuccessAppointments = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(
+          "/api/doctor/get-success-appointments-by-doctor-id",
+          {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("token"),
+            },
+          }
+        );
+        dispatch(hideLoading());
+        if (response.data.success) {
+          setsucessAppointments(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+  
+    const getPendingAppointments = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(
+          "/api/doctor/get-padding-appointments-by-doctor-id",
+          {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("token"),
+            },
+          }
+        );
+        dispatch(hideLoading());
+        if (response.data.success) {
+          setpendingAppointments(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+  
+    const getApprovedAppointments = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(
+          "/api/doctor/get-approved-appointments-by-doctor-id",
+          {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("token"),
+            },
+          }
+        );
+        dispatch(hideLoading());
+        if (response.data.success) {
+          setapprovedAppointments(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+  
+    const getRejectedAppointments = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(
+          "/api/doctor/get-rejected-appointments-by-doctor-id",
+          {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("token"),
+            },
+          }
+        );
+        dispatch(hideLoading());
+        if (response.data.success) {
+          setrejectedAppointments(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+    const getDoctorUser = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(
+          "/api/doctor/get-users-appointments-by-doctor-id",
+          {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("token"),
+            }, 
+          }
+        );
+        dispatch(hideLoading());
+        if (response.data.success) {
+          setdoctorUsers(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+  
+    const getTodaysAppointments = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get(
+          "/api/doctor/get-today-appointments-by-doctor-id",
+          {
+            headers: {
+              Authorization: `Bearer ` + localStorage.getItem("token"),
+            },
+          }
+        );
+        dispatch(hideLoading());
+        if (response.data.success) {
+          settodaysappointments(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+
+
     getAppointments();
     getSuccessAppointments();
     getPendingAppointments();
@@ -183,7 +186,7 @@ function Doctordashboard() {
     getRejectedAppointments();
     getDoctorUser();
     getTodaysAppointments();
-  }, []);  
+  }, [dispatch]);  
   
   const pieData = {
     labels: ["Success", "Pending", "Approved", "Rejected"],

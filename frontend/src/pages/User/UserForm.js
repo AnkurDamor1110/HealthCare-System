@@ -15,7 +15,7 @@ function UserForm({ onFinish, initialValues }) {
   };
 
   const [image, setImage] = useState(null);
-  const [url, setUrl] = useState('');
+  const [ setUrl] = useState('');
 
   const saveImage = async (values) => { // Pass form values to the saveImage function
     const data = new FormData();

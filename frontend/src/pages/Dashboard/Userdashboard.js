@@ -203,19 +203,19 @@ function Userdashboard() {
       },
     ],
   };
-  const pieOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Appointments Overview",
-      },
-    },
-  };
+  // const pieOptions = {
+  //   responsive: true,
+  //   maintainAspectRatio: false,
+  //   plugins: {
+  //     legend: {
+  //       position: "top",
+  //     },
+  //     title: {
+  //       display: true,
+  //       text: "Appointments Overview",
+  //     },
+  //   },
+  // };
 
   useEffect(() => {
     getPrescriptions();

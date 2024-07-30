@@ -3,41 +3,36 @@ import { Form, Input, Button } from 'antd';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
-import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-
-const TreatmentMeetingForm = ({ doctorId, userId,appointmentId }) => {
+const TreatmentMeetingForm = ({ doctorId, userId, appointmentId }) => {
     const [loading, setLoading] = useState(false);
-    // const params = useParams();
     const dispatch = useDispatch();
     const [doctor, setDoctor] = useState(null);
 
-    const getDoctorData = async () => {
-
-        try {
-            dispatch(showLoading());
-            const response = await axios.post('/api/doctor/get-doctor-info-by-id',
-                {
+    useEffect(() => {
+        const getDoctorData = async () => {
+            try {
+                dispatch(showLoading());
+                const response = await axios.post('/api/doctor/get-doctor-info-by-id', {
                     doctorId: doctorId,
-                },
-                {
+                }, {
                     headers: {
                         Authorization: `Bearer ` + localStorage.getItem('token'),
                     }
                 });
-            dispatch(hideLoading());
+                dispatch(hideLoading());
 
-            if (response.data.success) {
-                setDoctor(response.data.data);
-                console.log(setDoctor);
+                if (response.data.success) {
+                    setDoctor(response.data.data);
+                }
+            } catch (error) {
+                dispatch(hideLoading());
             }
-        } catch (error) {
+        };
 
-            dispatch(hideLoading());
-
-        }
-    };
+        getDoctorData();
+    }, [dispatch, doctorId]);
 
     const onFinish = async (values) => {
         setLoading(true);
@@ -45,8 +40,8 @@ const TreatmentMeetingForm = ({ doctorId, userId,appointmentId }) => {
             const response = await axios.post('/api/doctor/schedule-treatment-meeting', {
                 doctorId,
                 userId,
-                appointmentId, 
-                doctorInfo:doctor,
+                appointmentId,
+                doctorInfo: doctor,
                 googleMeetLink: values.googleMeetLink,
                 message: values.message,
             });
@@ -62,12 +57,6 @@ const TreatmentMeetingForm = ({ doctorId, userId,appointmentId }) => {
         }
     };
 
-    useEffect(() => {
-
-        getDoctorData();
-
-    }, []);
-        console.log(doctor);
     return (
         <Form name="treatmentMeetingForm" initialValues={{ remember: true }} onFinish={onFinish}>
             <Form.Item label="Google Meet Link" name="googleMeetLink" rules={[{ required: true, message: 'Please enter Google Meet link!' }]}>

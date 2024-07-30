@@ -3,7 +3,7 @@ import Layout from "../../components/Layout";
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import axios from 'axios';
-import { Table, Modal, Button, DatePicker, Space } from 'antd'; // Import Modal, Button, DatePicker, Space from antd
+import { Table, Modal, Button, Space } from 'antd'; // Import Modal, Button, DatePicker, Space from antd
 import { toast } from "react-hot-toast";
 import moment from 'moment';
 import InterviewForm from './InterviewForm'; // Import the InterviewForm component
@@ -13,7 +13,7 @@ function Doctorslist() {
     const [resumeUrl, setResumeUrl] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
     const [selectedDoctor, setSelectedDoctor] = useState(null); // State to store the selected doctor
-    const [interviewDate, setInterviewDate] = useState(null); // State to store the interview date
+    // const [interviewDate, setInterviewDate] = useState(null); // State to store the interview date
     const dispatch = useDispatch();
 
     const getDoctorData = async () => {
@@ -72,7 +72,7 @@ function Doctorslist() {
         setIsModalVisible(false);
         // Reset states
         setSelectedDoctor(null);
-        setInterviewDate(null);
+        // setInterviewDate(null);
     };
 
     const handleCancel = () => {
@@ -80,7 +80,7 @@ function Doctorslist() {
         setIsModalVisible(false);
         // Reset states
         setSelectedDoctor(null);
-        setInterviewDate(null);
+        // setInterviewDate(null);
     };
 
     useEffect(() => {

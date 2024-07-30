@@ -20,6 +20,10 @@ function Login() {
                 toast.success(response.data.message);
                 localStorage.setItem("token", response.data.data);
                 navigate("/approved-doctor");
+                setInterval(() => {
+                    window.location.reload();
+                  }, 1000);
+                
             }else{
                 toast.error(response.data.message);
             }

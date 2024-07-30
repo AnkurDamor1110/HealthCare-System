@@ -19,27 +19,6 @@ function BookAppointment() {
     const [time, setTime] = useState(null);
     // const navigate = useNavigate();
 
-    const getDoctorData = async () => {
-        try {
-            dispatch(showLoading());
-            const response = await axios.post('/api/doctor/get-doctor-info-by-id', {
-                doctorId: params.doctorId,
-            }, {
-                headers: {
-                    Authorization: `Bearer ` + localStorage.getItem('token'),
-                }
-            });
-            dispatch(hideLoading());
-
-            if (response.data.success) {
-                setDoctor(response.data.data);
-            }
-        } catch (error) {
-            dispatch(hideLoading());
-            toast.error('Error fetching doctor data');
-        }
-    };
-
     const checkAvailability = async () => {
         if (!date || !time) {
             toast.error('Please select date and time');
@@ -80,7 +59,7 @@ function BookAppointment() {
 
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/user/book-appointment', {
+            await axios.post('/api/user/book-appointment', {
                 doctorId: params.doctorId,
                 userId: user._id,
                 doctorInfo: doctor,
@@ -127,8 +106,28 @@ function BookAppointment() {
     };
 
     useEffect(() => {
+        const getDoctorData = async () => {
+            try {
+                dispatch(showLoading());
+                const response = await axios.post('/api/doctor/get-doctor-info-by-id', {
+                    doctorId: params.doctorId,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ` + localStorage.getItem('token'),
+                    }
+                });
+                dispatch(hideLoading());
+    
+                if (response.data.success) {
+                    setDoctor(response.data.data);
+                }
+            } catch (error) {
+                dispatch(hideLoading());
+                toast.error('Error fetching doctor data');
+            }
+        };
         getDoctorData();
-    }, []);
+    }, [dispatch, params.doctorId]);
 
     // Disable past dates
     const disablePastDates = current => {
@@ -156,30 +155,30 @@ function BookAppointment() {
             };
         // }
     
-        const currentHour = moment().hour();
-        const currentMinute = moment().minute();
-        const startHour = moment(doctor.timings[0], 'HH:mm').hour();
-        const endHour = moment(doctor.timings[1], 'HH:mm').hour();
+        // const currentHour = moment().hour();
+        // const currentMinute = moment().minute();
+        // const startHour = moment(doctor.timings[0], 'HH:mm').hour();
+        // const endHour = moment(doctor.timings[1], 'HH:mm').hour();
     
-        return {
-            disabledHours: () => {
-                return [...Array(24).keys()].filter(hour => 
-                    hour < currentHour || hour < startHour || hour >= endHour
-                );
-            },
-            disabledMinutes: (selectedHour) => {
-                if (selectedHour === currentHour) {
-                    return [...Array(60).keys()].slice(0, currentMinute);
-                }
-                if (selectedHour === startHour) {
-                    return [...Array(60).keys()].slice(0, moment(doctor.timings[0], 'HH:mm').minute());
-                }
-                if (selectedHour === endHour) {
-                    return [...Array(60).keys()].slice(moment(doctor.timings[1], 'HH:mm').minute());
-                }
-                return [];
-            }
-        };
+        // return {
+        //     disabledHours: () => {
+        //         return [...Array(24).keys()].filter(hour => 
+        //             hour < currentHour || hour < startHour || hour >= endHour
+        //         );
+        //     },
+        //     disabledMinutes: (selectedHour) => {
+        //         if (selectedHour === currentHour) {
+        //             return [...Array(60).keys()].slice(0, currentMinute);
+        //         }
+        //         if (selectedHour === startHour) {
+        //             return [...Array(60).keys()].slice(0, moment(doctor.timings[0], 'HH:mm').minute());
+        //         }
+        //         if (selectedHour === endHour) {
+        //             return [...Array(60).keys()].slice(moment(doctor.timings[1], 'HH:mm').minute());
+        //         }
+        //         return [];
+        //     }
+        // };
     };
     
 
@@ -192,7 +191,7 @@ function BookAppointment() {
                     </h1>
                         <Row gutter={20} className='mt-5 pb-4 flex justify-center border-b-1 border-gray-500 shadow-md' align='middle'>
                             <Col className='mr-10' span={8} sm={24} xs={24} lg={8}>
-                                <img src={doctor.photo} alt='Doctor Picture' width='100%' height='400px' />
+                                <image src={doctor.photo} alt='Doctor Picture' width='100%' height='400px' />
                             </Col>
                             <Col span={8} sm={24} xs={24} lg={8}>
                                 <p className="mx-1"><b className='text-gray-800'>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</p>

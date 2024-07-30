@@ -30,7 +30,7 @@ const TreatmentMeetingForm = ({ doctorId, userId, appointmentId }) => {
                 dispatch(hideLoading());
             }
         };
-
+ 
         getDoctorData();
     }, [dispatch, doctorId]);
 

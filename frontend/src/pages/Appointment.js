@@ -18,22 +18,7 @@ function Appointment() {
     const [isTreatmentModalVisible, setIsTreatmentModalVisible] = useState(false);
     const dispatch = useDispatch();
 
-    const getAppointmentData = async () => {
-        try {
-            dispatch(showLoading());
-            const response = await axios.get('/api/user/get-appointments-by-user-id', {
-                headers: {
-                    Authorization: `Bearer ` + localStorage.getItem('token'),
-                },
-            });
-            dispatch(hideLoading());
-            if (response.data.success) {
-                setAppointments(response.data.data);
-            }
-        } catch (error) {
-            dispatch(hideLoading());
-        }
-    };
+    
 
     const showReviewModal = (doctorId, userId) => {
         setSelectedDoctorId(doctorId);
@@ -132,8 +117,26 @@ function Appointment() {
     ];
 
     useEffect(() => {
+
+        const getAppointmentData = async () => {
+            try {
+                dispatch(showLoading());
+                const response = await axios.get('/api/user/get-appointments-by-user-id', {
+                    headers: {
+                        Authorization: `Bearer ` + localStorage.getItem('token'),
+                    },
+                });
+                dispatch(hideLoading());
+                if (response.data.success) {
+                    setAppointments(response.data.data);
+                }
+            } catch (error) {
+                dispatch(hideLoading());
+            }
+        };
+
         getAppointmentData();
-    }, []);
+    }, [dispatch]);
 
     return (
         <Layout>

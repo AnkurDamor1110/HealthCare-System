@@ -12,39 +12,40 @@ function ProtectedRoute(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
 
-    const getUser = async()=>{
-
-        try {
-            dispatch(showLoading());
-            const response = await axios.post('/api/user/get-user-info-by-id', {token: localStorage.getItem('token')} , {
-                headers: {
-                    Authorization: `Bearer ` + localStorage.getItem('token'),
-                }
-            });
-        
-            dispatch(hideLoading());
-
-            if(response.data.success){
-                dispatch(setUser(response.data.data));
-               
-            }else {
-                localStorage.clear();
-                navigate("/")
-            }
-        } catch (error) {
-            localStorage.clear();
-            dispatch(hideLoading());
-            navigate("/")
-        }
-    };
 
         useEffect(()=> {
+
+            const getUser = async()=>{
+
+                try {
+                    dispatch(showLoading());
+                    const response = await axios.post('/api/user/get-user-info-by-id', {token: localStorage.getItem('token')} , {
+                        headers: {
+                            Authorization: `Bearer ` + localStorage.getItem('token'),
+                        }
+                    });
+                
+                    dispatch(hideLoading());
+        
+                    if(response.data.success){
+                        dispatch(setUser(response.data.data));
+                       
+                    }else {
+                        localStorage.clear();
+                        navigate("/")
+                    }
+                } catch (error) {
+                    localStorage.clear();
+                    dispatch(hideLoading());
+                    navigate("/")
+                }
+            };
 
             if(!user){
                 getUser();
             }
            
-        },[user]);
+        },[user, dispatch, navigate]);
 
     if(localStorage.getItem('token')){
         return props.children;

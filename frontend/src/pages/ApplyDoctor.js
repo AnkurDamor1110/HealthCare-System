@@ -8,7 +8,7 @@ import axios from 'axios';
 import DoctorForm from '../components/DoctorForm';
 
 function ApplyDoctor() {
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {user} = useSelector( (state) => state.user);
@@ -17,7 +17,7 @@ function ApplyDoctor() {
         try {
             dispatch(showLoading());
             console.log(values);
-            const response = await axios.post('/api/user/apply-doctor-account',
+            const response = await axios.post(`${apiUrl}/api/user/apply-doctor-account`,
              {
                 ...values, 
                 userId: user._id,

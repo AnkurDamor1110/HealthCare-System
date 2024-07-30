@@ -10,6 +10,7 @@ import moment from 'moment';
 import DoctorReviews from './Reviews/Reviews';
 
 function BookAppointment() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { user } = useSelector((state) => state.user);
     const params = useParams();
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function BookAppointment() {
 
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/user/check-booking-avilability', {
+            const response = await axios.post(`${apiUrl}/api/user/check-booking-avilability`, {
                 doctorId: params.doctorId,
                 date,
                 time,
@@ -59,7 +60,7 @@ function BookAppointment() {
 
         try {
             dispatch(showLoading());
-            await axios.post('/api/user/book-appointment', {
+            await axios.post(`${apiUrl}/api/user/book-appointment`, {
                 doctorId: params.doctorId,
                 userId: user._id,
                 doctorInfo: doctor,
@@ -80,7 +81,7 @@ function BookAppointment() {
 
     const bookingHandler = async () => {
         try {
-            const response = await axios.post('/api/bookings/checkout-session', {
+            const response = await axios.post(`${apiUrl}/api/bookings/checkout-session`, {
                 doctorId: params.doctorId,
                 userId: user._id,
             }, {
@@ -109,7 +110,7 @@ function BookAppointment() {
         const getDoctorData = async () => {
             try {
                 dispatch(showLoading());
-                const response = await axios.post('/api/doctor/get-doctor-info-by-id', {
+                const response = await axios.post(`${apiUrl}/api/doctor/get-doctor-info-by-id`, {
                     doctorId: params.doctorId,
                 }, {
                     headers: {

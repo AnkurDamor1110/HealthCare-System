@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 function ForgetPassword() {
+    
     const { id, token } = useParams();
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");

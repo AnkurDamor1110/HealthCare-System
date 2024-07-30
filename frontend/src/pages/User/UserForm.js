@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 const { Option } = Select;
 
 function UserForm({ onFinish, initialValues }) {
-
+  
   const normFile = (e) => {
     console.log('Upload event:', e);
     if (Array.isArray(e)) {

@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../components/Layout";
 
-function MedicineList() { 
+function MedicineList() {
+  const apiUrl = process.env.REACT_APP_API_URL; 
   const params = new URLSearchParams(window.location.search);
   const name = params.get("name");
 
@@ -15,7 +16,7 @@ function MedicineList() {
 
   const getMedicines = useCallback(async () => {
     try {
-      const response = await axios.get("/api/medicines", {
+      const response = await axios.get(`${apiUrl}/api/medicines`, {
         params: { name },
       });
       setMedicines(response.data);
@@ -31,7 +32,7 @@ function MedicineList() {
 
   const deleteMedicine = async (id) => {
     try {
-      await axios.delete(`/api/medicines/${id}`);
+      await axios.delete(`${apiUrl}/api/medicines/${id}`);
       toast.success("Medicine deleted successfully");
       getMedicines(); // Refresh the list
     } catch (error) {

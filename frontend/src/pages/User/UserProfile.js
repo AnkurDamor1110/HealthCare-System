@@ -9,12 +9,14 @@ import UserForm from "./UserForm";
 import toast from 'react-hot-toast';
 
 export default function Profile() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const { user } = useSelector((state) => state.user);
   const [userData, setUserData] = useState(null);
 
   const onFinish = async (values) => {
+    
     try {
       dispatch(showLoading());
   
@@ -25,7 +27,7 @@ export default function Profile() {
       formData.append('profilePicture', values.profilePicture);
   
       const response = await axios.post(
-        '/api/user/update-user-profile',
+        `${apiUrl}/api/user/update-user-profile`,
         formData,
         {
           headers: {
@@ -54,7 +56,7 @@ export default function Profile() {
     const getUser = async () => {
       try {
         dispatch(showLoading());
-        const response = await axios.post('/api/user/get-user-info-by-id', { token: localStorage.getItem('token') }, {
+        const response = await axios.post(`${apiUrl}/api/user/get-user-info-by-id`, { token: localStorage.getItem('token') }, {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem('token'),
           }

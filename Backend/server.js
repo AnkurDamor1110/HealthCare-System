@@ -10,6 +10,11 @@ const medicineRoute = require("./routes/medicineRoutes");
 const prescriptionRoute = require("./routes/prescriptionRoute");
 const bookingRoute = require("./routes/booking");
 const contactRoute = require("./routes/contactRoute");
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'https://66a93a9d891ff300081ae1ed--healthcare1110.netlify.app'
+  }));
 
 app.use('/api/user', userRoute);
 app.use('/api/admin',adminRoute);

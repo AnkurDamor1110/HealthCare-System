@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import axios from 'axios';
 import { Table, Modal, Button } from 'antd';
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import moment from "moment";
 import ReviewForm from "../pages/Reviews/ReviewForm";
 import UserTreatmentView from './Doctor/UserTreatmentView';

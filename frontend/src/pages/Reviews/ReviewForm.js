@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const ReviewForm = ({ doctorId, userId }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [loading, setLoading] = useState(false);
     const { user } = useSelector((state) => state.user);
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const ReviewForm = ({ doctorId, userId }) => {
         setLoading(true);
         try {
             // Make API call to submit review
-            const response = await axios.post('/api/user/submit-review', {
+            const response = await axios.post(`${apiUrl}/api/user/submit-review`, {
                 doctorId,
                 userId,
                 userInfo:user,

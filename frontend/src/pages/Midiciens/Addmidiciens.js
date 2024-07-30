@@ -8,7 +8,7 @@ import Layout from "../../components/Layout";
 function Addmedicine() {
   // Using UseNavigate to navigate from one page to other
   const navigate = useNavigate();
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -25,7 +25,7 @@ function Addmedicine() {
     };
     try {
       // Add Medicine using Axios Method
-       await fetch("/api/medicines", {
+       await fetch(`${apiUrl}/api/medicines`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

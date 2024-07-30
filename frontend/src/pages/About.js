@@ -4,6 +4,7 @@ import aboutCardImg from '../assets/images/about-card.png'
 import { Link } from 'react-router-dom'
 
 const About = () => {
+    
   return (
     <section className='pt-[60px]'>
         <div className='containerforhome'>

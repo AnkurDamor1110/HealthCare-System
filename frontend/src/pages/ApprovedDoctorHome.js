@@ -11,6 +11,7 @@ import TableCell from "@mui/material/TableCell";
 // const { RangePicker } = TimePicker;
 
 function ApprovedDoctorHome({ initialValues = {} }) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [doctors, setDoctors] = useState([]);
   const [originalDoctors, setOriginalDoctors] = useState([]);
   const dispatch = useDispatch();
@@ -101,7 +102,7 @@ function ApprovedDoctorHome({ initialValues = {} }) {
     const getData = async () => {
       try {
         dispatch(showLoading());
-        const response = await axios.get("/api/user/get-all-approved-doctors", {
+        const response = await axios.get(`${apiUrl}/api/user/get-all-approved-doctors`, {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem("token"),
           },

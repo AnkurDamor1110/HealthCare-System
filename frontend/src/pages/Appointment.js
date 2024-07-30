@@ -10,6 +10,7 @@ import ReviewForm from "../pages/Reviews/ReviewForm";
 import UserTreatmentView from './Doctor/UserTreatmentView';
 
 function Appointment() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [appointments, setAppointments] = useState([]);
     const [selectedDoctorId, setSelectedDoctorId] = useState(null);
     const [selectedUserId, setSelectedUserId] = useState(null);
@@ -121,7 +122,7 @@ function Appointment() {
         const getAppointmentData = async () => {
             try {
                 dispatch(showLoading());
-                const response = await axios.get('/api/user/get-appointments-by-user-id', {
+                const response = await axios.get(`${apiUrl}/api/user/get-appointments-by-user-id`, {
                     headers: {
                         Authorization: `Bearer ` + localStorage.getItem('token'),
                     },

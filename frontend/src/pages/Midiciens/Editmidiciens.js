@@ -8,7 +8,7 @@ import Layout from "../../components/Layout";
 
 function Editmedicine() {
   const navigate = useNavigate();
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [company, setCompany] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -36,7 +36,7 @@ function Editmedicine() {
     // Update Medicine using Axios Method
 
      await axios.put(
-      `/api/medicines/${id}`,
+      `${apiUrl}/api/medicines/${id}`,
       {
         company,
         name,

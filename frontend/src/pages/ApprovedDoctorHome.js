@@ -18,23 +18,7 @@ function ApprovedDoctorHome({ initialValues = {} }) {
 //   const [time, setTime] = useState(null);
   const [priceRange, setPriceRange] = useState("none");
 
-  const getData = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.get("/api/user/get-all-approved-doctors", {
-        headers: {
-          Authorization: `Bearer ` + localStorage.getItem("token"),
-        },
-      });
-      dispatch(hideLoading());
-      if (response.data.success) {
-        setDoctors(response.data.data);
-        setOriginalDoctors(response.data.data);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-    }
-  };
+  
 
   const handleChange = (e) => {
     setChange(e.target.value);
@@ -113,8 +97,27 @@ function ApprovedDoctorHome({ initialValues = {} }) {
 //   };
 
   useEffect(() => {
+
+    const getData = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.get("/api/user/get-all-approved-doctors", {
+          headers: {
+            Authorization: `Bearer ` + localStorage.getItem("token"),
+          },
+        });
+        dispatch(hideLoading());
+        if (response.data.success) {
+          setDoctors(response.data.data);
+          setOriginalDoctors(response.data.data);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+      }
+    };
+
     getData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout>

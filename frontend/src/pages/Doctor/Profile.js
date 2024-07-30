@@ -49,37 +49,37 @@ function Profile() {
     }
 
 
-    const getDoctorData = async()=>{
-
-        try {
-            dispatch(showLoading());
-            const response = await axios.post('/api/doctor/get-doctor-info-by-user-id',
-            {
-                userId: params.userId,
-            },
-           {
-                headers: {
-                    Authorization: `Bearer ` + localStorage.getItem('token'),
-                }
-            });
-            dispatch(hideLoading());
-
-            if(response.data.success){
-               setDoctor(response.data.data);
-               
-            }
-        } catch (error) {
-         
-            dispatch(hideLoading());
-            
-        }
-    };
-
         useEffect(()=> {
+
+            const getDoctorData = async()=>{
+
+                try {
+                    dispatch(showLoading());
+                    const response = await axios.post('/api/doctor/get-doctor-info-by-user-id',
+                    {
+                        userId: params.userId,
+                    },
+                   {
+                        headers: {
+                            Authorization: `Bearer ` + localStorage.getItem('token'),
+                        }
+                    });
+                    dispatch(hideLoading());
+        
+                    if(response.data.success){
+                       setDoctor(response.data.data);
+                       
+                    }
+                } catch (error) {
+                 
+                    dispatch(hideLoading());
+                    
+                }
+            };
 
             getDoctorData();
            
-        },[]);
+        },[dispatch, params.userId]);
 
   return (
     <Layout>

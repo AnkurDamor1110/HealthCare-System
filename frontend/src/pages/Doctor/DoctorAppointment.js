@@ -110,7 +110,7 @@ function DoctorsAppointment() {
             render: (text, record) => {
                 return (
                     <div className="d-flex">
-                        {record.status == "pending" && (
+                        {record.status === "pending" && (
                             <div className="d-flex">
                                 <h1 className='anchor px-2 '
                                     onClick={() => changeAppointmentStatus(record, "approved")}>Approve</h1>
@@ -120,7 +120,7 @@ function DoctorsAppointment() {
                             </div>
                         )}
 
-                        {(record.status == "approved" || record.status == "rejected" || record.status == "completed" ) && (
+                        {(record.status === "approved" || record.status === "rejected" || record.status === "completed" ) && (
                             <div className="d-flex">
                                 <h1 className=' px-2 '
                                     >completed</h1>
@@ -139,7 +139,7 @@ function DoctorsAppointment() {
             render: (text, record) => {
                 return (
                     <div>
-                        {record.status != "completed" && record.status != "rejected" && (
+                        {record.status !== "completed" && record.status !== "rejected" && (
                             <Button type="primary" onClick={() => handleSetTreatmentMeeting(record)}>Set Treatment Meeting</Button>
                         )}
                     </div>

@@ -49,32 +49,33 @@ export default function Profile() {
     }
   };
 
-  const getUser = async () => {
-    try {
-      dispatch(showLoading());
-      const response = await axios.post('/api/user/get-user-info-by-id', { token: localStorage.getItem('token') }, {
-        headers: {
-          Authorization: `Bearer ` + localStorage.getItem('token'),
-        }
-      });
-
-      dispatch(hideLoading());
-
-      if (response.data.success) {
-        dispatch(setUser(response.data.data));
-        setUserData(response.data.data);
-      } else {
-        localStorage.clear();
-      }
-    } catch (error) {
-      localStorage.clear();
-      dispatch(hideLoading());
-    }
-  };
-
   useEffect(() => {
+
+    const getUser = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await axios.post('/api/user/get-user-info-by-id', { token: localStorage.getItem('token') }, {
+          headers: {
+            Authorization: `Bearer ` + localStorage.getItem('token'),
+          }
+        });
+  
+        dispatch(hideLoading());
+  
+        if (response.data.success) {
+          dispatch(setUser(response.data.data));
+          setUserData(response.data.data);
+        } else {
+          localStorage.clear();
+        }
+      } catch (error) {
+        localStorage.clear();
+        dispatch(hideLoading());
+      }
+    };
+
     getUser();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout>

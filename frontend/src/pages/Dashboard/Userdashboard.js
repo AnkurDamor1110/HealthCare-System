@@ -283,7 +283,7 @@ function Userdashboard() {
         <div className="bg-white m-2 p-3 rounded-lg h-20 w-1/3 flex justify-between items-center shadow-md">
           <i className="fa-solid fa-clipboard fa-xl"></i>
           <h1 className="flex justify-center font-semibold">
-            Prescriptions Appointments:{" "}
+            Prescriptions Appointments:{" "} 
           </h1>
           <p className="font-bold text-2xl">{prescriptions.length}</p>
         </div>

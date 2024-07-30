@@ -76,7 +76,7 @@ function DoctorsAppointment() {
         {
             title: 'Patient',
             dataIndex: 'name',
-            render: (text, record) => {
+            render: (text, record) => { 
                 return (
                     <span>{record.userInfo.name}</span>
                 )

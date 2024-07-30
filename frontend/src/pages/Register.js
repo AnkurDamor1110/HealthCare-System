@@ -113,7 +113,7 @@ function Register() {
               name="password"
               rules={[
                 { required: true, message: 'Please input your password!' },
-                // { validator: validatePassword }
+                { validator: validatePassword }
               ]}
             >
               <Input placeholder='Password' type='password' />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -7,17 +7,13 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../components/Layout";
 
-function MedicineList() {
+function MedicineList() { 
   const params = new URLSearchParams(window.location.search);
   const name = params.get("name");
 
   const [medicines, setMedicines] = useState([]);
 
-  useEffect(() => {
-    getMedicines();
-  }, []);
-
-  const getMedicines = async () => {
+  const getMedicines = useCallback(async () => {
     try {
       const response = await axios.get("/api/medicines", {
         params: { name },
@@ -27,7 +23,11 @@ function MedicineList() {
       toast.error("Error fetching medicines");
       console.error("Error fetching medicines:", error);
     }
-  };
+  }, [name]);
+
+  useEffect(() => {
+    getMedicines();
+  }, [getMedicines]);
 
   const deleteMedicine = async (id) => {
     try {

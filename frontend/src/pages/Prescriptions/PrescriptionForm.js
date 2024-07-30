@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 
 function AddPrescriptionForm() {
-  const { user } = useSelector((state) => state.user);
+  // const { user } = useSelector((state) => state.user);
   const [appointments, setAppointments] = useState([]);
   const [medicines, setMedicines] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState('');

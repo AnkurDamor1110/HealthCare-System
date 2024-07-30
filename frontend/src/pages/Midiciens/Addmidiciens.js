@@ -25,7 +25,7 @@ function Addmedicine() {
     };
     try {
       // Add Medicine using Axios Method
-      const response = await fetch("/api/medicines", {
+       await fetch("/api/medicines", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

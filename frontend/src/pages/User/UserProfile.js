@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import Layout from "../../components/Layout";
 import { showLoading, hideLoading } from "../../redux/alertsSlice";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { setUser } from '../../redux/userSlice';
 import UserForm from "./UserForm";
 import toast from 'react-hot-toast';
 
 export default function Profile() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
+  // const navigate = useNavigate();
+  // const { user } = useSelector((state) => state.user);
   const [userData, setUserData] = useState(null);
 
   const onFinish = async (values) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 import toast from 'react-hot-toast';
@@ -17,7 +17,7 @@ function BookAppointment() {
     const [isAvailable, setIsAvailable] = useState(false);
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(null);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const getDoctorData = async () => {
         try {

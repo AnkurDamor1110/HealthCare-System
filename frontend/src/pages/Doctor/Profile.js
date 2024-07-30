@@ -4,10 +4,10 @@ import DoctorForm from '../../components/DoctorForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import toast from 'react-hot-toast';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
-import { setUser } from '../../redux/userSlice';
-import moment from "moment";
+// import { setUser } from '../../redux/userSlice';
+// import moment from "moment";
 function Profile() {
 
     

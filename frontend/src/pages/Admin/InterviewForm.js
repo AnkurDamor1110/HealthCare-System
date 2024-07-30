@@ -14,7 +14,7 @@ const InterviewForm = ({ doctorId }) => {
                 doctorId,
                 date: values.date,
                 time: values.time,
-                googleMeetLink: values.googleMeetLink
+                googleMeetLink: values.googleMeetLink 
             });
             if (response.data.success) {
                 toast.success(response.data.message);

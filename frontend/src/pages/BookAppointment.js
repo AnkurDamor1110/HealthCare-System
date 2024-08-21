@@ -9,6 +9,7 @@ import { Button, Col, DatePicker, Row, TimePicker } from 'antd';
 import moment from 'moment';
 import DoctorReviews from './Reviews/Reviews';
 
+
 function BookAppointment() {
     const apiUrl = process.env.REACT_APP_API_URL;
     const { user } = useSelector((state) => state.user);
@@ -192,7 +193,7 @@ function BookAppointment() {
                     </h1>
                         <Row gutter={20} className='mt-5 pb-4 flex justify-center border-b-1 border-gray-500 shadow-md' align='middle'>
                             <Col className='mr-10' span={8} sm={24} xs={24} lg={8}>
-                                <img src={doctor.photo} alt='Doctor Picture' width='100%' height='400px' />
+                            <img src={require(`${doctor.photo}`).default} alt='Doctor Picture' width='100%' height='400px' />
                             </Col> 
                             <Col span={8} sm={24} xs={24} lg={8}>
                                 <p className="mx-1"><b className='text-gray-800'>Timings:</b> {doctor.timings[0]} - {doctor.timings[1]}</p>
